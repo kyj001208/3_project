@@ -1,13 +1,22 @@
 @charset "UTF-8";
+.image-container {
+	max-width: 1200px;
+	min-width: 800px;
+	margin: 0 auto;
+	position: relative;
+	backdrop-filter: blur(8px); /* 블러 정도 설정 */
+	padding-bottom: 75px;
+	padding-top: 75px;
+}
+
 .banner {
-    background-image: url('/images/banner2.jpg');
+    background-image: url('/images/banner3.jpg');
     background-size: cover;
     background-position: center;
     height: 75vh; 
     display: flex;
     flex-direction: column;
     justify-content: center;
-    color: white;
     text-align: center;
     position: relative;
     
@@ -61,7 +70,7 @@ nav a::after {
     position: absolute;
     width: 0;
     height: 2px;
-    background-color: #ff5722; /* 줄 색상 */
+    background-color: #0046FE; /* 줄 색상 */
     left: 0;
     bottom: 0;
     transition: width 0.3s ease; /* 부드러운 애니메이션 효과 */
@@ -81,7 +90,6 @@ nav a:hover::after {
 .banner-text {
     position: relative;
     z-index: 2;
-    margin-top: 150px; /* 헤더 아래로 배너 텍스트 내리기 */
 }
 
 .banner h1 {
@@ -96,257 +104,6 @@ nav a:hover::after {
 
 .banner h2 span.highlight {
     font-weight: bold;
-    color: #ff5722; /* 강조 텍스트 색상 */
-}
-
-
-
-/**************************************** 검색 섹션 *********************/
-
-/***************************date-picker-custom************************/
-/* Datepicker 기본 스타일 */
-.ui-datepicker {
-    background: #fff;
-    border: 1px solid #ddd;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    border-radius: 8px;
-    font-family: 'Arial', sans-serif;
-    padding: 10px;
-    width: auto; /* 자동 크기 조정 */
-}
-
-/* 헤더 스타일 */
-.ui-datepicker-header {
-    background: #007bff;
-    color: #fff;
-    padding: 10px;
-    border-radius: 8px 8px 0 0;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    font-size: 16px;
-}
-
-/* 내비게이션 버튼 스타일 */
-.ui-datepicker-prev, .ui-datepicker-next {
-    background: transparent;
-    color: #fff;
-    border: none;
-    font-size: 16px;
-    cursor: pointer;
-    transition: color 0.3s;
-}
-
-.ui-datepicker-prev:hover, .ui-datepicker-next:hover {
-    color: #e2e2e2;
-}
-
-/* 요일 이름 스타일 */
-.ui-datepicker-calendar th {
-    background: #f8f9fa;
-    color: #333;
-    font-weight: normal;
-    padding: 8px;
-    text-transform: uppercase;
-    font-size: 12px;
-}
-
-/* 날짜 스타일 */
-.ui-datepicker-calendar td a {
-    background: #f8f9fa;
-    color: #333;
-    padding: 8px;
-    text-align: center;
-    border-radius: 6px;
-    transition: background 0.3s, color 0.3s;
-}
-
-.ui-datepicker-calendar td a:hover {
-    background: #007bff;
-    color: #fff;
-}
-
-/* 오늘 날짜 스타일 */
-.ui-datepicker-today a {
-    background: #ffc107;
-    color: #333;
-}
-
-/* 비활성화된 날짜 스타일 */
-.ui-datepicker-unselectable .ui-state-disabled {
-    background: #e9ecef;
-    color: #6c757d;
-    pointer-events: none;
-    border-radius: 6px;
-}
-
-/* Datepicker 팝업 위치 조정 */
-.ui-datepicker {
-    position: absolute;
-    z-index: 1000;
-}
-
-/***************************************************/
-.search {
-    background-color: #fef7f3; /* 배경 색상 */
-    padding: 50px 0;
-    text-align: center;
-}
-
-.search-container {
-    width: 90%;
-    max-width: 1200px;
-    margin: 0 auto;
-    min-width:1000px;
-}
-
-
-
-.search h2 {
-    font-size: 1.8em;
-    margin-bottom: 0.5em;
-    color: #333;
-}
-
-.search p {
-    font-size: 1.2em;
-    margin-bottom: 40px;
-    color: #666;
-}
-
-.search-options>form {
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    background-color: #fff;
-    border-radius: 10px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    padding: 20px;
-}
-
-
-/* 지역 선택 박스 컨테이너 스타일 */
-.region-container {
-    display: flex;
-    flex-direction: column;
-    gap: 5px;
-    margin-bottom: 20px;
-}
-
-/* 제목 스타일 */
-.region-container p {
-    margin: 0;
-    font-weight: bold;
-    color: #333;
-    font-size: 1em;
-}
-
-/* 지역 선택 드롭다운 스타일 */
-#region-select {
-    padding: 10px; /* 내부 여백 */
-    border: 1px solid #ccc; /* 테두리 색상 */
-    border-radius: 4px; /* 테두리 둥글게 */
-    background-color: #fff; /* 배경색 */
-    font-size: 1em; /* 글자 크기 */
-    color: #333; /* 글자 색상 */
-    appearance: none; /* 브라우저 기본 스타일 제거 */
-    width: 100%; /* 부모 요소에 맞게 넓이 설정 */
-    max-width: 300px; /* 최대 넓이 설정 */
-    box-sizing: border-box; /* 패딩을 포함한 크기 설정 */
-    transition: border-color 0.3s ease-in-out, box-shadow 0.3s ease-in-out; /* 포커스 시 애니메이션 */
-}
-
-/* 드롭다운 포커스 시 스타일 */
-#region-select:focus {
-    border-color: #007bff; /* 포커스 시 테두리 색상 */
-    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5); /* 포커스 시 그림자 */
-    outline: none; /* 포커스 시 외곽선 제거 */
-}
-
-/* 드롭다운 옵션 스타일 */
-#region-select option {
-    padding: 10px;
-    font-size: 1em;
-    text-align:center;
-    color: #333;
-    background-color: #fff;
-}
-
-
-.search-item {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
-
-.search-item .icon {
-    font-size: 1.5em;
-    color: #ff5722;
-}
-
-.search-item p {
-    margin: 0;
-    color: #999;
-}
-
-.search-item input.datepicker {
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    padding: 5px;
-    font-size: 1em;
-}
-
-.search-item select.guest-picker {
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    padding: 5px;
-    font-size: 1em;
-}
-
-/* 인원 선택 스타일 */
-.guest-picker {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
-
-.guest-picker button {
-    padding: 5px 10px;
-    font-size: 1.2em;
-    background-color: var(--mian-color);
-    color: #fff;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-}
-
-.guest-picker input {
-    width: 40px;
-    text-align: center;
-    font-size: 1.2em;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-}
-
-.search-button {
-    display: flex;
-    align-items: center;
-}
-
-.search-button button {
-    padding: 15px 30px;
-    background-color: var(--mian-color);
-    color: #fff;
-    border: none;
-    border-radius: 30px;
-    font-size: 1em;
-    cursor: pointer;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-    transition: background-color 0.3s ease;
-}
-
-.search-button button:hover {
-    background-color: #e64a19;
 }
 /***********************카테고리**************************/
 .category {
@@ -388,7 +145,7 @@ nav a:hover::after {
 }
 
 /********************* 섹션1 **********************************************/
-.hotels {
+.groups {
     display: flex;
     flex-direction:column;
     justify-content: center;
@@ -416,7 +173,7 @@ nav a:hover::after {
 }
 
 
-.hotel-cards {
+.group-cards {
     display: flex;
     justify-content: space-between;
     width: 100%; /* 부모 요소의 너비를 100%로 설정 */
@@ -425,26 +182,26 @@ nav a:hover::after {
     flex-wrap: wrap;
 }
 
-.hotel-card {
+.group-card {
     flex: 1 1 calc(25% - 20px); /* 한 줄에 4개의 카드를 배치하도록 설정 */
     box-sizing: border-box;
     max-width: calc(25% - 20px); /* 부모의 25%에서 간격을 뺀 값을 최대 너비로 설정 */
 }
 
-.hotel-card img {
+.group-card img {
     width: 100%;
     height: 300px;
     border-radius: 8px;
 }
 
 /****************섹션2 ********************************************/
-.profiles-container{
+.reviews-container{
 	width: 90%;
     max-width: 1600px;
     margin: 0 auto;
 }
 
-.profiles {
+.reviews {
     display: flex;
     justify-content: center;
     align-items:center;
@@ -454,12 +211,12 @@ nav a:hover::after {
     background-color: var(--admin-body-color);
 }
 
-.profiles h2 {
+.reviews h2 {
     font-size: 1.5em;
     margin-bottom: 0.5em;
 }
 
-.profile-cards {
+.review-cards {
     display: flex;
     justify-content: space-between;
     width: 100%;
@@ -468,7 +225,7 @@ nav a:hover::after {
     flex-wrap: wrap;
 }
 
-.profile-card {
+.review-card {
     position: relative;
     overflow: hidden;
     flex: 1 1 calc(20% - 20px); /* 한 줄에 5개의 카드를 배치하도록 설정 */
@@ -477,7 +234,7 @@ nav a:hover::after {
 	cursor: pointer; /* 클릭 가능한 영역이라는 힌트를 주기 위해 추가 */
 }
 
-.profile-card img {
+.review-card img {
     width: 100%;
     object-fit: cover; /* 비율을 유지하며 잘리지 않도록 설정 */
     height: 400px;
@@ -485,7 +242,7 @@ nav a:hover::after {
 }
 
 /* 오버레이 설정 */
-.profile-card .overlay {
+.review-card .overlay {
     position: absolute;
     top: 0;
     left: 0;
@@ -505,12 +262,12 @@ nav a:hover::after {
     pointer-events: none; /* 오버레이가 클릭 이벤트를 방해하지 않도록 설정 */
 }
 
-.profile-card:hover img {
+.review-card:hover img {
     transform: scale(1.05);
     transition: transform 0.5s ease; 
 }
 
-.profile-card:hover .overlay {
+.review-card:hover .overlay {
     opacity: 1;
 }
 
