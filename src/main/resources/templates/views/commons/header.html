@@ -7,9 +7,8 @@
 		</div>
 		<nav>
 			<ul>
-				<li><a href="#">지역 탐색</a></li>
-				<li><a href="#">추천 숙소</a></li>
-				<li><a href="/reservation">예약조회</a></li>
+				<li><a href="#">클럽</a></li>
+				<li><a href="#">모임후기</a></li>
 
 				<!-- 로그인/회원가입 링크 -->
 				<li sec:authorize="isAnonymous()">
@@ -20,10 +19,6 @@
 				<li sec:authorize="isAuthenticated()">
 					<a href="/logout">로그아웃</a>
 					<i sec:authentication="principal.email"></i>
-				</li>
-				<!-- 파트너가 아닌 사용자에게만 보이는 링크 -->
-				<li sec:authorize="!hasRole('ROLE_PARTNER')">
-					<a href="/partner-login">파트너로 가입하기</a>
 				</li>
 			</ul>
 		</nav>
