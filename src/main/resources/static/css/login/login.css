@@ -1,0 +1,117 @@
+body, html {
+    margin: 0;
+    padding: 0;
+    font-family: 'Arial', sans-serif;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #f0f0f0;
+}
+
+.outer-container {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #f5f5f5; /* 바깥 공백의 배경색 */
+}
+
+.container {
+	border-radius:10px;
+    display: flex;
+    width: 1000px;
+    height: 75%;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+}
+
+.image-container {
+    flex: 1;
+    background: url('/images/login-img.jpg') no-repeat center center/cover;
+    position: relative;
+    border-bottom-left-radius: 10px;
+    border-top-left-radius: 10px;
+}
+
+
+.overlay {
+    position: absolute;
+    top: 20%;
+    left: 10%;
+    color: white;
+    text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.7);
+}
+
+.overlay h2 {
+    font-size: 24px;
+    line-height: 1.4;
+    margin-bottom: 10px;
+}
+
+.overlay p {
+    font-size: 14px;
+}
+
+.login-container {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #ffffff;
+    border-bottom-right-radius: 10px;
+    border-top-right-radius: 10px;
+}
+
+.login-box {
+    width: 80%;
+    max-width: 350px;
+    text-align: center;
+}
+
+.logo {
+    width: 200px;
+    margin-bottom: 80px;
+}
+
+input[type="text"], input[type="password"] {
+    width: 100%;
+    padding: 12px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+button {
+    width: 100%;
+    padding: 12px;
+    background-color: #4c8bf5;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+button:hover {
+    background-color: #3b73c8;
+}
+
+.links {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+}
+
+.links a {
+    text-decoration: none;
+    font-size: 14px;
+    color: #4c8bf5;
+}
+
+.remember-me {
+    font-size: 14px;
+    margin: 10px 0;
+    display: flex;
+    align-items: center;
+}
