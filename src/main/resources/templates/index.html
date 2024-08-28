@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	th:replace="~{views/commons/layout :: layout(~{::head} ,~{::main} ) }">
+
+<head>
+
+<script src="/js/index.js"></script>
+</head>
+
+<body>
+
+	<main>
+		<section class="banner">
+			<div class="container">
+				<div class="banner-text">
+					<h1>나는 어디에서 와서 어디로 가는가?</h1>
+					<h2>
+						당신을 위한 <span>최고의 선택</span>, <span class="highlight">방_it</span>
+					</h2>
+				</div>
+			</div>
+		</section>
+		
+		<!-- Category Section -->
+		<section class="category">
+			<form action="/search/places" method="get" class="category-container">
+				<input type="hidden" name="checkinDate" value="2024-08-28">
+				<input type="hidden" name="checkoutDate" value="2024-08-29">
+				<input type="hidden" name="region" value="SEOUL"> <input
+					type="hidden" name="guestCount" value="2">
+
+				<div class="category-item">
+					<button type="submit" name="accommodationTypes" value="HOTEL"
+						class="category-item">
+						<img src="/images/hotel-icon.png" alt="호텔/리조트">
+					</button>
+					<p>호텔/리조트</p>
+				</div>
+
+				<div class="category-item">
+					<button type="submit" name="accommodationTypes" value="MOTEL"
+						class="category-item">
+						<img src="/images/motel-icon.png" alt="모텔">
+					</button>
+					<p>모텔</p>
+				</div>
+				<div class="category-item">
+					<button type="submit" name="accommodationTypes" value="PENSION"
+						class="category-item">
+						<img src="/images/vacation-icon.png" alt="펜션/풀빌라">
+					</button>
+					<p>펜션/풀빌라</p>
+				</div>
+				<div class="category-item">
+					<button type="submit" name="accommodationTypes" value="CAMPING"
+						class="category-item">
+						<img src="/images/family-icon.png" alt="캠핑">
+					</button>
+					<p>캠핑/글램핑</p>
+				</div>
+				<div class="category-item">
+					<button type="submit" name="themes" value="PET_FRIENDLY"
+						class="category-item">
+						<img src="/images/animal-icon.png" alt="애견동반">
+					</button>
+					<p>애견동반</p>
+				</div>
+				<!-- 추가 카테고리 아이템들 -->
+			</form>
+		</section>
+
+		<!-- Hotel Section -->
+		<section class="hotels">
+			<div class="container">
+				<div class="container-text">
+					<h2>내 주변 인기 숙소</h2>
+					<p>가까운 거리의 편안한 숙소를 만나보세요</p>
+				</div>
+				<div class="hotel-cards">
+					<div class="hotel-card">
+						<a href="/place/detail/1"> <img src="/images/hotel1.jpg"
+							alt="Hotel">
+						</a>
+						<div class="hotel-name">
+							<h3>호텔 이름 1</h3>
+							<p>거리: 1.5 km</p>
+						</div>
+					</div>
+					<!-- 다른 호텔 카드 추가 -->
+				</div>
+			</div>
+		</section>
+
+		<!-- Profile Section -->
+		<section class="profiles">
+			<div class="profiles-container">
+				<div class="container-text">
+					<h2>따끈따끈한 신상 숙소</h2>
+					<p>가장 최근에 등록된 숙소들을 확인하세요</p>
+				</div>
+				<div class="profile-cards">
+					<div class="profile-card">
+						<a href="/place/detail/2"> <img src="/images/hotel2.jpg"
+							alt="Hotel">
+						</a>
+						<div class="overlay">
+							<h3>호텔 이름 2</h3>
+						</div>
+					</div>
+					<!-- 다른 프로필 카드 추가 -->
+				</div>
+			</div>
+		</section>
+
+		<!-- Premium Picks Section -->
+		<section class="premium-picks">
+			<div class="container">
+				<div class="container-text">
+					<h2>이번 주 블랙 PICK</h2>
+					<p>나를 위한 근사한 휴가, 방잇 프리미엄 숙소</p>
+				</div>
+				<div class="pick-cards">
+					<div class="pick-card">
+						<a href="/place/detail/3"> <img src="/images/hotel3.jpg"
+							alt="Pick">
+						</a>
+						<div class="pick-overlay">
+							<h3>호텔 이름 3</h3>
+							<p>호텔 설명</p>
+						</div>
+					</div>
+					<!-- 다른 픽 카드 추가 -->
+				</div>
+			</div>
+		</section>
+	</main>
+</body>
+
+</html>

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:fragment="layout(pHead, pMain)">
+
+<head>
+	<meta charset="UTF-8">
+	<link rel="stylesheet" href="/css/commons/index.css">
+	<link rel="stylesheet" href="/css/commons/header.css">
+	<link rel="stylesheet" href="/css/commons/footer.css">
+	<title>멤멤</title>
+</head>
+
+<body>
+
+	<div id="layoutWrap">
+
+		<!-- 헤더 -->
+		<th:block th:replace="~{views/commons/header :: top}" />
+
+		<!-- 메인 콘텐츠 -->
+		<th:block th:replace="${pMain}" />
+
+		<!-- 푸터 -->
+		<th:block th:replace="~{views/commons/footer :: bottom}" />
+
+
+	</div>
+
+</body>
+
+</html>
