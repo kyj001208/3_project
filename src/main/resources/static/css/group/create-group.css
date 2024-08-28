@@ -1,0 +1,98 @@
+@charset "UTF-8";
+
+body {
+	font-family: Arial, sans-serif;
+	background-color: #f8f9fa;
+	margin: 0;
+	padding: 0px;
+	padding-top: 80px; /* 고정된 헤더 아래에 여백 추가 */
+}
+
+.create-group-container {
+	width: 60%;
+	max-width: 800px;
+	margin: 40px auto;
+	background-color: #ffffff;
+	padding: 30px;
+	border-radius: 8px;
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+h2 {
+	color: #333333;
+	font-size: 28px;
+	text-align: center;
+	margin-bottom: 30px;
+	font-weight: 600;
+}
+
+.form-group {
+	margin-bottom: 25px;
+	position: relative;
+}
+
+label {
+	display: block;
+	font-weight: 600;
+	margin-bottom: 10px;
+	color: #333333;
+	font-size: 14px;
+}
+
+input[type="text"], textarea, input[type="file"] {
+	width: 95%;
+	padding: 15px;
+	border: 1px solid #d1d1d1;
+	border-radius: 8px;
+	font-size: 16px;
+	transition: border-color 0.3s;
+}
+
+input[type="text"]:focus, textarea:focus, input[type="file"]:focus {
+	border-color: #007bff;
+	outline: none;
+}
+
+textarea {
+	resize: vertical;
+	height: 120px;
+}
+
+.submit-button {
+	width: 100%;
+	padding: 15px;
+	background-color: #007bff;
+	color: #ffffff;
+	font-size: 18px;
+	font-weight: 600;
+	border: none;
+	border-radius: 8px;
+	cursor: pointer;
+	margin-top: 30px;
+	transition: background-color 0.3s ease;
+}
+
+.submit-button:hover {
+	background-color: #0056b3;
+}
+
+.help-text {
+	font-size: 13px;
+	color: #777777;
+	margin-top: 8px;
+}
+
+.input-icon {
+	position: absolute;
+	right: 15px;
+	top: 40px;
+	color: #cccccc;
+}
+
+.form-group.error input {
+	border-color: #e74c3c;
+}
+
+.form-group.error .help-text {
+	color: #e74c3c;
+}
