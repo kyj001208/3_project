@@ -4,6 +4,9 @@
 <head>
 	<meta charset="UTF-8">
 	<link rel="stylesheet" href="/css/group/group.css">
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/gsap.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/ScrollTrigger.min.js"></script>
+	<script src="js/group/group.js"></script>
 </head>
 
 <body>
@@ -49,16 +52,24 @@
 				<div class="content-section">
 					<div class="section-title">그룹 사진</div>
 					<ul class="photo-list">
-						<li><img src="images/groupEx.jpg" alt="사진 1"></li>
-						<li><img src="images/groupEx.jpg" alt="사진 2"></li>
-						<li><img src="images/groupEx.jpg" alt="사진 3"></li>
+						<li><img src="images/groupEx.jpg" alt="사진 1" class="clickable-image"></li>
+						<li><img src="images/groupEx.jpg" alt="사진 2" class="clickable-image"></li>
+						<li><img src="images/groupEx.jpg" alt="사진 3" class="clickable-image"></li>
 					</ul>
 				</div>
 
 				<!-- Members List -->
 				<div class="member-intro">
+
+
+					<h4>멤버소개</h4>
 					<h3>우리 반갑게 만나요</h3>
-					<p>회사와 집만 반복하는 이들을 위한 모임을 만듭니다.</p>
+					<div class="profile">
+						<img src="/images/profile1.jpg" alt="프로필 사진 1">
+						<p>회사와 집만 반복하는 이들을 위한 모임을 만듭니다.</p>
+					</div>
+
+					<h3>참여자 목록</h3>
 
 					<!-- Profile List -->
 					<div class="profile-list">

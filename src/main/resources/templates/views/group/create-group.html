@@ -4,13 +4,20 @@
 <head>
 	<meta charset="UTF-8">
 	<link rel="stylesheet" href="/css/group/create-group.css">
+	<!-- Include stylesheet -->
+	<link href="https://cdn.jsdelivr.net/npm/quill@2.0.2/dist/quill.snow.css" rel="stylesheet" />
+	<!-- Include the Quill library -->
+	<script src="https://cdn.jsdelivr.net/npm/quill@2.0.2/dist/quill.js"></script>
+	</script>
+	<script src="js/group/create-group.js"></script>
 </head>
 
 <body>
 	<main>
 		<div class="create-group-container">
 			<h2>새로운 그룹 생성</h2>
-			<form>
+			<div class="header-image"></div>
+			<form id="create-group-form" method="post" action="/save">
 				<div class="form-group">
 					<label for="group-name">그룹 이름</label>
 					<input type="text" id="group-name" placeholder="소모임 이름을 입력하세요" required>
@@ -18,16 +25,28 @@
 				</div>
 
 				<div class="form-group">
+					<label for="group-greeting">그룹 인삿말</label>
+					<!-- Quill 에디터를 사용할 div -->
+					<div id="group-greeting-editor" style="height: 150px;"></div>
+					<div class="help-text">인삿말을 간단하게 작성하세요.</div>
+				</div>
+
+				<div class="form-group">
 					<label for="group-description">그룹 설명</label>
-					<textarea id="group-description" placeholder="소모임에 대한 설명을 입력하세요" required></textarea>
+					<!-- Quill 에디터를 사용할 div -->
+					<div id="group-description-editor" style="height: 150px;"></div>
 					<div class="help-text">그룹 활동과 목적을 간단하게 설명하세요.</div>
 				</div>
 
 				<div class="form-group">
 					<label for="group-image">그룹 대표 이미지</label>
-					<input type="file" id="group-image">
+					<input type="file" id="group-image" name="groupImage" accept="image/*">
 					<div class="help-text">이미지를 업로드하여 그룹을 대표할 수 있습니다.</div>
 				</div>
+
+				<!-- 숨겨진 input 필드를 추가하여 Quill 내용을 저장 -->
+				<input type="hidden" name="groupGreeting" id="group-greeting-input">
+				<input type="hidden" name="groupDescription" id="group-description-input">
 
 				<button type="submit" class="submit-button">그룹 생성하기</button>
 			</form>
