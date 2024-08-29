@@ -21,6 +21,7 @@ configurations {
 
 repositories {
 	mavenCentral()
+	maven { url 'https://jitpack.io' }
 }
 
 ext {
@@ -28,6 +29,11 @@ ext {
 }
 
 dependencies {
+	implementation 'com.github.shin285:KOMORAN:3.3.9'
+    implementation 'org.springframework.boot:spring-boot-starter-amqp'
+    implementation 'org.webjars:sockjs-client:1.5.1'
+    implementation 'org.webjars:stomp-websocket:2.3.4'
+    	
 	implementation 'com.github.mwiede:jsch:0.2.18'
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'

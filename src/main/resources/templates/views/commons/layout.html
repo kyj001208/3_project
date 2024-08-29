@@ -7,7 +7,17 @@
 	<link rel="stylesheet" href="/css/commons/header.css">
 	<link rel="stylesheet" href="/css/commons/footer.css">
 	<title>멤멤</title>
-
+	
+	<!-- 챗봇  -->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+	<link rel="stylesheet" href="/css/chatbot/bot.css"/>
+	<script src="/js/chatbot/bot.js"></script>
+	<!-- //// -->
+	
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.5.1/sockjs.min.js"></script>
+	
+	
 	<!-- 페이지 별로 다를 수 있는 헤드 요소 삽입 -->
 	<th:block th:replace="${pHead}" />
 </head>
@@ -21,7 +31,26 @@
 
 		<!-- 메인 콘텐츠 -->
 		<th:block th:replace="${pMain}" />
-
+		
+		<section>
+			    <!-- 챗봇 이미지 -->
+			    <img class="animate__animated animate__pulse animate__slower animate__infinite" id="chat-icon" src="/images/chatbot_logo.png" alt="Chatbot Icon" />
+			    <!-- 챗봇 창 -->
+			    <div id="bot-container">
+			    	<div id="bot-top">
+				        <button id="close-button"><i class="ri-close-line"></i></button> <!-- 닫기 버튼 -->
+			    	</div>
+			        <div id="chat-content"></div>
+			        <div id="input-container">
+			            <input type="text" id="question" placeholder="질문을 입력하세요." />
+			            <button id="send-button">보내기</button>
+			        </div>
+			    </div>
+				
+			
+		</section>
+		
+		
 		<!-- 푸터 -->
 		<th:block th:replace="~{views/commons/footer :: bottom}" />
 
