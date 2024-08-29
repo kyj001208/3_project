@@ -1,66 +1,162 @@
 body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #f4f7f9;
-            margin: 0;
-            padding: 0;
-        }
+    font-family: 'Noto Sans KR', 'Roboto', 'Segoe UI', Arial, sans-serif;
+    background-color: #f0f4f8;
+    margin: 0;
+    padding: 0;
+    color: #333;
+    line-height: 1.6;
+}
 
-        .container {
-            width: 90%;
-            max-width: 600px;
-            margin: 40px auto;
-            padding: 20px;
-            background-color: #ffffff;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            overflow: hidden;
-        }
+main {
+    padding-top: 40px; /* 헤더의 높이만큼 패딩 추가 */
+}
 
-        h1 {
-            text-align: center;
-            color: #333;
-            margin-bottom: 20px;
-        }
+.my-container {
+    display: flex;
+    max-width: 1200px;
+    min-height:622px;
+    margin: 40px auto;
+    background-color: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+}
 
-        form {
-            display: flex;
-            flex-direction: column;
-        }
+.left-column {
+    width: 25%;
+    padding: 30px;
+    background-image: url('/images/vector-set-illustrated-people.jpg'); /* 배경 이미지 경로 설정 */
+    background-size: cover; /* 이미지가 요소의 크기에 맞게 조절되도록 설정 */
+    background-position: center; /* 이미지가 요소의 중앙에 위치하도록 설정 */
+    background-repeat: no-repeat; /* 이미지가 반복되지 않도록 설정 */
+    color: #2c3e50;
+}
 
-        label {
-            margin-top: 15px;
-            font-size: 14px;
-            font-weight: bold;
-            color: #555;
-        }
+.left-column h1 {
+    margin-left: 20px; /* 왼쪽 여백을 20px로 설정 */
+}
 
-        input[type="text"],
-        input[type="password"],
-        input[type="email"],
-        input[type="tel"],
-        input[type="date"],
-        textarea {
-            width: 100%;
-            padding: 12px;
-            margin-top: 5px;
-            border: 1px solid #ddd;
-            border-radius: 6px;
-            box-sizing: border-box;
-            font-size: 14px;
-        }
+.right-column {
+    width: 75%;
+    padding: 40px;
+}
 
-        button {
-            margin-top: 20px;
-            padding: 12px;
-            background-color: #007bff;
-            border: none;
-            color: #fff;
-            border-radius: 6px;
-            cursor: pointer;
-            font-size: 16px;
-            transition: background-color 0.3s ease;
-        }
+h1 {
+    margin-bottom: 30px;
+    font-size: 24px;
+    font-weight: 300;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
 
-        button:hover {
-            background-color: #0056b3;
-        }
+.menu-item {
+    padding: 12px 15px;
+    margin-bottom: 10px;
+    background-color: #ffffff;
+    cursor: pointer;
+    border-radius: 6px;
+    transition: all 0.3s ease;
+    font-size: 16px;
+    border: 1px solid #ccc;
+}
+
+.menu-item:hover {
+    background-color: rgba(236, 240, 241, 0.5); /* 흰색 배경 */
+    color: #2c3e50; /* 호버 시 글자색 검정 */
+    transform: translateX(5px);
+}
+
+.profile-info {
+    background-color: #fff;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    padding: 30px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+}
+
+.profile-info p {
+    margin-bottom: 15px;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 10px;
+}
+
+.profile-info strong {
+    display: inline-block;
+    width: 120px;
+    color: #7f8c8d;
+    font-size: 14px;
+}
+
+.profile-info span {
+    font-size: 16px;
+    color: #2c3e50;
+}
+
+#edit-profile {
+    background-color: #3498db;
+    color: white;
+    border: none;
+    padding: 12px 25px;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+    margin-top: 20px;
+}
+
+#edit-profile:hover {
+    background-color: #2980b9;
+}
+
+@media (max-width: 768px) {
+    .container {
+        flex-direction: column;
+    }
+    .left-column, .right-column {
+        width: 100%;
+    }
+}
+
+.profile-summary {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    padding: 15px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.profile-pic {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background-color: #ffffff; /* 기본 배경 색상 */
+    background-size: cover;
+    background-position: center;
+    margin-right: 15px;
+}
+
+/* 이미지가 등록되지 않은 경우 스타일 */
+.profile-pic::before {
+    content: '프로필 사진 없음';
+    color: #7f8c8d;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    text-align: center;
+}
+
+.profile-details p {
+    margin: 5px 0;
+    color: #2c3e50;
+}
+.group-info {
+	background-color: #fff;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    padding: 30px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+}
