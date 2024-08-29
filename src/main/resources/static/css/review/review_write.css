@@ -1,0 +1,149 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Arial', sans-serif;
+    background-color: #f9f9f9;
+}
+
+.write-con {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+#write_logo{
+	
+	width: 125px;
+	height: 25px;
+	
+}
+
+.write-top {
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    padding: 40px;
+    max-width: 1200px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.page-title {
+    text-align: center;
+    font-size: 28px;
+    font-weight: bold;
+    margin-bottom: 30px;
+}
+
+.post-form {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+.left-section, .right-section {
+    width: 48%;
+}
+
+.title-input, .content-input {
+    width: 100%;
+    padding: 15px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    font-size: 18px;
+    box-sizing: border-box;
+}
+
+.title-input {
+    height: 50px;
+    margin-bottom: 20px;
+}
+
+.content-input {
+    height: 300px;
+    resize: none;
+}
+
+.image-upload {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 20px;
+    position: relative;
+}
+
+.upload-button {
+    width: 100%;
+    height: 360px;
+    border: 2px dashed #007bff;
+    border-radius: 12px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+#plus-icon {
+    font-size: 50px;
+    color: #85A5DB;
+    transition: background-color 0.3s ease;
+}
+
+.upload-button:hover {
+    background-color: rgba(0, 123, 255, 0.1);
+}
+
+#file-upload {
+    display: none;
+}
+
+.image-preview {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: cover;
+    position: absolute;
+    top: 0;
+    left: 0;
+    border-radius: 12px;
+}
+.write_btns{
+	display: flex;
+	gap:30px;
+}
+
+
+.returnA{
+	width: 100%;
+	text-decoration: none;
+	text-align: center;
+}
+
+.submit-button , .returnA {
+    background-color: #85A5DB;
+    color: #fff;
+    padding: 15px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-top: 20px;
+    width: 100%;
+    gap:30px;
+    font-size: 16px;
+}
+
+
+
+.submit-button:hover {
+    background-color: #0046FE;
+}
+
+.returnA:hover {
+    background-color: #0046FE;
+}
