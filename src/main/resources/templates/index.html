@@ -3,8 +3,8 @@
 	th:replace="~{views/commons/layout :: layout(~{::head} ,~{::main} ) }">
 
 <head>
-
-<script src="/js/index.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+<script src="/js/commons/index.js"></script>
 </head>
 
 <body>
@@ -65,63 +65,176 @@
 					</button>
 					<p>애견동반</p>
 				</div>
+				<div class="category-item">
+					<button type="submit" name="themes" value="PET_FRIENDLY"
+						class="category-item">
+						<img src="/images/puppy.jpg" alt="애견동반">
+					</button>
+					<p>애견동반</p>
+				</div>
+				<div class="category-item">
+					<button type="submit" name="themes" value="PET_FRIENDLY"
+						class="category-item">
+						<img src="/images/puppy.jpg" alt="애견동반">
+					</button>
+					<p>애견동반</p>
+				</div>
+				<div class="category-item">
+					<button type="submit" name="themes" value="PET_FRIENDLY"
+						class="category-item">
+						<img src="/images/puppy.jpg" alt="애견동반">
+					</button>
+					<p>애견동반</p>
+				</div>
+				<div class="category-item">
+					<button type="submit" name="themes" value="PET_FRIENDLY"
+						class="category-item">
+						<img src="/images/puppy.jpg" alt="애견동반">
+					</button>
+					<p>애견동반</p>
+				</div>
+				<div class="category-item">
+					<button type="submit" name="themes" value="PET_FRIENDLY"
+						class="category-item">
+						<img src="/images/puppy.jpg" alt="애견동반">
+					</button>
+					<p>애견동반</p>
+				</div>
 				<!-- 추가 카테고리 아이템들 -->
 			</form>
 		</section>
-
-		<!-- Hotel Section -->
+		
+		<!-- Profile Section -->
+		<div class="fade-in-out-element animate__animated animate__slower"> <!-- animate__delay-1s -->
 		<section class="groups">
-			<div class="container">
+			<div class="groups-container">
 				<div class="container-text">
-					<h2>핫한 모임</h2>
-					<p>모임에서 만남을 즐겨보세요</p>
+				<h2>모임</h2>
+					<p>모임으로 계속해서 친하게 지내요</p>
 				</div>
 				<div class="group-cards">
 					<div class="group-card">
-						<a href="/place/detail/1"> <img src="/images/puppy.jpg"
-							alt="Hotel">
+					<div class="group-img-container">
+						<a href="/place/detail/2"> <img src="/images/puppy.jpg"	alt="Hotel">
 						</a>
-						<div class="group-name">
-							<h3>모임 이름 1</h3>
-							<p>인원수 : 30명</p>
+						</div>
+						<div class="text-container">
+							<p>노래</p>
+							<h3>서울 노래방</h3>
+							<span class="location">서울시  노원구</span> 
 						</div>
 					</div>
-					<!-- 다른 호텔 카드 추가 -->
+					<div class="group-card">
+					<div class="group-img-container">
+						<a href="/place/detail/2"> <img src="/images/puppy.jpg"	alt="Hotel">
+						</a>
+						</div>
+						<div class="text-container">
+							<p>노래</p>
+							<h3>서울 노래방</h3>
+							<span class="location">주 7회 · 34/39</span>
+						</div>
+					</div>
+					<div class="group-card">
+					<div class="group-img-container">
+						<a href="/place/detail/2"> <img src="/images/puppy.jpg"	alt="Hotel">
+						</a>
+						</div>
+						<div class="text-container">
+							<p>노래</p>
+							<h3>서울 노래방</h3>
+							<span class="location">주 7회 · 34/39</span>
+						</div>
+					</div>
+					<div class="group-card">
+					<div class="group-img-container">
+						<a href="/place/detail/2"> <img src="/images/puppy.jpg"	alt="Hotel">
+						</a>
+						</div>
+						<div class="text-container">
+							<p>노래</p>
+							<h3>서울 노래방</h3>
+							<span class="location">9.1(일) · 4주 간 주 7회 · 34/39</span>
+						</div>
+					</div>
+					
+					<!-- 다른 프로필 카드 추가 -->
 				</div>
+				<a class="link" href="#"><span >더보기</span></a>
 			</div>
 		</section>
-
-		<!-- Profile Section -->
+		</div>
+	
+		<!-- Hotel Section -->
 		<section class="reviews">
-			<div class="reviews-container">
+			<div class="review-container">
 				<div class="container-text">
 					<h2>모임 후기</h2>
 					<p>다양한 모임에 가입해보세요</p>
 				</div>
 				<div class="review-cards">
 					<div class="review-card">
-						<a href="/place/detail/2"> <img src="/images/puppy.jpg"
-							alt="Hotel">
+						<a href="/place/detail/1"> <img src="/images/puppy.jpg" alt="Hotel">
 						</a>
-						<div class="overlay">
-							<h3>호텔 이름 2</h3>
+						<div class="review-name">
+							<p>인원수 : 30명</p>
 						</div>
 					</div>
-					<!-- 다른 프로필 카드 추가 -->
+					<div class="review-card">
+						<a href="/place/detail/1"> <img src="/images/puppy.jpg" alt="Hotel">
+						</a>
+						<div class="review-name">
+							<p>인원수 : 30명</p>
+						</div>
+					</div>
+					<div class="review-card">
+						<a href="/place/detail/1"> <img src="/images/puppy.jpg" alt="Hotel">
+						</a>
+						<div class="review-name">
+							<p>인원수 : 30명</p>
+						</div>
+					</div>
+					<div class="review-card">
+						<a href="/place/detail/1"> <img src="/images/puppy.jpg" alt="Hotel">
+						</a>
+						<div class="review-name">
+							<p>나는 집에 가고 싶다 이거를 왜 하고 있는지도 모르겠고 졸리고 재미도 없고 그냥 빨리 프로젝트가 끝나고 학원이 끝나면 좋겠는데 왜 이러고 있는거지</p>
+						</div>
+					</div>
+					
+					<!-- 다른 호텔 카드 추가 -->
 				</div>
+				<a class="link" href="#"><span >더보기</span></a>
 			</div>
 		</section>
-
+		
+		
+		
 		<!-- Premium Picks Section -->
 		<section class="premium-picks">
-			<div class="container">
+			<div class="picks-container">
 				<div class="container-text">
 					<h2>이번 주 최고의 모임</h2>
 				</div>
 				<div class="pick-cards">
 					<div class="pick-card">
-						<a href="/place/detail/3"> <img src="/images/puppy.jpg"
-							alt="Pick">
+						<a href="/place/detail/3"> <img src="/images/puppy.jpg"	alt="Pick">
+						</a>
+						<div class="pick-overlay">
+							<h3>모임 이름 3</h3>
+							<p>모임 설명</p>
+						</div>
+					</div>
+					<div class="pick-card">
+						<a href="/place/detail/3"> <img src="/images/puppy.jpg"	alt="Pick">
+						</a>
+						<div class="pick-overlay">
+							<h3>모임 이름 3</h3>
+							<p>모임 설명</p>
+						</div>
+					</div>
+					<div class="pick-card">
+						<a href="/place/detail/3"> <img src="/images/puppy.jpg"	alt="Pick">
 						</a>
 						<div class="pick-overlay">
 							<h3>모임 이름 3</h3>
