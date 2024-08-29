@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{views/commons/layout :: layout(~{::head}, ~{::main})}">
+<head>
+    <link rel="stylesheet" href="/css/review/review_write.css">
+
+</head>
+<body>
+    <main class="write-con">
+        <section class="write-top">
+        
+            <h1 class="page-title">후기 글 작성</h1>
+            <form>
+                <div class="post-form">
+                    <div class="left-section">
+                        <input type="text" class="title-input" placeholder="제목을 입력하세요">
+                        <textarea class="content-input" placeholder="내용을 입력하세요"></textarea>
+                    </div>
+                    <div class="right-section">
+                        <div class="image-upload">
+                            <label for="file-upload" class="upload-button">
+                                <span id="plus-icon">+</span>
+                                <img id="image-preview" class="image-preview" src="#" alt="이미지 미리보기" style="display:none;">
+                            </label>
+                            <input id="file-upload" type="file" accept="image/*" onchange="previewImage(event)">
+                        </div>
+                    </div>
+                </div>
+                <div class="write_btns">
+                <a href="/mem/review" class="returnA">이전으로 돌아가기</a>
+                <button class="submit-button">제출하기</button>
+               
+                </div>
+            </form>
+        </section>
+    </main>
+
+</body>
+</html>
