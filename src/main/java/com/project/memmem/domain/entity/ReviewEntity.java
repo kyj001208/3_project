@@ -40,8 +40,16 @@ public class ReviewEntity {
 	@Column(columnDefinition = "timestamp")
 	protected LocalDateTime createdAt; // 엔티티의 생성 일시
 	
+	
+	private String mainImageBucketKey; // 메인 이미지의 S3 버킷 키
+	
 	@ManyToOne
 	@JoinColumn(name = "userId")
 	private UserEntity user;
+
+	public void setMainImageBucketKey(String mainImageBucketKey) {
+		// TODO Auto-generated method stub
+		
+	}
 
 }
