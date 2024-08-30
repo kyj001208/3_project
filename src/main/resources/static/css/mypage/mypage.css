@@ -1,6 +1,8 @@
 body {
     font-family: 'Noto Sans KR', 'Roboto', 'Segoe UI', Arial, sans-serif;
-    background-color: #f0f4f8;
+    background-image: url('/images/6465103.jpg');
+    background-size: 90% auto; /* 이미지 크기를 3배로 확대 */
+    background-position: center -260px; /* 이미지를 중앙에 위치시키고 50픽셀 위로 이동 */
     margin: 0;
     padding: 0;
     color: #333;
@@ -15,7 +17,8 @@ main {
     display: flex;
     max-width: 1200px;
     min-height:622px;
-    margin: 40px auto;
+    margin: 120px auto;
+    margin-bottom: 140px;
     background-color: #ffffff;
     border-radius: 12px;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
@@ -25,7 +28,7 @@ main {
 .left-column {
     width: 25%;
     padding: 30px;
-    background-image: url('/images/vector-set-illustrated-people.jpg'); /* 배경 이미지 경로 설정 */
+    background-image: #ffffff;
     background-size: cover; /* 이미지가 요소의 크기에 맞게 조절되도록 설정 */
     background-position: center; /* 이미지가 요소의 중앙에 위치하도록 설정 */
     background-repeat: no-repeat; /* 이미지가 반복되지 않도록 설정 */
@@ -160,3 +163,4 @@ h1 {
     padding: 30px;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
 }
+
