@@ -12,8 +12,9 @@ import org.springframework.web.multipart.MultipartFile;
 import com.project.memmem.domain.dto.group.GroupSaveDTO;
 import com.project.memmem.domain.entity.GroupEntity;
 import com.project.memmem.domain.entity.ImageEntity;
+import com.project.memmem.domain.repository.ImageEntityRepository;
 import com.project.memmem.domain.repository.group.GroupEntityRepository;
-import com.project.memmem.domain.repository.image.ImageEntityRepository;
+
 import com.project.memmem.service.group.GroupService;
 import com.project.memmem.utils.FileUploadUtil;
 
