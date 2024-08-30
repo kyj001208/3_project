@@ -50,11 +50,13 @@ public class ReviewController {
 	    return "redirect:/";
 	}
 
-	// 이미지 저장
-	@PostMapping("/uploadImage")
-	@ResponseBody
-	public Map<String, String> uploadImage(@RequestParam("file") MultipartFile file) throws IOException {
-		return service.s3TempUpload(file);
-	}
+	/*
+	 * // 이미지 저장
+	 * 
+	 * @PostMapping("/uploadImage")
+	 * 
+	 * @ResponseBody public Map<String, String> uploadImage(@RequestParam("file")
+	 * MultipartFile file) throws IOException { return service.s3TempUpload(file); }
+	 */
 
 }
