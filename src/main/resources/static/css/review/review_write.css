@@ -6,27 +6,19 @@ body {
 }
 
 .write-con {
+	
+	padding-top:80px;
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
-    padding: 20px;
     box-sizing: border-box;
-}
-
-#write_logo{
-	
-	width: 125px;
-	height: 25px;
-	
+    padding-bottom: 80px;
 }
 
 .write-top {
+	
     background-color: #ffffff;
-    border-radius: 8px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    padding: 40px;
-    max-width: 1200px;
+    max-width: 800px;
     width: 100%;
     box-sizing: border-box;
 }
@@ -40,31 +32,23 @@ body {
 
 .post-form {
     display: flex;
-    justify-content: space-between;
+    flex-direction: column;
     gap: 20px;
 }
 
-.left-section, .right-section {
-    width: 48%;
+.input-section {
+    width: 100%;
 }
 
-.title-input, .content-input {
+.title-input {
     width: 100%;
     padding: 15px;
     border-radius: 4px;
     border: 1px solid #ccc;
     font-size: 18px;
     box-sizing: border-box;
-}
-
-.title-input {
     height: 50px;
     margin-bottom: 20px;
-}
-
-.content-input {
-    height: 300px;
-    resize: none;
 }
 
 .image-upload {
@@ -73,11 +57,12 @@ body {
     align-items: center;
     margin-bottom: 20px;
     position: relative;
+    width: 100%;
 }
 
 .upload-button {
     width: 100%;
-    height: 360px;
+    height: 370px;
     border: 2px dashed #007bff;
     border-radius: 12px;
     display: flex;
@@ -87,12 +72,12 @@ body {
     transition: background-color 0.3s ease;
     position: relative;
     overflow: hidden;
+    background-color: #fff;
 }
 
 #plus-icon {
     font-size: 50px;
     color: #85A5DB;
-    transition: background-color 0.3s ease;
 }
 
 .upload-button:hover {
@@ -111,20 +96,23 @@ body {
     top: 0;
     left: 0;
     border-radius: 12px;
-}
-.write_btns{
-	display: flex;
-	gap:30px;
+    border: 1px solid #ddd;
 }
 
-
-.returnA{
-	width: 100%;
-	text-decoration: none;
-	text-align: center;
+.write_btns {
+    display: flex;
+    gap: 30px;
+    justify-content: center;
 }
 
-.submit-button , .returnA {
+.returnA {
+    text-decoration: none;
+    text-align: center;
+    color: #fff;
+    font-size: 16px;
+}
+
+.submit-button, .returnA {
     background-color: #85A5DB;
     color: #fff;
     padding: 15px;
@@ -132,13 +120,10 @@ body {
     border-radius: 4px;
     cursor: pointer;
     transition: background-color 0.3s ease;
-    margin-top: 20px;
-    width: 100%;
-    gap:30px;
     font-size: 16px;
+    width: 100%;
+    text-align: center;
 }
-
-
 
 .submit-button:hover {
     background-color: #0046FE;
