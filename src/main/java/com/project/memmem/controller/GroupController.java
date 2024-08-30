@@ -30,6 +30,7 @@ public class GroupController {
 		return "views/group/list";
 	}
 
+
 	@GetMapping("/group-detail")
 	public String groupDetail() {
 		return "views/group/group";

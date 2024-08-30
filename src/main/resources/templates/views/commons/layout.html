@@ -8,6 +8,10 @@
 	<link rel="stylesheet" href="/css/commons/footer.css">
 	<title>멤멤</title>
 	
+	<!-- 플로팅 메뉴 -->
+	<link rel="stylesheet" href="/css/commons/layout.css">
+	<script src="/js/commons/layout.js"></script>
+	
 	<!-- 챗봇  -->
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
 	<link rel="stylesheet" href="/css/chatbot/bot.css"/>
@@ -50,13 +54,48 @@
 			
 		</section>
 		
-		
+		<!-- 플로팅 메뉴 -->
+		<section>
+			<div class="floating-menu-container">
+				<button class="toggle-btn">메뉴</button>
+				<div class="floating-menu">
+					<div class="menu-item">
+						<a href="#" class="icon-link">
+							<span class="icon-circle">
+							<span class="text">공지<br>사항</span> 
+							<!-- <img src="/images/puppy.jpg" alt="공지사항"> -->
+							</span>
+						</a>
+					</div>
+					<div class="menu-item">
+						<a href="/mem/review" class="icon-link">
+							<span class="icon-circle">
+							<span class="text">모임<br>후기</span> 
+							</span>
+						</a>
+					</div>
+					<div class="menu-item">
+						<a href="/create-group" class="icon-link">
+							<span class="icon-circle">
+							<span class="text">모임<br>생성</span> 
+							</span>
+						</a>
+					</div>
+					<div class="menu-item">
+						<a href="/" class="icon-link">
+							<span class="icon-circle">
+							<span class="text">홈</span> 
+							</span>
+						</a>
+					</div>
+					<!-- 추가 메뉴 아이템들... -->
+				</div>
+			</div>
+		</section>
+
+
 		<!-- 푸터 -->
 		<th:block th:replace="~{views/commons/footer :: bottom}" />
-
-
 	</div>
-
 </body>
-
 </html>
