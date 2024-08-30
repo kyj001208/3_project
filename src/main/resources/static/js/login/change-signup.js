@@ -10,10 +10,17 @@ document.addEventListener('DOMContentLoaded', function () {
         setTimeout(function () {
             document.querySelector('.login-box').innerHTML = `
                 <img src="images/logo.png" alt="memmem 로고" class="logo">
-                <form action="#" method="post">
+                <form action="/signup" method="post">
                     <input type="text" name="username" placeholder="   아이디를 입력하세요." required>
                     <input type="password" name="password" placeholder="   비밀번호를 입력하세요." required>
-                    <input type="email" name="email" placeholder="   이메일을 입력하세요." required>
+                    <input type="text" name="email" class="box" id="domain-txt" placeholder="   이메일을 입력하세요." required>
+					<select class="box" id="domain-list">
+					  <option value="naver.com">naver.com</option>
+					  <option value="google.com">google.com</option>
+					  <option value="hanmail.net">hanmail.net</option>
+					  <option value="nate.com">nate.com</option>
+					  <option value="kakao.com">kakao.com</option>
+					</select>
                     <input type="text" name="phone" oninput="autoHyphen2(this)" maxlength="13" placeholder="   전화번호를 입력하세요." required>
                     <input type="date" name="birthdate" placeholder="   생년월일을 입력하세요." required>
                     <input type="text" name="address" placeholder="   주소를 입력하세요." required>
@@ -42,7 +49,7 @@ document.addEventListener('DOMContentLoaded', function () {
         setTimeout(function () {
             document.querySelector('.login-box').innerHTML = `
                 <img src="images/logo.png" alt="memmem 로고" class="logo">
-                <form action="#" method="post">
+                <form action="/login" method="post">
                     <div class="wrap">
                         <input type="text" name="username" placeholder="   아이디를 입력하세요." required>
                         <input type="password" name="password" placeholder="   비밀번호를 입력하세요." required>

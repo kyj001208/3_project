@@ -62,5 +62,5 @@ public class UserEntity {
 
 	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
 	private Set<ReviewEntity> posts = new HashSet<>();
-    
+
 }

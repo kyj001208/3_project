@@ -91,11 +91,19 @@ html, body {
     margin-top:130px;
     margin-bottom: 80px;
 }
+#domain-txt, #domain-list{
+    width: calc(50% - 16px);
+    padding: 12px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+	
+}
 
 input[type="text"], input[type="password"], input[type="email"], 
-input[type="tel"], input[type="date"], input[type="address"] {
-    width: 100%;
-    padding: 12px 0;
+input[type="tel"], input[type="date"], input[type="address"]{
+    width: calc(100% - 26px);
+    padding: 12px;
     margin: 10px 0;
     border: 1px solid #ccc;
     border-radius: 5px;

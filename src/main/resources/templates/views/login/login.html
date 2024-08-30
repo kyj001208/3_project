@@ -12,10 +12,9 @@
         <div class="container">
             <div class="image-container">
                 <div class="overlay">
-                    <h2>멤 멤 멤 멤멤 멤멤<br>
-                        memmem mem멤mem<br>
-                        meㅁ memmㅔm
-                    </h2>
+                    <h1>오늘 뭐하지<br>
+                        고민 될 때
+                    </h1>
                     <p>memmemmemmemmemmemme<br>
                         mmem멤memmemmemmemm<br>
                         emmemmemmemmeㅁmemmem<br>
@@ -29,9 +28,11 @@
             <div class="login-container">
                 <div class="login-box">
                     <img src="images/logo.png" alt="memmem 로고" class="logo">
-                    <form action="#" method="post">
+                    <form action="/login" method="post">
+                    	<input type="hidden" th:name="${_csrf != null ? _csrf.parameterName : 'csrf'}"
+                           th:value="${_csrf != null ? _csrf.token : ''}"/>
                         <div class="wrap">
-                            <input type="text" name="username" placeholder="   아이디를 입력하세요." required>
+                            <input type="text" name="username" placeholder="   이메일을 입력하세요." required>
                             <input type="password" name="password" placeholder="   비밀번호를 입력하세요." required>
                         </div>
                         <label class="remember-me">
