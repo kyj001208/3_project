@@ -1,4 +1,5 @@
 document.addEventListener('DOMContentLoaded', function () {
+
     function showSignupForm() {
         // 애니메이션 시작: container의 width를 늘리고 flex 비율을 변경
         document.querySelector('.container').style.width = '1000px';
@@ -13,9 +14,9 @@ document.addEventListener('DOMContentLoaded', function () {
                     <input type="text" name="username" placeholder="   아이디를 입력하세요." required>
                     <input type="password" name="password" placeholder="   비밀번호를 입력하세요." required>
                     <input type="email" name="email" placeholder="   이메일을 입력하세요." required>
-                    <input type="address" name="address" placeholder="   전화번호를 입력하세요." required>
-                    <input type="address" name="address" placeholder="   생년월일을 입력하세요." required>
-                    <input type="address" name="address" placeholder="   주소를 입력하세요." required>
+                    <input type="text" name="phone" oninput="autoHyphen2(this)" maxlength="13" placeholder="   전화번호를 입력하세요." required>
+                    <input type="date" name="birthdate" placeholder="   생년월일을 입력하세요." required>
+                    <input type="text" name="address" placeholder="   주소를 입력하세요." required>
                     <button type="submit">회원가입</button>
                 </form>
                 <div class="links">
@@ -71,3 +72,11 @@ document.addEventListener('DOMContentLoaded', function () {
         showSignupForm();
     });
 });
+
+// 전화번호에 자동으로 하이픈 추가하는 함수
+const autoHyphen2 = (target) => {
+    target.value = target.value
+        .replace(/[^0-9]/g, '')
+        .replace(/^(\d{0,3})(\d{0,4})(\d{0,4})$/g, "$1-$2-$3")
+        .replace(/(\-{1,2})$/g, "");
+}
