@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.hibernate.annotations.DynamicUpdate;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -14,6 +15,8 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.PrePersist;
 import jakarta.persistence.Table;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -40,6 +43,9 @@ public class GroupEntity {
     private String groupName; // 그룹 이름, VARCHAR(255)
 
     @Column(columnDefinition = "TEXT")
+    private String greeting; // 그룹 인삿말, TEXT
+    
+    @Column(columnDefinition = "TEXT")
     private String description; // 소모임 설명, TEXT
 
     @Column(nullable = false)
@@ -49,7 +55,15 @@ public class GroupEntity {
     @JoinColumn(nullable = false)
     private UserEntity creator; // 소모임 생성자 (UserEntity와 다대일 관계 설정)
 
+    @OneToMany(mappedBy = "group", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<GroupMemberShipEntity> groupMemberShip; // 그룹 멤버십 관계
+    
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private Category category; // 카테고리, ENUM
+    
+    @PrePersist
+    public void prePersist() {
+        this.createdAt = this.createdAt == null ? LocalDateTime.now() : this.createdAt;
+    }
 }

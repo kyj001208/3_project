@@ -1,5 +1,4 @@
 
-
 package com.project.memmem.domain.entity;
 
 import java.time.LocalDateTime;
@@ -8,7 +7,6 @@ import java.util.Set;
 
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.DynamicUpdate;
-
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -30,31 +28,30 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name ="image")
+@Table(name = "image")
 @Entity
 public class ImageEntity {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long ID; // 이미지 번호
 
 	@Column(nullable = false)
 	private String imageUrl; // 제목
-	
+
 	@Enumerated(EnumType.STRING)
-    @Column(nullable = false)
-    private ImageType imageType;
-	
-	 @ManyToOne
-	    @JoinColumn(name = "group_id") // 기존 'id'를 'group_id'로 변경
-	    private GroupEntity groups;
+	@Column(nullable = false)
+	private ImageType imageType;
 
-	    @ManyToOne
-	    @JoinColumn(name = "review_id") // 기존 'reId'를 'review_id'로 변경
-	    private ReviewEntity review;
+	@ManyToOne
+	@JoinColumn(name = "group_id") // 기존 'id'를 'group_id'로 변경
+	private GroupEntity groups;
 
-	    public enum ImageType {
-	        REVIEW,
-	        GROUP
-	    }
+	@ManyToOne
+	@JoinColumn(name = "review_id") // 기존 'reId'를 'review_id'로 변경
+	private ReviewEntity review;
+
+	public enum ImageType {
+		REVIEW, GROUP
 	}
+}

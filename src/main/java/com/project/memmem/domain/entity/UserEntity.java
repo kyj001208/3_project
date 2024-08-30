@@ -25,35 +25,35 @@ import lombok.Setter;
 @Entity
 @Table(name = "user")
 public class UserEntity {
-	
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long userId; // 사용자ID
 
-    @Column(nullable = false)
-    private String name; // 사용자이름
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private long userId; // 사용자ID
 
-    @Column(nullable = false,unique = true)
-    private String nickName; // 닉네임
+	@Column(nullable = false)
+	private String name; // 사용자이름
 
-    @Column(nullable = false)
-    private String password; // 비밀번호
+	@Column(nullable = false, unique = true)
+	private String nickName; // 닉네임
 
-    @Column(nullable = false,unique = true)
-    private String RRN; // 주민등록번호
-    
-    @Column(nullable = false)
-    private String address; // 주소
+	@Column(nullable = false)
+	private String password; // 비밀번호
 
-    @Column(nullable = false)
-    private String number; // 핸드폰번호
+	@Column(nullable = false, unique = true)
+	private String RRN; // 주민등록번호
 
-    @Column(nullable = false,unique = true)
-    private String email; // 이메일
+	@Column(nullable = false)
+	private String address; // 주소
 
-    @Column(nullable = false)
-    private String birthDate; // 생년월일
-    
+	@Column(nullable = false)
+	private String number; // 핸드폰번호
+
+	@Column(nullable = false, unique = true)
+	private String email; // 이메일
+
+	@Column(nullable = false)
+	private String birthDate; // 생년월일
+
 	@OneToMany(mappedBy = "blocker", cascade = CascadeType.ALL, orphanRemoval = true)
 	private Set<BlockListEntity> blocking = new HashSet<>();
 
@@ -62,5 +62,7 @@ public class UserEntity {
 
 	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
 	private Set<ReviewEntity> posts = new HashSet<>();
-    
+
+	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+	private Set<GroupMemberShipEntity> groupMemberShip = new HashSet<>(); // 그룹 멤버십 관계
 }
