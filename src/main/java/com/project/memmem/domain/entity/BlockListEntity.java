@@ -7,8 +7,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import org.hibernate.annotations.DynamicUpdate;
+import java.time.LocalDateTime;
 
+import org.hibernate.annotations.DynamicUpdate;
 
 @Setter
 @Getter
@@ -21,15 +22,18 @@ import org.hibernate.annotations.DynamicUpdate;
 public class BlockListEntity {
 
 	@Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "blocker_id", nullable = false)
-    private UserEntity blocker;
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "blocker_id", nullable = false)
+	private UserEntity blocker; //차단한 사용자
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "blocked_id", nullable = false)
-    private UserEntity blocked;
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "blocked_id", nullable = false)
+	private UserEntity blocked; //차단 당한 사용자
+	
+	@Column(nullable = false, updatable = false)
+    private LocalDateTime blockTime; //차단 날짜
 
 }
