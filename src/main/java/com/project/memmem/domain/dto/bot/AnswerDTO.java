@@ -1,5 +1,7 @@
 package com.project.memmem.domain.dto.bot;
 
+import java.util.List;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -13,9 +15,16 @@ public class AnswerDTO {
 	private String answer;
 	private int nnpNo;
 
+	private List<String> options;
+	private boolean endScenario;
+
 	public AnswerDTO nnpNo(int nnpNo) {
 		this.nnpNo = nnpNo;
 		return this;
+	}
+
+	public void setEndScenario(boolean endScenario) {
+		this.endScenario = endScenario;
 	}
 
 }

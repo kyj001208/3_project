@@ -52,6 +52,7 @@ p {
 	opacity: 0;
 	transition: transform 0.3s ease-out, opacity 0.3s ease-out, box-shadow
 		0.3s ease;
+	z-index: 1001;
 }
 
 #bot-container.open {
@@ -204,15 +205,27 @@ p {
 }
 
 #close-button {
-	display: flex;
+	display: block; /* 요소를 화면에 표시 */
 	cursor: pointer;
-	font-size: 18px;
-	background: none;
+	font-size: 18px; /* X 표시 크기 */
+	background: none; /* 배경 제거 */
+	color: black; /* X 표시 색상 */
 	border: none;
 	border-radius: 4px;
 	position: absolute; /* 부모 요소를 기준으로 위치 조정 */
 	top: 10px; /* 상단에서 10px 위치 */
 	right: 10px; /* 오른쪽에서 10px 위치 */
+	z-index: 10; /* 다른 요소 위에 나타나도록 설정 */
+	width: 30px; /* 버튼 너비 */
+	height: 30px; /* 버튼 높이 */
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+#close-button::before {
+	content: "✖"; /* X 표시로 텍스트 사용 */
+	color: #000; /* X 표시 색상 */
 }
 
 #chat-content {
