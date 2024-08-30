@@ -3,6 +3,7 @@ package com.project.memmem.domain.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Getter
@@ -15,18 +16,21 @@ import java.util.List;
 public class ScenarioEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Integer id;
 
-    @Column(nullable = false)
+    @Column(nullable = false, length = 255)
     private String content;
 
     @Column(nullable = false)
-    private int dept;
+    private Integer dept;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @Column(length = 50)
+    private String category;
+
+    @ManyToOne
     @JoinColumn(name = "parent_id")
     private ScenarioEntity parent;
 
-    @OneToMany(mappedBy = "parent", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<ScenarioEntity> children;
+    @OneToMany(mappedBy = "parent", cascade = CascadeType.ALL)
+    private List<ScenarioEntity> children = new ArrayList<>();
 }

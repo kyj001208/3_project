@@ -12,5 +12,6 @@ import lombok.NoArgsConstructor;
 public class QuestionDTO {
 	private Long key;
     private String content;
+    private boolean inScenario;
     
 }

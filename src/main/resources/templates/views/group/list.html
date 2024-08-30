@@ -4,7 +4,10 @@
 
 <head>
 <meta charset="UTF-8">
+
 <link rel="stylesheet" href="/css/group/list.css">
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<script src="/js/group/list.js"></script>
 </head>
 
 <body>
@@ -17,76 +20,45 @@
 		<!-- Category Section -->
 		<section class="category">
 			<form action="/search/places" method="get" class="category-container">
-				<input type="hidden" name="checkinDate" value="2024-08-28">
-				<input type="hidden" name="checkoutDate" value="2024-08-29">
-				<input type="hidden" name="region" value="SEOUL"> <input
-					type="hidden" name="guestCount" value="2">
-				
-				<div class="category-item">
-					<button type="submit" name="accommodationTypes" value="ALL"
-						class="category-item">
-						<img src="/images/puppy.jpg" alt="전체">
-					</button>
-					<p>전체</p>
-				</div>
-				
-				<div class="category-item">
-					<button type="submit" name="accommodationTypes" value="CULTURE"
-						class="category-item">
-						<img src="/images/puppy.jpg" alt="문화">
-					</button>
-					<p>문화</p>
-				</div>
-
-				<div class="category-item">
-					<button type="submit" name="accommodationTypes" value="ACTIVITY"
-						class="category-item">
-						<img src="/images/puppy.jpg" alt="액티비티">
-					</button>
-					<p>액티비티</p>
-				</div>
-				<div class="category-item">
-					<button type="submit" name="accommodationTypes" value="FOOD"
-						class="category-item">
-						<img src="/images/puppy.jpg" alt="푸드">
-					</button>
-					<p>푸드</p>
-				</div>
-				<div class="category-item">
-					<button type="submit" name="accommodationTypes" value="TRAVEL"
-						class="category-item">
-						<img src="/images/puppy.jpg" alt="여행">
-					</button>
-					<p>여행</p>
-				</div>
-				<div class="category-item">
-					<button type="submit" name="themes" value="SELF_DEVELOPMENT"
-						class="category-item">
-						<img src="/images/puppy.jpg" alt="자기계발">
-					</button>
-					<p>자기계발</p>
-				</div>
-				<div class="category-item">
-					<button type="submit" name="themes" value="PARTY"
-						class="category-item">
-						<img src="/images/puppy.jpg" alt="파티">
-					</button>
-					<p>파티</p>
-				</div>
-				<div class="category-item">
-					<button type="submit" name="themes" value="DATING"
-						class="category-item">
-						<img src="/images/puppy.jpg" alt="연애">
-					</button>
-					<p>연애</p>
-				</div>
-				<div class="category-item">
-					<button type="submit" name="themes" value="GAMING"
-						class="category-item">
-						<img src="/images/puppy.jpg" alt="게임">
-					</button>
-					<p>게임</p>
-				</div>
+				<ul>
+					<li class="category-item">
+						<a href="#">전체</a>
+					</li>
+					
+					<li class="category-item">
+						<img src="/images/culture.png" alt="문화">
+						<a href="#">문화</a>
+					</li>
+	
+					<li class="category-item">
+						<img src="/images/activity.png" alt="액티비티">
+						<a href="#">액티비티</a>
+					</li>
+					<li class="category-item">
+						<img src="/images/food.png" alt="푸드">
+						<a href="#">푸드</a>
+					</li>
+					<li class="category-item">
+						<img src="/images/travel.png" alt="여행">
+						<a href="#">여행</a>
+					</li>
+					<li class="category-item">
+						<img src="/images/seldev.png" alt="자기계발">
+						<a href="#">자기계발</a>
+					</li>
+					<li class="category-item">
+						<img src="/images/party.png" alt="파티">
+						<a href="#">파티</a>
+					</li>
+					<li class="category-item">
+						<img src="/images/date.png" alt="연애">
+						<a href="#">연애</a>
+					</li>
+					<li class="category-item">
+						<img src="/images/game.png" alt="게임">
+						<a href="#">게임</a>
+					</li>
+				</ul>
 				<!-- 추가 카테고리 아이템들 -->
 			</form>
 		</section>
@@ -99,53 +71,48 @@
 				<div class="group-cards">
 					<div class="group-card">
 						<div class="group-img-container">
-							<a href="/place/detail/2"> <img src="/images/puppy.jpg"
-								alt="Hotel">
-							</a>
+							<a href="/place/detail/2"> <img src="/images/puppy.jpg"></a>
 						</div>
 						<div class="text-container">
 							<p>노래</p>
 							<h3>서울 노래방</h3>
 							<span class="location">서울시 노원구</span>
+							<div class="member"><img class="people" src="/images/group.png"> 2/30</div>
 						</div>
 					</div>
 					<div class="group-card">
 						<div class="group-img-container">
-							<a href="/place/detail/2"> <img src="/images/puppy.jpg"
-								alt="Hotel">
-							</a>
+							<a href="/place/detail/2"> <img src="/images/puppy.jpg"></a>
 						</div>
 						<div class="text-container">
 							<p>노래</p>
 							<h3>서울 노래방</h3>
 							<span class="location">주 7회 · 34/39</span>
+							<div class="member"><img class="people" src="/images/group.png"> 2/30</div>
 						</div>
 					</div>
 					<div class="group-card">
 						<div class="group-img-container">
-							<a href="/place/detail/2"> <img src="/images/puppy.jpg"
-								alt="Hotel">
-							</a>
+							<a href="/place/detail/2"> <img src="/images/puppy.jpg"></a>
 						</div>
 						<div class="text-container">
 							<p>노래</p>
 							<h3>서울 노래방</h3>
 							<span class="location">주 7회 · 34/39</span>
+							<div class="member"><img class="people" src="/images/group.png"> 2/30</div>
 						</div>
 					</div>
 					<div class="group-card">
 						<div class="group-img-container">
-							<a href="/place/detail/2"> <img src="/images/puppy.jpg"
-								alt="Hotel">
-							</a>
+							<a href="/place/detail/2"> <img src="/images/puppy.jpg"></a>
 						</div>
 						<div class="text-container">
 							<p>노래</p>
-							<h3>서울 노래방</h3>
+							<h3>집에 보내줘 너무 집에 가고 싶어 이게 뭐야 너무 지루해 집가고 싶어</h3>
 							<span class="location">9.1(일) · 4주 간 주 7회 · 34/39</span>
+							<div class="member"><img class="people" src="/images/group.png"> 2/30</div>
 						</div>
 					</div>
-
 					<!-- 다른 프로필 카드 추가 -->
 				</div>
 			</div>

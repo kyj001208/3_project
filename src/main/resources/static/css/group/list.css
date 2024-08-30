@@ -112,10 +112,17 @@ nav a:hover::after {
 
 .category-item {
 	display: flex;
-	flex-direction: column;
 	align-items: center;
-	margin-left: 20px;
+	margin-left: 65px;
 	text-align: center;
+}
+ul {
+	display: flex;
+	padding-right: 100px;
+}
+
+li {
+	cursor: pointer;
 }
 
 .category-item>button {
@@ -124,14 +131,17 @@ nav a:hover::after {
 }
 
 .category-item img {
-	width: 50px;
-	height: 50px;
+	width: 24px;
+	height: 24px;
+	margin-bottom: 5px;
+	margin-right: 17px;
 }
 
-.category-item p {
-	margin-top: 8px;
-	font-size: 14px;
+.category-item a {
+	font-weight: 600;
+	font-size: 20px;
 	color: #333;
+	text-decoration: none;
 }
 
 /**************** 모임 ********************************************/
@@ -139,7 +149,7 @@ nav a:hover::after {
 .groups-container {
 	width: 90%;
 	max-width: 1600px;
-	margin: 0 auto;
+	margin-top: calc(-200px);
 	display: flex;
 	flex-direction: column;
 	align-items: center;
@@ -149,7 +159,7 @@ nav a:hover::after {
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	padding: 40px 0;
+	padding: 0;
 	min-height: 800px;
 }
 
@@ -168,25 +178,32 @@ nav a:hover::after {
 }
 
 .group-card {
-	display: flex;
-	background-color: #f9f9f9;
-	border-radius: 10px;
-	border:1px solid #f9f9f9;
-	overflow: hidden;
-	min-width: 600px;
-}
-
-.group-card img {
-	width: 100%;
-	height: 300px;
-	object-fit: cover;
-	border-radius: 8px;
+    display: flex;
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    border: 1px solid #f9f9f9;
+    overflow: hidden;
+    width: 100%;
+    min-width: 600px;
+    max-width: 600px;
+    box-sizing: border-box;
+    position: relative;
 }
 
 .group-img-container {
 	flex: 0 0 35%;
 	padding: 10px;
 	width: 100%;
+}
+
+.member{
+	margin-top: 20px;
+	color: #999696;
+}
+
+.people{
+	width: 16px;
+	height: 16px;
 }
 
 .group-img-container img {
@@ -196,24 +213,39 @@ nav a:hover::after {
 	border-radius: 5px;
 }
 
-.text-container p {
-    display: inline-block; /* 요소를 인라인 블록으로 설정하여 컨텐츠에 맞게 크기 조정 */
-    font-size: 16px;
-    border: 1px solid #87bfff;
-    background-color: #87bfff;
-    border-radius: 5px;
-    color: #faf8f8;
-    padding: 5px 10px; /* 텍스트 주변에 여백을 추가하여 시각적 여유를 줌 */
+.text-container {
+    flex: 1; /* 남은 공간을 모두 차지하도록 설정 */
+    min-width: 0; /* 필요한 경우 너비를 줄일 수 있도록 설정 */
+    padding: 10px; /* 내부 여백 추가 */
 }
 
+.text-container p {
+    display: inline-block; /* 요소를 인라인 블록으로 설정 */
+    font-size: 18px;
+    border: 1px solid #87bfff;
+    background-color: #87bfff;
+    border-radius: 30px;
+    color: #faf8f8;
+    padding: 5px 10px;
+}
 
 .text-container h3 {
-	font-size: 20px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin: 0;
+    display: block;
+    max-width: 100%;
+    font-size: 24px;
+    padding-right: 10px; /* 오른쪽 여백 추가 */
+    box-sizing: border-box; /* 패딩을 너비에 포함 */
+    margin-bottom: 10px;
 }
 
 .text-container .location {
-	font-size: 16px;
+	font-size: 20px;
 	color : #999696;
+	margin-bottom: 10px;
 }
 
 /* 오버레이 설정 */
