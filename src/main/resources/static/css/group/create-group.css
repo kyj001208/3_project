@@ -32,13 +32,31 @@ h2 {
 }
 
 .header-image {
-	width: 100%;
-	height: 250px;
-	background-image: url('/images/groupEx.jpg'); /* Example image URL */
-	background-size: cover;
-	background-position: center;
-	border-radius: 8px;
-	margin-bottom: 20px;
+    width: 100%;
+    height: 250px;
+    background-color: #f0f0f0; /* 기본 배경색 */
+    background-size: cover;
+    background-position: center;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #777; /* 기본 텍스트 색상 */
+    font-size: 18px; /* 기본 텍스트 크기 */
+    font-weight: bold;
+    position: relative; /* 텍스트 제어를 위한 상대적 위치 */
+}
+
+/* 이미지가 없을 때 텍스트를 표시하는 스타일 */
+.header-image::before {
+    
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    color: #777;
+    font-size: 18px;
 }
 
 label {
@@ -105,5 +123,33 @@ textarea {
 
 .form-group.error .help-text {
 	color: #e74c3c;
+}
+
+.category-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.category-button {
+    padding: 10px 20px;
+    border: 1px solid #007bff;
+    border-radius: 5px;
+    background-color: white;
+    color: #007bff;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.category-button:hover {
+    background-color: #007bff;
+    color: white;
+}
+
+.category-button.active {
+    background-color: #007bff;
+    color: white;
+    font-weight: bold;
 }
 
