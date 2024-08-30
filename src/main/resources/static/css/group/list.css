@@ -1,0 +1,247 @@
+@charset "UTF-8";
+
+.group-banner {
+	background-image: url('/images/groupbanner.jpg');
+	background-size: cover;
+	background-position: center;
+	height: 75vh;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	text-align: center;
+	position: relative;
+}
+
+.overlay {
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background-color: rgba(0, 0, 0, 0.2); /* 이미지 위에 오버레이 */
+	z-index: 1;
+}
+
+/************************* 헤더 *******************************************/
+.banner-header {
+	width: 100%;
+	padding: 5px 0;
+	position: fixed; /* 헤더가 배너 영역 내에서 고정되도록 설정 */
+	top: 0;
+	left: 0;
+	z-index: 10; /* 다른 요소들 위에 배치되도록 z-index 높임 */
+	background-color: rgba(248, 248, 248, 0.3); /* 반투명 배경색 */
+	backdrop-filter: blur(10px); /* 배경을 흐리게 처리 */
+}
+
+.banner-header .container {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+nav ul {
+	list-style: none;
+	display: flex;
+	gap: 20px;
+	padding: 0;
+	margin: 0;
+}
+
+nav a {
+	text-decoration: none;
+	color: #333;
+	position: relative; /* ::after를 위한 위치 기준 */
+	padding-bottom: 5px; /* 하단 줄이 들어갈 공간 확보 */
+}
+
+nav a::after {
+	content: ''; /* 줄을 추가할 내용 없음 */
+	position: absolute;
+	width: 0;
+	height: 2px;
+	background-color: #0046FE; /* 줄 색상 */
+	left: 0;
+	bottom: 0;
+	transition: width 0.3s ease; /* 부드러운 애니메이션 효과 */
+}
+
+nav a:hover::after {
+	width: 100%; /* hover 시 줄이 전체 너비로 확장 */
+}
+
+.signup-btn {
+	padding: 8px 16px;
+	border: 1px solid #333;
+	border-radius: 4px;
+	background-color: rgba(255, 255, 255, 0.8); /* 투명 배경 */
+}
+
+.banner-text {
+	position: relative;
+	z-index: 2;
+}
+
+.banner h1 {
+	font-size: 2.5em;
+	margin-bottom: 0.5em;
+}
+
+.banner h2 {
+	font-size: 1.8em;
+	font-weight: normal;
+}
+
+.banner h2 span.highlight {
+	font-weight: bold;
+}
+/***********************카테고리**************************/
+.category {
+	padding: 20px 0;
+	background-color: #f9f9f9;
+	text-align: center;
+}
+
+.category-container {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	gap: 20px;
+	flex-wrap: wrap;
+}
+
+.category-item {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	margin-left: 20px;
+	text-align: center;
+}
+
+.category-item>button {
+	margin: 0 auto;
+	border: none;
+}
+
+.category-item img {
+	width: 50px;
+	height: 50px;
+}
+
+.category-item p {
+	margin-top: 8px;
+	font-size: 14px;
+	color: #333;
+}
+
+/**************** 모임 ********************************************/
+
+.groups-container {
+	width: 90%;
+	max-width: 1600px;
+	margin: 0 auto;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+.groups {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	padding: 40px 0;
+	min-height: 800px;
+}
+
+.groups h2 {
+	justify-content: center;
+	font-size: 1.5em;
+	margin-bottom: 0.5em;
+}
+
+.group-cards {
+	display: grid;
+	grid-template-columns: repeat(2, 1fr);
+	gap: 20px;
+	max-height: calc(2 * ( 200px + 40px));
+	overflow: hidden;
+}
+
+.group-card {
+	display: flex;
+	background-color: #f9f9f9;
+	border-radius: 10px;
+	border:1px solid #f9f9f9;
+	overflow: hidden;
+	min-width: 600px;
+}
+
+.group-card img {
+	width: 100%;
+	height: 300px;
+	object-fit: cover;
+	border-radius: 8px;
+}
+
+.group-img-container {
+	flex: 0 0 35%;
+	padding: 10px;
+	width: 100%;
+}
+
+.group-img-container img {
+	width: 200px;
+	height: 200px;
+	object-fit: cover;
+	border-radius: 5px;
+}
+
+.text-container p {
+    display: inline-block; /* 요소를 인라인 블록으로 설정하여 컨텐츠에 맞게 크기 조정 */
+    font-size: 16px;
+    border: 1px solid #87bfff;
+    background-color: #87bfff;
+    border-radius: 5px;
+    color: #faf8f8;
+    padding: 5px 10px; /* 텍스트 주변에 여백을 추가하여 시각적 여유를 줌 */
+}
+
+
+.text-container h3 {
+	font-size: 20px;
+}
+
+.text-container .location {
+	font-size: 16px;
+	color : #999696;
+}
+
+/* 오버레이 설정 */
+.group-card .overlay {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 300px;
+	height: 100%;
+	background-color: rgba(0, 0, 0, 0.6);
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	opacity: 0;
+	transition: opacity 0.3s ease-in;
+	color: #fff;
+	text-align: center;
+	border-radius: 10px;
+	padding: 20px;
+	box-sizing: border-box;
+	pointer-events: none; /* 오버레이가 클릭 이벤트를 방해하지 않도록 설정 */
+}
+
+.group-card:hover img {
+	transform: scale(1.05);
+	transition: transform 0.5s ease;
+}
+
+.group-card:hover .overlay {
+	opacity: 1;
+}

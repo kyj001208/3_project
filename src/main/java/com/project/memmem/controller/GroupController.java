@@ -7,7 +7,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class GroupController {
-
+	
+	@GetMapping("/group-list")
+	public String groupList() {
+		return "views/group/list";
+	}
+	
 	@GetMapping("/group-detail")
 	public String groupDetail() {
 		return "views/group/group";

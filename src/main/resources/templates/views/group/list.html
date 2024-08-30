@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	th:replace="~{views/commons/layout :: layout(~{::head} ,~{::main} ) }">
+
+<head>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="/css/group/list.css">
+</head>
+
+<body>
+	<main>
+		<section class="group-banner">
+				<div class="banner-text">
+				</div>
+		</section>
+
+		<!-- Category Section -->
+		<section class="category">
+			<form action="/search/places" method="get" class="category-container">
+				<input type="hidden" name="checkinDate" value="2024-08-28">
+				<input type="hidden" name="checkoutDate" value="2024-08-29">
+				<input type="hidden" name="region" value="SEOUL"> <input
+					type="hidden" name="guestCount" value="2">
+				
+				<div class="category-item">
+					<button type="submit" name="accommodationTypes" value="ALL"
+						class="category-item">
+						<img src="/images/puppy.jpg" alt="전체">
+					</button>
+					<p>전체</p>
+				</div>
+				
+				<div class="category-item">
+					<button type="submit" name="accommodationTypes" value="CULTURE"
+						class="category-item">
+						<img src="/images/puppy.jpg" alt="문화">
+					</button>
+					<p>문화</p>
+				</div>
+
+				<div class="category-item">
+					<button type="submit" name="accommodationTypes" value="ACTIVITY"
+						class="category-item">
+						<img src="/images/puppy.jpg" alt="액티비티">
+					</button>
+					<p>액티비티</p>
+				</div>
+				<div class="category-item">
+					<button type="submit" name="accommodationTypes" value="FOOD"
+						class="category-item">
+						<img src="/images/puppy.jpg" alt="푸드">
+					</button>
+					<p>푸드</p>
+				</div>
+				<div class="category-item">
+					<button type="submit" name="accommodationTypes" value="TRAVEL"
+						class="category-item">
+						<img src="/images/puppy.jpg" alt="여행">
+					</button>
+					<p>여행</p>
+				</div>
+				<div class="category-item">
+					<button type="submit" name="themes" value="SELF_DEVELOPMENT"
+						class="category-item">
+						<img src="/images/puppy.jpg" alt="자기계발">
+					</button>
+					<p>자기계발</p>
+				</div>
+				<div class="category-item">
+					<button type="submit" name="themes" value="PARTY"
+						class="category-item">
+						<img src="/images/puppy.jpg" alt="파티">
+					</button>
+					<p>파티</p>
+				</div>
+				<div class="category-item">
+					<button type="submit" name="themes" value="DATING"
+						class="category-item">
+						<img src="/images/puppy.jpg" alt="연애">
+					</button>
+					<p>연애</p>
+				</div>
+				<div class="category-item">
+					<button type="submit" name="themes" value="GAMING"
+						class="category-item">
+						<img src="/images/puppy.jpg" alt="게임">
+					</button>
+					<p>게임</p>
+				</div>
+				<!-- 추가 카테고리 아이템들 -->
+			</form>
+		</section>
+
+		<!-- Profile Section -->
+		<section class="groups">
+			<div class="groups-container">
+				<div class="container-text">
+				</div>
+				<div class="group-cards">
+					<div class="group-card">
+						<div class="group-img-container">
+							<a href="/place/detail/2"> <img src="/images/puppy.jpg"
+								alt="Hotel">
+							</a>
+						</div>
+						<div class="text-container">
+							<p>노래</p>
+							<h3>서울 노래방</h3>
+							<span class="location">서울시 노원구</span>
+						</div>
+					</div>
+					<div class="group-card">
+						<div class="group-img-container">
+							<a href="/place/detail/2"> <img src="/images/puppy.jpg"
+								alt="Hotel">
+							</a>
+						</div>
+						<div class="text-container">
+							<p>노래</p>
+							<h3>서울 노래방</h3>
+							<span class="location">주 7회 · 34/39</span>
+						</div>
+					</div>
+					<div class="group-card">
+						<div class="group-img-container">
+							<a href="/place/detail/2"> <img src="/images/puppy.jpg"
+								alt="Hotel">
+							</a>
+						</div>
+						<div class="text-container">
+							<p>노래</p>
+							<h3>서울 노래방</h3>
+							<span class="location">주 7회 · 34/39</span>
+						</div>
+					</div>
+					<div class="group-card">
+						<div class="group-img-container">
+							<a href="/place/detail/2"> <img src="/images/puppy.jpg"
+								alt="Hotel">
+							</a>
+						</div>
+						<div class="text-container">
+							<p>노래</p>
+							<h3>서울 노래방</h3>
+							<span class="location">9.1(일) · 4주 간 주 7회 · 34/39</span>
+						</div>
+					</div>
+
+					<!-- 다른 프로필 카드 추가 -->
+				</div>
+			</div>
+		</section>
+	</main>
+</body>
+
+</html>
