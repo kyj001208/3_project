@@ -16,5 +16,5 @@ public class MemmemApplication {
 	PasswordEncoder passwordEncoder() {
 		return new BCryptPasswordEncoder(14);
 	}
-
+	
 }
