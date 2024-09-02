@@ -24,7 +24,6 @@ body {
 .header-image {
 	width: 100%;
 	height: 450px;
-	background-image: url('/images/groupEx.jpg'); /* Example image URL */
 	background-size: cover;
 	background-position: center;
 	border-radius: 8px;
@@ -225,3 +224,19 @@ body {
 	margin-bottom: 5px;
 }
 
+.alert {
+    padding: 10px;
+    margin-top: 10px;
+    border: 1px solid transparent;
+    border-radius: 5px;
+}
+.alert-success {
+    color: #155724;
+    background-color: #d4edda;
+    border-color: #c3e6cb;
+}
+.alert-danger {
+    color: #721c24;
+    background-color: #f8d7da;
+    border-color: #f5c6cb;
+}
