@@ -1,17 +1,43 @@
 @charset "UTF-8";
 
 .group-banner {
-	background-image: url('/images/groupbanner.jpg');
-	background-size: cover;
-	background-position: center;
-	height: 75vh;
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-	text-align: center;
-	position: relative;
+	background-color:#fafafa;
+    height: 75vh; /* 배너 높이를 적절하게 설정 */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center; /* 콘텐츠를 가로로 중앙 정렬 */
+    text-align: center;
+    padding: 20px; /* 텍스트 주변에 여백 추가 */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* 약간의 그림자 추가로 깊이감 부여 */
 }
 
+.banner-text {
+    font-size: 40px; /* 제목 크기 설정 */
+    color: #333; /* 텍스트 색상 설정 */
+    max-width: 800px; /* 읽기 쉽게 너비 제한 */
+    margin: 0 auto; /* 배너 내에서 텍스트 중앙 정렬 */
+    padding: 10px 20px; /* 텍스트 컨테이너 내부 여백 추가 */
+}
+
+.banner-text-small {
+    font-size: 28px; /* 부제목 크기 설정 */
+    color: #383535; /* 부제목 색상 설정 */
+    line-height:32px;
+    font-weight:400;
+    line-height:32px;
+    margin-top: 10px; /* 제목과의 간격 설정 */
+}
+
+.banner-text h2 {
+	color: #87bfff;
+    font-weight: 700;
+    font-size: 28px;
+    justify-content: center;
+    display: flex;
+    margin-bottom: 0.5em;
+    padding-top: 0.2em;
+}
 .overlay {
 	position: absolute;
 	top: 0;
