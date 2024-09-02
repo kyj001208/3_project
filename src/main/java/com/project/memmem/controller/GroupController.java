@@ -31,12 +31,14 @@ public class GroupController {
 
 	private final GroupService groupservice;
 
+
 	@GetMapping("/group-detail/{id}")
 	public String groupDetail(@PathVariable("id") Long groupId, Model model, @AuthenticationPrincipal CustomUserDetails userDetails) {
 		List<GroupListDTO> groups = groupservice.getGroupsByGroupId(groupId);
 		 boolean isMember = groupservice.isUserMemberOfGroup(userDetails.getUserId(), groupId); // 사용자 가입 여부 확인
 		model.addAttribute("groups", groups);
 		model.addAttribute("isMember", isMember); // 플래그 추가
+
 		return "views/group/group";
 	}
 

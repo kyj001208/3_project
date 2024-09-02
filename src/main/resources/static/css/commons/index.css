@@ -220,13 +220,18 @@ nav a:hover::after {
 .text-container p {
     display: inline-block; /* 요소를 인라인 블록으로 설정하여 컨텐츠에 맞게 크기 조정 */
     font-size: 18px;
+    padding: 5px 0px; /* 텍스트 주변에 여백을 추가하여 시각적 여유를 줌 */
+}
+
+.text-container .category {
+    display: inline-block; /* 요소를 인라인 블록으로 설정하여 컨텐츠에 맞게 크기 조정 */
+    font-size: 18px;
     border: 1px solid #87bfff;
     background-color: #87bfff;
     border-radius: 30px;
     color: #faf8f8;
     padding: 5px 10px; /* 텍스트 주변에 여백을 추가하여 시각적 여유를 줌 */
 }
-
 
 .text-container h3 {
     white-space: nowrap;

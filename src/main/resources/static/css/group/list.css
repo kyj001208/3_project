@@ -1,7 +1,6 @@
 @charset "UTF-8";
 
 .group-banner {
-	background-color:#fafafa;
     height: 75vh; /* 배너 높이를 적절하게 설정 */
     display: flex;
     flex-direction: column;
@@ -121,11 +120,23 @@ nav a:hover::after {
 .banner h2 span.highlight {
 	font-weight: bold;
 }
+
+.front {
+    width: 24px;
+    height: 24px;
+    margin-top: 5px;
+    margin-right: 7px;
+}
+
 /***********************카테고리**************************/
 .category {
 	padding: 20px 0;
 	background-color: #f9f9f9;
 	text-align: center;
+	position: sticky;
+	top: 40px;
+	z-index: 1;
+	padding-top: 1rem;
 }
 
 .category-container {
@@ -143,6 +154,7 @@ nav a:hover::after {
 	text-align: center;
 }
 ul {
+	
 	display: flex;
 	padding-right: 100px;
 }
@@ -198,7 +210,9 @@ li {
 .group-cards {
 	display: grid;
 	grid-template-columns: repeat(2, 1fr);
-	gap: 20px;
+	column-gap: 24px;
+	row-gap: 24px;
+	padding-top: 240px;
 	max-height: calc(2 * ( 200px + 40px));
 	overflow: hidden;
 }
@@ -246,13 +260,19 @@ li {
 }
 
 .text-container p {
-    display: inline-block; /* 요소를 인라인 블록으로 설정 */
+    display: inline-block; /* 요소를 인라인 블록으로 설정하여 컨텐츠에 맞게 크기 조정 */
+    font-size: 18px;
+    padding: 5px 0px; /* 텍스트 주변에 여백을 추가하여 시각적 여유를 줌 */
+}
+
+.text-container .categories {
+    display: inline-block; /* 요소를 인라인 블록으로 설정하여 컨텐츠에 맞게 크기 조정 */
     font-size: 18px;
     border: 1px solid #87bfff;
     background-color: #87bfff;
     border-radius: 30px;
     color: #faf8f8;
-    padding: 5px 10px;
+    padding: 5px 10px; /* 텍스트 주변에 여백을 추가하여 시각적 여유를 줌 */
 }
 
 .text-container h3 {
