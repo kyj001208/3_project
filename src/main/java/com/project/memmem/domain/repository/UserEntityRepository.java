@@ -6,10 +6,5 @@ import com.project.memmem.domain.entity.UserEntity;
 
 public interface UserEntityRepository extends JpaRepository<UserEntity, Long> {
 
-	UserEntity findByEmail(String username);
-
-	boolean existsByEmail(String email);
-
-
-
+	UserEntity findByEmail(String email);
 }
