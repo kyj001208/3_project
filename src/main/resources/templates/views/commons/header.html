@@ -17,8 +17,8 @@
 
 				<!-- 사용자 정보 및 로그아웃 표시 -->
 				<li sec:authorize="isAuthenticated()">
-					<a href="/logout">로그아웃</a>
 					<i sec:authentication="principal.email"></i>
+					<a href="/logout">로그아웃</a>
 				</li>
 			</ul>
 		</nav>

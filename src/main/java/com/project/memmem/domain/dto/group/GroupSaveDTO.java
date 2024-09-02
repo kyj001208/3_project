@@ -4,6 +4,8 @@ import java.util.List;
 
 import com.project.memmem.domain.entity.Category;
 import com.project.memmem.domain.entity.GroupEntity;
+import com.project.memmem.domain.entity.GroupMemberShipEntity;
+import com.project.memmem.domain.entity.UserEntity;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -24,12 +26,13 @@ public class GroupSaveDTO {
     private List<String> additionalImageBucketKeys;
     private List<String> additionalImageOrgNames;
     
-    public GroupEntity toGroupEntity() {
+    public GroupEntity toGroupEntity(UserEntity creator) {
     	return GroupEntity.builder()
     			.groupName(groupName)
     			.greeting(greeting)
     			.description(description)
     			.category(category)
+    			.creator(creator)
     			.build();
     }
 	

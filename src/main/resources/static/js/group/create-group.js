@@ -75,11 +75,18 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // 폼 제출 시 Quill 내용을 숨겨진 input에 설정
     document.getElementById('create-group-form').onsubmit = function(e) {
-        var greetingHtml = quillGreeting.root.innerHTML;
-        var descriptionHtml = quillDescription.root.innerHTML;
+        // Quill 에디터에서 HTML 내용을 가져와 숨겨진 input에 설정
+        document.getElementById('group-greeting-input').value = quillGreeting.root.innerHTML.trim();
+        document.getElementById('group-description-input').value = quillDescription.root.innerHTML.trim();
 
-        document.getElementById('group-greeting-input').value = greetingHtml;
-        document.getElementById('group-description-input').value = descriptionHtml;
+        // Quill 내용이 비어 있는지 확인
+        if (!document.getElementById('group-greeting-input').value) {
+            console.warn('그룹 인삿말 내용이 비어 있습니다.');
+        }
+
+        if (!document.getElementById('group-description-input').value) {
+            console.warn('그룹 설명 내용이 비어 있습니다.');
+        }
     };
 });
 
@@ -101,12 +108,11 @@ function saveToServer(file) {
 
 // uploadImage 함수 정의
 function uploadImage(url, formData) {
-    const csrfToken = document.querySelector('input[name="_csrf"]');
+    const csrfToken = document.querySelector('meta[name="_csrf"]').getAttribute('content');
 
-    let headers = {};
-    if (csrfToken) {
-        headers['X-CSRF-TOKEN'] = csrfToken.value;
-    }
+    let headers = {
+        'X-CSRF-TOKEN': csrfToken, // CSRF 토큰을 헤더에 추가
+    };
 
     return fetch(url, {
         method: "POST",
@@ -160,11 +166,7 @@ function fileupload(input) {
         previewDiv.innerHTML = `<img src="${e.target.result}" alt="Image preview" style="max-width: 100%; max-height: 200px;">`;
         previewDiv.style.display = 'block';
 
-        // header-image 배경 이미지 설정
         document.querySelector('.header-image').style.backgroundImage = `url(${e.target.result})`;
-        
-        
-        // 이미지가 업로드되면 안내 텍스트 숨기기
         document.querySelector('.header-image').style.setProperty('content', 'none');
     };
     reader.readAsDataURL(files[0]);
@@ -172,7 +174,7 @@ function fileupload(input) {
     var formData = new FormData();
     formData.append("file", files[0]);
 
-    uploadImage("/uploadImage", formData)  // `/uploadImage` 엔드포인트로 업로드
+    uploadImage("/uploadImage", formData)
         .then(result => {
             console.log("Server response:", result);
             const url = result.url;
@@ -184,7 +186,6 @@ function fileupload(input) {
                 return;
             }
 
-            // hidden 필드 업데이트
             let bucketKeyInput = document.querySelector('input[name="mainImageBucketKey"]');
             let orgNameInput = document.querySelector('input[name="mainImageOrgName"]');
 
