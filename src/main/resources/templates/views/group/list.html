@@ -1,20 +1,25 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"
-	th:replace="~{views/commons/layout :: layout(~{::head} ,~{::main} ) }">
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{views/commons/layout :: layout(~{::head} ,~{::main} ) }">
 
 <head>
-<meta charset="UTF-8">
+	<meta charset="UTF-8">
 
-<link rel="stylesheet" href="/css/group/list.css">
-<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-<script src="/js/group/list.js"></script>
+	<link rel="stylesheet" href="/css/group/list.css">
+	<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+	<script src="/js/group/list.js"></script>
 </head>
 
 <body>
 	<main>
 		<section class="group-banner">
-				<div class="banner-text">
+			<div class="banner-text">
+				<h2><img class="front" src="/images/1.png">모임</h2>
+				<h1>오늘 뭐하지 고민 될 때</h1>
+				<div class="banner-text-small">
+					나와 같은 관심사를 가진 친구들과<br>
+					매일 함께하고 싶다면 모임에서 만나요!
 				</div>
+			</div>
 		</section>
 
 		<!-- Category Section -->
@@ -24,12 +29,12 @@
 					<li class="category-item">
 						<a href="#">전체</a>
 					</li>
-					
+
 					<li class="category-item">
 						<img src="/images/culture.png" alt="문화">
 						<a href="#">문화</a>
 					</li>
-	
+
 					<li class="category-item">
 						<img src="/images/activity.png" alt="액티비티">
 						<a href="#">액티비티</a>
