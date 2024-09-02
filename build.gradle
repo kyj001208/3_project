@@ -36,9 +36,11 @@ dependencies {
     implementation 'io.awspring.cloud:spring-cloud-aws-starter-s3:3.1.1'
 
     implementation 'org.springframework.boot:spring-boot-starter-security'
+
 	implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity6'
 	  	
 	implementation 'org.springframework.boot:spring-boot-starter-webflux' // WebClient 사용 시
+
     	
 	implementation 'com.github.mwiede:jsch:0.2.18'
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
@@ -53,7 +55,7 @@ dependencies {
 	annotationProcessor 'org.projectlombok:lombok'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
-
+	
 	testImplementation 'org.springframework.security:spring-security-test'
 
 }

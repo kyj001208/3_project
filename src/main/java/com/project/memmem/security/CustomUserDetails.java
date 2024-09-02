@@ -1,49 +1,31 @@
 package com.project.memmem.security;
-
-import lombok.Getter;
-
-import java.util.Collections;
+import java.util.Set;
 
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
+
 import com.project.memmem.domain.entity.UserEntity;
 
+import lombok.Getter;
 @Getter
 public class CustomUserDetails extends User {
-
     private static final long serialVersionUID = 1L;
-
-    private final String email; // 사용자의 이메일
-    private final String name; // 사용자의 이름
-    private final UserEntity userEntity; // 사용자와 연관된 UserEntity를 참조합니다.
-    private final long userId; // 사용자의 고유 ID
-    private final String number; // 사용자의 전화번호
-
-    /**
-     * UserEntity를 기반으로 CustomUserDetails 객체를 생성합니다.
-     * 이 생성자는 일반 로그인 사용자를 위한 것입니다.
-     *
-     * @param entity UserEntity 객체
-     */
+    private final String email;
+    private final String name;
+    private final String nickName;
+    //private final UserEntity userEntity;
+    private final long userId;
+    private final String number; // 수정된 부분
+    //private final Map<String, Object> attributes;
+    
     public CustomUserDetails(UserEntity entity) {
-        // 부모 클래스인 User의 생성자를 호출하여 사용자명과 비밀번호를 설정합니다.
-        super(entity.getEmail(), entity.getPassword(), Collections.singletonList(new SimpleGrantedAuthority("ROLE_USER")));
-
-        // UserEntity로부터 사용자 세부 정보를 초기화합니다.
+        super(entity.getEmail(), entity.getPassword(),
+              Set.of(new SimpleGrantedAuthority("ROLE_" + entity.getRole().name())));
         this.email = entity.getEmail();
         this.name = entity.getName();
-        this.userEntity = entity; // UserEntity 객체를 저장합니다.
+        this.nickName = entity.getNickName();
         this.userId = entity.getUserId();
-        this.number = entity.getNumber();
+        this.number = entity.getNumber(); // 수정된 부분
     }
-
-    /**
-     * UserEntity 객체를 반환하는 메서드입니다.
-     * 이 메서드를 통해 UserEntity에 직접 접근할 수 있습니다.
-     *
-     * @return UserEntity 객체
-     */
-    public UserEntity getUser() {
-        return this.userEntity;
-    }
+    
 }

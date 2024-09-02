@@ -135,6 +135,12 @@ button:hover {
     font-size: 14px;
     color: #4c8bf5;
 }
+.error-message {
+    color: red;
+    font-size: 1.1em;
+    margin-top: 10px;
+    text-align: center;
+}
 
 .remember-me {
     font-size: 14px;
