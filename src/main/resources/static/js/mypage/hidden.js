@@ -23,22 +23,31 @@ $(document).ready(function() {
             },
             success: function(response) {
                 try {
-                    let jsonResponse;
+                    let aiResponse;
                     if (typeof response === 'string') {
-                        jsonResponse = JSON.parse(response);
+                        // JSON 문자열인 경우 파싱
+                        const jsonResponse = JSON.parse(response);
+                        if (jsonResponse.messages && jsonResponse.messages.length > 0) {
+                            aiResponse = jsonResponse.messages[0].content;
+                        } else if (jsonResponse.choices && jsonResponse.choices.length > 0) {
+                            aiResponse = jsonResponse.choices[0].message.content;
+                        } else {
+                            throw new Error("Unexpected response format");
+                        }
+                    } else if (typeof response === 'object') {
+                        // 이미 객체인 경우
+                        if (response.messages && response.messages.length > 0) {
+                            aiResponse = response.messages[0].content;
+                        } else if (response.choices && response.choices.length > 0) {
+                            aiResponse = response.choices[0].message.content;
+                        } else {
+                            throw new Error("Unexpected response format");
+                        }
                     } else {
-                        jsonResponse = response;
+                        throw new Error("Unexpected response type");
                     }
 
-                    if (jsonResponse.messages && jsonResponse.messages.length > 0) {
-                        const aiResponse = jsonResponse.messages[0].content;
-                        addMessageToChat('assistant', aiResponse);
-                    } else if (jsonResponse.choices && jsonResponse.choices.length > 0) {
-                        const aiResponse = jsonResponse.choices[0].message.content;
-                        addMessageToChat('assistant', aiResponse);
-                    } else {
-                        throw new Error("Unexpected response format");
-                    }
+                    addMessageToChat('assistant', aiResponse);
                 } catch (e) {
                     console.error("Error processing response:", e);
                     addMessageToChat('error', "Error processing response: " + e.message);

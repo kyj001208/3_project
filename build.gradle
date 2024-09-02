@@ -38,7 +38,11 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-security'
 
 	implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity6'
+	
+	//웹크롤링
+    implementation 'org.jsoup:jsoup:1.18.1'
 	  	
+	//hidden
 	implementation 'org.springframework.boot:spring-boot-starter-webflux' // WebClient 사용 시
 
     	

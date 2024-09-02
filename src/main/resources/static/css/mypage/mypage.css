@@ -163,4 +163,33 @@ h1 {
     padding: 30px;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
 }
-
+/*수정 버튼 css*/
+ .button-container {
+        display: flex;
+        justify-content: center;
+        margin-top: 20px;
+    }
+    .btn {
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 16px;
+        transition: background-color 0.3s;
+    }
+    .btn-primary {
+        background-color: #3498db;
+        color: white;
+    }
+    .btn-primary:hover {
+        background-color: #2980b9;
+    }
+    .btn-secondary {
+        background-color: #e84117;
+        color: #34495e;
+        text-decoration: none;
+        margin-left: 10px;
+    }
+    .btn-secondary:hover {
+        background-color: #bdc3c7;
+    }

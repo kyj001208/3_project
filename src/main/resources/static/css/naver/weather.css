@@ -1,0 +1,55 @@
+body {
+	font-family: Arial, sans-serif;
+	background-color: #f0f0f0;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	height: 100vh;
+	margin: 0;
+}
+
+.weather-card {
+	background-color: white;
+	border-radius: 10px;
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+	padding: 20px;
+	text-align: center;
+	max-width: 300px;
+	width: 100%;
+}
+
+.city {
+	font-size: 24px;
+	font-weight: bold;
+	margin-bottom: 10px;
+}
+
+.temperature {
+	font-size: 28px;
+	font-weight: bold;
+	margin: 20px 0;
+}
+
+.status, .humidity {
+	font-size: 18px;
+	margin: 10px 0;
+}
+
+.weather-icon {
+	font-size: 64px;
+	margin: 20px 0;
+}
+
+.weather-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.weather-icon span {
+    margin-right: 8px; /* 아이콘과 상태 텍스트 사이의 간격 */
+}
+
+.weather-status {
+    font-size: 16px; /* 상태 텍스트 크기 조정 */
+}

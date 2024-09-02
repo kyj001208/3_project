@@ -6,17 +6,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/css/mypage/mypage.css">
     <script src="/js/mypage/mypage.js" defer></script>
+    
 </head>
 <body>
-    <main>
+    <main  style="background-color: rgba(0,0,0,.25);min-height: calc(100vh);">
         <div class="my-container">
             <div class="left-column">
-                <h1>홍길동</h1>
+                <h1 th:text="${name}">홍길동</h1>
                 <div class="profile-summary">
                     <div class="profile-pic" style="background-image: url('/path/to/profile-pic.jpg');"></div>
                     <div class="profile-details">
-                        <p class="nickname"><b>닉네임</b></p>
-                        <p class="email"><b>hong@example.com</b></p>
+                        <p class="nickname"><b th:text="${nickName}">닉네임</b></p>
+                    <p class="email"><b th:text="${email}">이메일</b></p>
                     </div>
                 </div>
                 <div class="menu-item" data-section="profile"><b>프로필</b></div>

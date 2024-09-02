@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<link rel="stylesheet" href="/css/naver/weather.css"/>
+<head>
+<meta charset="UTF-8">
+<title>날씨 정보</title>
+</head>
+<body>
+	<div th:if="${error != null}" class="error-message" th:text="${error}"></div>
+	<div class="weather-card" th:if="${weatherInfo != null}">
+		<div class="city" th:text="${city}">서울</div>
+		<div class="temperature" th:text="${weatherInfo.temperature}">20°C</div>
+		<div class="weather-icon" th:switch="${weatherInfo.status}">
+			<span th:case="'맑음'">☀️</span>
+			<span th:case="'흐림'">☁️</span>
+			<span th:case="'비'">🌧️</span>
+			<span th:case="*">🌤️</span>
+			<span th:text="${weatherInfo.status}" class="weather-status"></span>
+		</div>
+		<div class="humidity" th:text="'습도: ' + ${weatherInfo.humidity}">습도</div>
+	</div>
+</body>
+</html>

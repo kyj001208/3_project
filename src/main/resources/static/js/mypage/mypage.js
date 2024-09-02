@@ -13,6 +13,14 @@ document.addEventListener('DOMContentLoaded', () => {
             }
             const html = await response.text();
             content.innerHTML = html;
+
+            // 프로필 수정 버튼에 대한 이벤트 리스너 추가
+            const editProfileBtn = document.getElementById('edit-profile');
+            if (editProfileBtn) {
+                editProfileBtn.addEventListener('click', function() {
+                    loadContent('edit');
+                });
+            }
         } catch (error) {
             console.error('Detailed error:', error);
             content.innerHTML = `<h1>오류가 발생했습니다</h1><p>콘텐츠를 불러오는 데 실패했습니다.</p><p>오류 상세: ${error.message}</p>`;
@@ -34,4 +42,12 @@ document.addEventListener('DOMContentLoaded', () => {
             loadContent(section);
         });
     });
+
+    // 초기 페이지 로드 시 프로필 수정 버튼에 대한 이벤트 리스너 추가
+    const initialEditProfileBtn = document.getElementById('edit-profile');
+    if (initialEditProfileBtn) {
+        initialEditProfileBtn.addEventListener('click', function() {
+            loadContent('edit');
+        });
+    }
 });
