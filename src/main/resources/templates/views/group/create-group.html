@@ -3,6 +3,8 @@
 
 <head>
 	<meta charset="UTF-8">
+	<meta name="_csrf" th:content="${_csrf.token}" />
+	<meta name="_csrf_header" th:content="${_csrf.headerName}" />
 	<link rel="stylesheet" href="/css/group/create-group.css">
 	<link href="https://cdn.jsdelivr.net/npm/quill@2.0.2/dist/quill.snow.css" rel="stylesheet" />
 	<script src="https://cdn.jsdelivr.net/npm/quill@2.0.2/dist/quill.js"></script>
@@ -15,6 +17,7 @@
 			<h2>새로운 그룹 생성</h2>
 			<div class="header-image"></div> <!-- 썸네일 이미지 배경으로 사용 -->
 			<form id="create-group-form" method="post" action="/groupSave">
+				<input type="hidden" th:if="${_csrf}" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
 				<div class="form-group">
 					<label for="group-name">그룹 이름</label>
 					<input type="text" id="group-name" name="groupName" placeholder="소모임 이름을 입력하세요" required>
@@ -54,8 +57,8 @@
 				</div>
 
 				<!-- 숨겨진 input 필드를 추가하여 Quill 내용을 저장 -->
-				<input type="hidden" name="groupGreeting" id="group-greeting-input">
-				<input type="hidden" name="groupDescription" id="group-description-input">
+				<input type="hidden" name="greeting" id="group-greeting-input" value="">
+				<input type="hidden" name="description" id="group-description-input" value="">
 
 				<!-- 여기에 숨겨진 input 필드를 추가합니다 -->
 				<input type="hidden" name="mainImageBucketKey" id="mainImageBucketKey">
