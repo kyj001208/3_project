@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', function() {
   const toggleBtn = document.querySelector('.toggle-btn');
   const floatingMenu = document.querySelector('.floating-menu');
-
+  
   toggleBtn.addEventListener('click', function() {
     if (floatingMenu.style.display === 'block') {
       floatingMenu.style.display = 'none';
@@ -14,4 +14,3 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   });
 });
-
