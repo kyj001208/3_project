@@ -4,6 +4,7 @@
 
 <head>
 <meta charset="UTF-8">
+<link rel="stylesheet" href="/css/commons/index.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
 <script src="/js/commons/index.js"></script>
 </head>
@@ -32,52 +33,28 @@
 					<p>모임으로 계속해서 친하게 지내요</p>
 				</div>
 				<div class="group-cards">
-					<div class="group-card">
-					<div class="group-img-container">
-						<a href="/place/detail/2"> <img src="/images/puppy.jpg"></a>
-						</div>
-						<div class="text-container">
-							<p>노래</p>
-							<h3>서울 노래방</h3>
-							<span class="location">서울시  노원구</span> 
-							<div class="member"><img class="people" src="/images/group.png"> 2/30</div>
-						</div>
-					</div>
-					<div class="group-card">
-					<div class="group-img-container">
-						<a href="/place/detail/2"> <img src="/images/puppy.jpg"></a>
-						</div>
-						<div class="text-container">
-							<p>노래</p>
-							<h3>집에 보내줘 너무 집에 가고 싶어 이게 뭐야 너무 지루해 집가고 싶어</h3>
-							<span class="location">주 7회 · 34/39</span>
-							<div class="member"><img class="people" src="/images/group.png"> 2/30</div>
-						</div>
-					</div>
-					<div class="group-card">
-					<div class="group-img-container">
-						<a href="/place/detail/2"> <img src="/images/puppy.jpg">
-						</a>
-						</div>
-						<div class="text-container">
-							<p>노래</p>
-							<h3>서울 노래방</h3>
-							<span class="location">주 7회 · 34/39</span>
-							<div class="member"><img class="people" src="/images/group.png"> 2/30</div>
-						</div>
-					</div>
-					<div class="group-card">
-					<div class="group-img-container">
-						<a href="/place/detail/2"> <img src="/images/puppy.jpg"></a>
-						</div>
-						<div class="text-container">
-							<p>노래</p>
-							<h3>서울 노래방</h3>
-							<span class="location">9.1(일) · 4주 간 주 7회 · 34/39</span>
-							<div class="member"><img class="people" src="/images/group.png"> 2/30</div>
-						</div>
-					</div>
-					
+					<div th:each="group : ${groups}" class="group-card">
+	                    <div class="group-img-container">
+	                        <a th:href="@{/place/detail/{id}(id=${group.id})}">
+	                            <img th:src="@{/images/puppy.jpg}" alt="Group Image">
+	                        </a>
+	                    </div>
+	                    <div class="text-container">
+	                        <p class="category" th:text="${group.category.koName}">Category</p>
+		                        <p>Since</p> 
+		                        <p th:text="${group.createdAt}">Creation Date</p>
+	                        <h3 th:text="${group.groupName}">Group Name</h3>
+	                        <span class="location">
+	                            <span th:text="${group.greeting}">Greeting</span>
+	                            
+	                        </span>
+	                        <div class="member">
+	                            <img class="people" src="/images/group.png" alt="Members">
+	                            <span>2</span>/30
+	                            
+	                        </div>
+	                    </div>
+	                </div>
 					<!-- 다른 프로필 카드 추가 -->
 				</div>
 				<a class="link" href="/group-list"><span >더보기</span></a>

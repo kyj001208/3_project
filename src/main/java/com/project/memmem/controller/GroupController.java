@@ -25,12 +25,6 @@ public class GroupController {
 
 	private final GroupService groupservice;
 
-	@GetMapping("/group-list")
-	public String groupList() {
-		return "views/group/list";
-	}
-
-
 	@GetMapping("/group-detail")
 	public String groupDetail() {
 		return "views/group/group";
