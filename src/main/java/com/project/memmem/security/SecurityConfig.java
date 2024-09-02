@@ -11,42 +11,47 @@ import lombok.RequiredArgsConstructor;
 @EnableWebSecurity
 @RequiredArgsConstructor
 public class SecurityConfig {
-    private final CustomUserDetailsService customUserDetailsService;
+    //private final CustomUserDetailsService customUserDetailsService;
     private final CustomLoginSuccessHandler customLoginSuccessHandler;
+    
+    
+    
     @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+    SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
-        .authorizeHttpRequests(authorize -> authorize
-                // 공개 접근 허용 URL 설정                   
-                .requestMatchers("/**").permitAll()
-                .requestMatchers("/css/**", "/js/**", "/images/**", "/favicon.ico").permitAll()
-                .requestMatchers("/mypage/").hasRole("USER")
-                .anyRequest().authenticated()
-            )
-            .formLogin(login -> login
-                .loginPage("/login")
-                .loginProcessingUrl("/login")
-                .usernameParameter("email")
-                .passwordParameter("password")
-                .successHandler(customLoginSuccessHandler)
-                .permitAll()
-            )
-            .logout(logout -> logout
-                .logoutUrl("/logout")
-                .logoutSuccessUrl("/")
-                .invalidateHttpSession(true)
-                .deleteCookies("JSESSIONID")
-                .permitAll()
-            )
-            //GET 요청을 통해 로그아웃을 처리하도록 허용
-            .logout(logout -> logout.logoutRequestMatcher(
-                     new OrRequestMatcher(
-                            new AntPathRequestMatcher("/logout", "GET"),
-                            new AntPathRequestMatcher("/logout", "POST")
-                        )
-            ))
-            ;
+	        .authorizeHttpRequests(authorize -> authorize
+	        		.requestMatchers("/css/**", "/js/**", "/images/**", "/favicon.ico").permitAll()
+	        		.requestMatchers("/login","/logout","/signup", "/login?error=true").permitAll()  // 로그인 페이지와 오류 페이지에 대한 접근 허용               
+	                .requestMatchers("/mypage/").hasRole("USER")
+	                .anyRequest().authenticated()
+	            )
+	        .formLogin(login -> login
+	            .loginPage("/login")
+	            .loginProcessingUrl("/login")
+	            .usernameParameter("email")
+	            .passwordParameter("password")
+	            .successHandler(customLoginSuccessHandler)
+	            .failureUrl("/login?error=true") // 로그인 실패 시 리다이렉트할 URL
+	            .permitAll()
+	        )
+	        .logout(logout -> logout
+	            .logoutUrl("/logout")
+	            .logoutSuccessUrl("/")
+	            .invalidateHttpSession(true)
+	            .deleteCookies("JSESSIONID")
+	            .permitAll()
+	        )
+	        /*
+	        //GET 요청을 통해 로그아웃을 처리하도록 허용
+	        .logout(logout -> logout.logoutRequestMatcher(
+	                 new OrRequestMatcher(
+	                        new AntPathRequestMatcher("/logout", "GET"),
+	                        new AntPathRequestMatcher("/logout", "POST")
+	                    )
+	        ))
+	        */
+	           ;
 
-            return http.build();
-        }
+        return http.build();
     }
+}

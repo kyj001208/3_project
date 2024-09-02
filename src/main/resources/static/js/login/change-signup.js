@@ -27,7 +27,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 <input type="password" name="password" placeholder="비밀번호를 입력하세요." required>
                 <input type="text" name="nickName" placeholder="사용할 닉네임을 입력하세요." required>
                 <button type="submit">회원가입</button>
-                <input type="hidden" name="${header}" value="${token}">
+                <input type="hidden" name="_csrf" value="${token}">
             </form>
             <div class="links">
                 <a href="#" id="login-link">로그인</a>
@@ -54,7 +54,7 @@ document.addEventListener('DOMContentLoaded', function () {
             <img src="/images/logo.png" alt="memmem 로고" class="logo">
             <form action="/login" method="post">
                 <div class="wrap">
-                    <input type="text" name="username" placeholder="아이디를 입력하세요." required>
+                    <input type="text" name="email" placeholder="아이디를 입력하세요." required>
                     <input type="password" name="password" placeholder="비밀번호를 입력하세요." required>
                 </div>
                 <label class="remember-me">
@@ -65,7 +65,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     <a href="#" id="signup-link">회원가입하기</a>
                     <a href="#">비밀번호 찾기</a>
                 </div>
-                <input type="hidden" name="${header}" value="${token}">
+                <input type="hidden" name="_csrf" value="${token}">
             </form>
         `;
 

@@ -2,6 +2,7 @@ package com.project.memmem.domain.dto;
 
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+import com.project.memmem.domain.entity.Role;
 import com.project.memmem.domain.entity.UserEntity;
 
 import lombok.Getter;
@@ -32,6 +33,7 @@ public class SignupDTO {
 				.email(email)
 				.password(pe.encode(password))
 				.nickName(nickName)
+				.role(Role.USER)
 				.build();
     }
 }
