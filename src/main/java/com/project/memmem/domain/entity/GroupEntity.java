@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 import org.hibernate.annotations.DynamicUpdate;
+import com.project.memmem.domain.dto.group.GroupListDTO;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -62,8 +63,34 @@ public class GroupEntity {
     @Column(nullable = false)
     private Category category; // 카테고리, ENUM
     
+    @OneToMany(mappedBy = "groups", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<ImageEntity> images; // 그룹과 연결된 이미지 리스트
+    
     @PrePersist
     public void prePersist() {
         this.createdAt = this.createdAt == null ? LocalDateTime.now() : this.createdAt;
+    }
+    
+    // GroupListDTO 변환 메서드
+    public GroupListDTO toGroupListDTO(String baseUrl) {
+        String mainImageUrl = null;
+
+        // 이미지 목록 중 메인 이미지를 가져오는 로직
+        for (ImageEntity image : images) {
+            if (image.getImageType() == ImageEntity.ImageType.GROUP && image.getImageUrl() != null) {
+                mainImageUrl = baseUrl + image.getImageUrl();
+                break; // 첫 번째 이미지를 메인 이미지로 사용
+            }
+        }
+
+        return GroupListDTO.builder()
+        		.id(id)
+                .groupName(this.groupName)
+                .greeting(this.greeting)
+                .description(this.description)
+                .category(this.category)
+                .creatorNickname(creator.getNickName())
+                .mainImageUrl(mainImageUrl) // 메인 이미지 URL 설정
+                .build();
     }
 }

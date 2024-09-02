@@ -1,7 +1,9 @@
 document.addEventListener('DOMContentLoaded', function() {
   const toggleBtn = document.querySelector('.toggle-btn');
   const floatingMenu = document.querySelector('.floating-menu');
+
   const menuItems = floatingMenu.querySelectorAll('.menu-item');
+
 
   toggleBtn.addEventListener('click', function() {
     if (floatingMenu.classList.contains('hidden')) {
@@ -24,6 +26,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   });
 
+
   function showMenuItemsSequentially() {
     menuItems.forEach((item, index) => {
       setTimeout(() => {
@@ -44,4 +47,6 @@ document.addEventListener('DOMContentLoaded', function() {
       },  index * 100); 
     });
   }
+});
+
 });

@@ -21,7 +21,7 @@ public class SecurityConfig {
         http
 	        .authorizeHttpRequests(authorize -> authorize
 	        		.requestMatchers("/css/**", "/js/**", "/images/**", "/favicon.ico").permitAll()
-	        		.requestMatchers("/login","/logout","/signup", "/login?error=true").permitAll()  // 로그인 페이지와 오류 페이지에 대한 접근 허용               
+	        		.requestMatchers("/","/groupSave","/login","/logout","/signup", "/login?error=true").permitAll()  // 로그인 페이지와 오류 페이지에 대한 접근 허용               
 	                .requestMatchers("/mypage/").hasRole("USER")
 	                .anyRequest().authenticated()
 	            )
