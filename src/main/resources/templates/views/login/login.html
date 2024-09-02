@@ -3,8 +3,6 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="_csrf" th:content="${_csrf.token}" />
-	<meta name="_csrf_header" th:content="${_csrf.headerName}" />
     <title>로그인 페이지</title>
     <link rel="stylesheet" href="/css/login/login.css">
 </head>
@@ -34,13 +32,12 @@
                         <input type="hidden" th:if="${_csrf}" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
                     </form>
                         <div class="links">
-                            <a href="#" id="signup-link">회원가입하기</a>
+                            <a href="/signup" id="signup-link">회원가입하기</a>
                             <a href="#">비밀번호 찾기</a>
                         </div>
                 </div>
             </div>
         </div>
     </div>
-    <!-- <script src="/js/login/change-signup.js"></script> -->
 </body>
 </html>
