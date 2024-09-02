@@ -3,8 +3,6 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="_csrf" th:content="${_csrf.token}" />
-	<meta name="_csrf_header" th:content="${_csrf.headerName}" />
     <title>로그인 페이지</title>
     <link rel="stylesheet" href="/css/login/login.css">
 </head>
@@ -24,17 +22,10 @@
 	                <form action="/signup" role ="form" method="post" th:object="${signupDTO}">
 	                    <input type="text" th:field="*{name}" placeholder="이름을 입력하세요." required>
 	                    <input type="date" th:field="*{birthDate}" placeholder="생년월일을 입력하세요." required>
-	                    <input type="text" th:field="*{RRN}" placeholder="주민등록 번호를 입력하세요." required>
-	                    <input type="text" th:field="*{address}" placeholder="   주소를 입력하세요." required>
-	                    <input type="text" th:field="*{number}" id="phone-input" maxlength="13" placeholder="   전화번호를 입력하세요." required>
-	                    <input type="text" th:field="*{email}" class="box" id="domain-txt" placeholder="이메일을 입력하세요." required>
-	                    <select class="box" id="domain-list">
-	                        <option value="naver.com">@naver.com</option>
-	                        <option value="google.com">@google.com</option>
-	                        <option value="hanmail.net">@hanmail.net</option>
-	                        <option value="nate.com">@nate.com</option>
-	                        <option value="kakao.com">@kakao.com</option>
-	                    </select>
+	                    <input type="text" th:field="*{RRN}" id="rrn-input" oninput="formatInput(this)" maxlength="14" placeholder="주민등록 번호를 입력하세요." required>
+	                    <input type="text" th:field="*{address}" placeholder="주소를 입력하세요." required>
+	                    <input type="text" th:field="*{number}" id="phone-input" oninput="formatInput(this)" id="phone-input" maxlength="13" placeholder="전화번호를 입력하세요." required>
+	                    <input type="email" th:field="*{email}" class="box" placeholder="이메일을 입력하세요." required>
 	                    <input type="password" th:field="*{password}" placeholder="비밀번호를 입력하세요." required>
 	                    <input type="text" th:field="*{nickName}" placeholder="사용할 닉네임을 입력하세요." required>
 	                    <button type="submit">회원가입</button>
@@ -44,6 +35,6 @@
             </div>
         </div>
     </div>
-    <script src="/js/login/change-login.js"></script>
+    <script src="/js/login/change-signup.js"></script>
 </body>
 </html>
