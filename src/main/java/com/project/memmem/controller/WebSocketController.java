@@ -1,6 +1,7 @@
 package com.project.memmem.controller;
 
 import org.springframework.messaging.handler.annotation.MessageMapping;
+import org.springframework.messaging.simp.SimpMessageHeaderAccessor;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Controller;
 
@@ -26,5 +27,9 @@ public class WebSocketController {
         
         System.out.println("Answer: " + answer);
         messagingTemplate.convertAndSend("/topic/bot/" + questionDTO.getKey(), answer);
+    }
+    @MessageMapping("/bot/reset")
+    public void handleResetMessage(SimpMessageHeaderAccessor headerAccessor) {
+        chatbotService.resetScenario();
     }
 }

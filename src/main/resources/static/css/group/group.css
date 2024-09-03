@@ -244,28 +244,34 @@ body {
 }
 /* 모달 스타일 */
 .modal {
-	position: fixed;
-	left: 0;
-	top: 0;
-	width: 100%;
-	height: 100%;
-	background-color: rgba(0, 0, 0, 0.5);
-	display: none;
-	align-items: center;
-	justify-content: center;
+    display: none; /* 초기 상태에서는 표시되지 않음 */
+    position: fixed; /* 화면에 고정 위치 */
+    z-index: 1000; /* 다른 요소들 위에 표시 */
+    left: 0;
+    top: 0;
+    width: 100%; /* 화면 전체 너비 */
+    height: 100%; /* 화면 전체 높이 */
+    background-color: rgba(0, 0, 0, 0.5); /* 반투명 검정 배경 */
+    display: flex; /* Flexbox를 사용하여 가운데 정렬 */
+    justify-content: center; /* 수평 가운데 정렬 */
+    align-items: center; /* 수직 가운데 정렬 */
 }
 
+/* 모달 콘텐츠 스타일 */
 .modal-content {
-	background-color: #fff;
-	padding: 20px;
-	border-radius: 5px;
-	width: 500px;
-	position: relative;
+    background-color: #fff; /* 흰색 배경 */
+    padding: 20px; /* 내부 여백 */
+    border-radius: 8px; /* 모서리 둥글게 */
+    width: 500px; /* 콘텐츠 너비 조정 */
+    max-width: 90%; /* 화면 크기에 따른 최대 너비 설정 */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* 그림자 효과 */
 }
 
+/* 닫기 버튼 스타일 */
 .close-button {
-	position: absolute;
-	top: 10px;
-	right: 15px;
-	cursor: pointer;
+    float: right; /* 오른쪽 정렬 */
+    font-size: 20px; /* 폰트 크기 */
+    font-weight: bold; /* 폰트 굵기 */
+    cursor: pointer; /* 마우스 커서 */
+    color: #333; /* 텍스트 색상 */
 }

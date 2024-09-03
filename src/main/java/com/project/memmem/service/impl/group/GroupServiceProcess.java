@@ -135,7 +135,6 @@ public class GroupServiceProcess implements GroupService {
 	@Override
 	public void updateGroup(Long id, GroupSaveDTO groupSaveDTO) {
 		groupRepository.findById(id).orElseThrow().update(groupSaveDTO);
-		
 	}
 
 	@Override

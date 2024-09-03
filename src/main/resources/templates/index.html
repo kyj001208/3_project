@@ -66,7 +66,7 @@
 		        <div class="review-cards">
 		            <!-- 리뷰 카드들을 반복문으로 렌더링 -->
 		            <div th:each="review : ${review}" class="review-card">
-		                <a th:href="@{/mem/detail/{reId}(id=${review.reId})}">
+		                <a th:href="@{/mem/detail/{reId}(reId=${review.reId})}">
 		                    <img th:src="${review.imageUrl}" alt="Review Image">
 		                </a>
 		                <div class="review-name">
