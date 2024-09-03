@@ -12,7 +12,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class SecurityConfig {
     //private final CustomUserDetailsService customUserDetailsService;
-    private final CustomLoginSuccessHandler customLoginSuccessHandler;
+    private final MemmemLoginSuccessHandler LoginSuccessHandler;
     
     
     
@@ -22,7 +22,7 @@ public class SecurityConfig {
 	        .authorizeHttpRequests(authorize -> authorize
 	        		.requestMatchers("/css/**", "/js/**", "/images/**", "/favicon.ico").permitAll()
 	        		.requestMatchers("/","/groupSave","/login","/logout","/signup", "/login?error=true").permitAll()  // 로그인 페이지와 오류 페이지에 대한 접근 허용               
-	                .requestMatchers("/mypage/").hasRole("USER")
+	                .requestMatchers("/mypage/","/reviews","/upload-temp").hasRole("USER")
 	                .anyRequest().authenticated()
 	            )
 	        .formLogin(login -> login
@@ -30,7 +30,7 @@ public class SecurityConfig {
 	            .loginProcessingUrl("/login")
 	            .usernameParameter("email")
 	            .passwordParameter("password")
-	            .successHandler(customLoginSuccessHandler)
+	            .successHandler(LoginSuccessHandler)
 	            .failureUrl("/login?error=true") // 로그인 실패 시 리다이렉트할 URL
 	            .permitAll()
 	        )

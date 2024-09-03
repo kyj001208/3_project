@@ -18,7 +18,10 @@
 				<li sec:authorize="isAuthenticated()">
 					<a href="/mypage"><span sec:authentication="principal.nickName"></span></a>&nbsp;&nbsp; 
 					<i sec:authentication="principal.email"></i>
-					<a href="/logout">로그아웃</a>
+					<form action="/logout" method="post">
+						<button type="submit">로그아웃</button>
+						<input type="hidden" th:if="${_csrf}" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+					</form>
 				</li>
 			</ul>
 		</nav>

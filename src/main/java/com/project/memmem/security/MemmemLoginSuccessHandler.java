@@ -12,7 +12,7 @@ import lombok.RequiredArgsConstructor;
 
 @Component
 @RequiredArgsConstructor
-public class CustomLoginSuccessHandler implements AuthenticationSuccessHandler {
+public class MemmemLoginSuccessHandler implements AuthenticationSuccessHandler {
 	
     //private final UserEntityRepository userRepository;
     
@@ -21,9 +21,9 @@ public class CustomLoginSuccessHandler implements AuthenticationSuccessHandler {
             Authentication authentication) throws IOException, ServletException {
     	
     	// 인증된 사용자가 CustomUserDetails의 인스턴스인지 확인합니다.
-        if (authentication.getPrincipal() instanceof CustomUserDetails) {
+        if (authentication.getPrincipal() instanceof MemmemUserDetails) {
             // 인증된 사용자의 세부 정보를 가져옵니다.
-            CustomUserDetails userDetails = (CustomUserDetails) authentication.getPrincipal();
+            MemmemUserDetails userDetails = (MemmemUserDetails) authentication.getPrincipal();
             // UserEntity 객체를 가져옵니다. 이 객체에는 사용자의 데이터베이스 정보가 포함되어 있습니다.
             //UserEntity user = userDetails.getUserEntity();
             // 모든 사용자를 메인 페이지("/")로 리디렉션합니다.

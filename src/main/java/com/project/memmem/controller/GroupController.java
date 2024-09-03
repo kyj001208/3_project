@@ -20,7 +20,7 @@ import com.project.memmem.domain.dto.group.GroupListDTO;
 import com.project.memmem.domain.dto.group.GroupSaveDTO;
 import com.project.memmem.domain.entity.Category;
 import com.project.memmem.domain.entity.GroupEntity;
-import com.project.memmem.security.CustomUserDetails;
+import com.project.memmem.security.MemmemUserDetails;
 import com.project.memmem.service.group.GroupService;
 
 import lombok.RequiredArgsConstructor;
@@ -33,7 +33,7 @@ public class GroupController {
 
 
 	@GetMapping("/group-detail/{id}")
-	public String groupDetail(@PathVariable("id") Long groupId, Model model, @AuthenticationPrincipal CustomUserDetails userDetails) {
+	public String groupDetail(@PathVariable("id") Long groupId, Model model, @AuthenticationPrincipal MemmemUserDetails userDetails) {
 		List<GroupListDTO> groups = groupservice.getGroupsByGroupId(groupId);
 		 boolean isMember = groupservice.isUserMemberOfGroup(userDetails.getUserId(), groupId); // 사용자 가입 여부 확인
 		model.addAttribute("groups", groups);
@@ -44,7 +44,7 @@ public class GroupController {
 
 	// 그룹생성하기
 	@PostMapping("/groupSave")
-	public String groupSave(@AuthenticationPrincipal CustomUserDetails userDetails,GroupSaveDTO dto) {
+	public String groupSave(@AuthenticationPrincipal MemmemUserDetails userDetails,GroupSaveDTO dto) {
 		groupservice.groupSaveProcess(userDetails.getUserId(), dto);
 		return "redirect:/";
 	}
@@ -58,7 +58,7 @@ public class GroupController {
 	
 	// 그룹 가입하기
     @PostMapping("/join-group/{id}")
-    public String joinGroup(@PathVariable("id") Long groupId, @AuthenticationPrincipal CustomUserDetails userDetails, RedirectAttributes redirectAttributes) {
+    public String joinGroup(@PathVariable("id") Long groupId, @AuthenticationPrincipal MemmemUserDetails userDetails, RedirectAttributes redirectAttributes) {
     	 try {
     	        groupservice.joinGroup(userDetails.getUserId(), groupId);
     	        redirectAttributes.addFlashAttribute("message", "그룹에 성공적으로 가입되었습니다!");

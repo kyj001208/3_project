@@ -8,7 +8,7 @@ import com.project.memmem.domain.entity.UserEntity;
 
 import lombok.Getter;
 @Getter
-public class CustomUserDetails extends User {
+public class MemmemUserDetails extends User {
     private static final long serialVersionUID = 1L;
     private final String email;
     private final String name;
@@ -18,7 +18,7 @@ public class CustomUserDetails extends User {
     private final String number; // 수정된 부분
     //private final Map<String, Object> attributes;
     
-    public CustomUserDetails(UserEntity entity) {
+    public MemmemUserDetails(UserEntity entity) {
         super(entity.getEmail(), entity.getPassword(),
               Set.of(new SimpleGrantedAuthority("ROLE_" + entity.getRole().name())));
         this.email = entity.getEmail();
