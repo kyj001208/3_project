@@ -3,7 +3,12 @@
 	th:replace="~{views/commons/layout :: layout(~{::head} ,~{::main} ) }">
 <head>
 <title>Review Detail</title>
+<meta name="_csrf" th:content="${_csrf.token}" />
+<meta name="_csrf_header" th:content="${_csrf.headerName}" />
+<script src="/js/block/button.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <link rel="stylesheet" href="/css/review/review_detail.css">
+
 </head>
 <body>
 	<main class="main-content container">
@@ -19,6 +24,7 @@
 				작성자: <span
 					th:text="${review.user != null ? review.user.nickName : 'Anonymous'}"></span>
 			</p>
+			<button onclick="confirmBlock('${currentUserId}', '${review.user.userId}')">유저차단</button>
 			<h2 class="review-title" th:text="${review.title}"></h2>
 			<!-- 이미지가 로드되지 않을 때를 대비한 기본 이미지 설정 -->
 			<img th:src="${imageUrl}" alt="Review Image"
