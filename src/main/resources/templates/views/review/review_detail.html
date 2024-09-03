@@ -2,43 +2,30 @@
 <html xmlns:th="http://www.thymeleaf.org"
 	th:replace="~{views/commons/layout :: layout(~{::head} ,~{::main} ) }">
 <head>
+<title>Review Detail</title>
 <link rel="stylesheet" href="/css/review/review_detail.css">
-<script src="/js/block/button.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 <body>
+	<main class="main-content container">
+		<div th:if="${errorMessage}" class="error-message">
+			<p th:text="${errorMessage}"></p>
+		</div>
+		<div th:if="${review != null}" class="review-detail"
+			th:attr="data-review-id=${review.reId}">
+			<p class="review-created-at">
+				작성 시간: <span th:text="${formattedTime}"></span>
+			</p>
+			<p class="review-nickname">
+				작성자: <span
+					th:text="${review.user != null ? review.user.nickName : 'Anonymous'}"></span>
+			</p>
+			<h2 class="review-title" th:text="${review.title}"></h2>
+			<!-- 이미지가 로드되지 않을 때를 대비한 기본 이미지 설정 -->
+			<img th:src="${imageUrl}" alt="Review Image"
+				onerror="this.onerror=null; this.src='/images/default-image.png';" />
+			<p class="review-content" th:utext="${review.content}"></p>
 
-	<main class="detail_con">
-	
-		<section class="detail_top">
-			<div class="detail_pro">
-				<img src="/images/pro1.png" id="pro_imgs">
-				<div class="pro_name">김가을</div>
-				<div class="pro_time">59분전</div>
-				<button onclick="confirmBlock()">유저차단</button>
-			</div>
-			
-			<div class="main_imgs">
-				<img src="/images/re1.jpg">
-			</div>
-			<div class="main_content">
-				저희 모임은 달마다 돈을 조금씩 모아 해외여행을 가는 모임입니다.
-				이번에는 인도로 여행을 왔네여~
-				저희와 같이 여행가실 분들 모집합니다.
-				울랄라 울랄라 울랄라 
-				울랄라 울랄라 울ㄹ라라라라랄
-				우아라라라랑
-			</div>
-		
-		</section>
-	
-
-		<section class="detail_bot"></section>
-
-
-
-
+		</div>
 	</main>
-
 </body>
 </html>

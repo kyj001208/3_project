@@ -1,9 +1,13 @@
 package com.project.memmem.domain.entity;
 
 import java.time.LocalDateTime;
+import java.util.List;
+import java.util.function.Function;
 
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.DynamicUpdate;
+
+import com.project.memmem.domain.dto.review.ReviewListDTO;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -39,13 +43,24 @@ public class ReviewEntity {
 	@CreationTimestamp
 	@Column(columnDefinition = "timestamp")
 	protected LocalDateTime createdAt; // 엔티티의 생성 일시
-	
-	
+
 	private String mainImageBucketKey; // 메인 이미지의 S3 버킷 키
-	
+
 	@ManyToOne
 	@JoinColumn(name = "userId")
 	private UserEntity user;
 
+	public String getImageUrl(String imgHost) {
+		return "http:" + imgHost + this.mainImageBucketKey;
+	}
 
+	public static ReviewListDTO toListDTO(ReviewEntity reviewEntity, String imgHost) {
+		return ReviewListDTO.builder()
+				.reId(reviewEntity.getReId())
+				.imageUrl(reviewEntity.getImageUrl(imgHost))
+				.title(reviewEntity.getTitle())
+				.content(reviewEntity.getContent())
+				.createdAt(reviewEntity.getCreatedAt())
+				.nickName(reviewEntity.getUser() != null ? reviewEntity.getUser().getNickName() : "Anonymous").build();
+	}
 }

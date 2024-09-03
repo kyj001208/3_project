@@ -1,12 +1,15 @@
 package com.project.memmem.service.review;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
 import java.util.Map;
 
+import org.springframework.ui.Model;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.project.memmem.domain.dto.img.ImageSaveDTO;
 import com.project.memmem.domain.dto.review.ReviewSaveDTO;
+import com.project.memmem.domain.entity.ReviewEntity;
 
 public interface ReviewService {
 
@@ -15,5 +18,9 @@ public interface ReviewService {
 	void reviewSaveProcess(ReviewSaveDTO dto, long userId);
 
 	Map<String, String> s3TempUpload(MultipartFile file) throws IOException;
+
+	void reviewListProcess(Model model);
+
+	void getReviewDetail(long reId, Model model);
 
 }
