@@ -1,5 +1,8 @@
 package com.project.memmem.controller;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,10 +22,10 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 @RequestMapping("/signup")
 public class SignupController {
-    
+
     private final UserService userService;
     private final PasswordEncoder pe;
-    
+
     @GetMapping
     public String signupPage(Model model) {
         model.addAttribute("signupDTO", new SignupDTO());
@@ -30,26 +33,27 @@ public class SignupController {
     }
 
     @PostMapping
-    public @ResponseBody String signup(
-            SignupDTO dto, 
-            BindingResult bindingResult, 
-            Model model,
+    public @ResponseBody Map<String, String> signup(
+            SignupDTO dto,
+            BindingResult bindingResult,
             @RequestHeader(value = "X-Requested-With", required = false) String requestedWith) {
 
+        Map<String, String> response = new HashMap<>();
+        
         if (bindingResult.hasErrors()) {
-            return "{\"status\":\"error\",\"message\":\"Validation errors\"}";
+            response.put("status", "error");
+            response.put("message", "Validation errors");
+            return response;
         }
 
         try {
             userService.saveUser(dto, pe);
-            if ("XMLHttpRequest".equals(requestedWith)) {
-                return "{\"status\":\"success\"}";
-            } else {
-                return "redirect:/";
-            }
+            response.put("status", "success");
+            return response;
         } catch (IllegalStateException e) {
-            // 로그를 남기거나 처리 필요
-            return "{\"status\":\"error\",\"message\":\"" + e.getMessage() + "\"}";
+            response.put("status", "error");
+            response.put("message", e.getMessage());
+            return response;
         }
     }
 }
