@@ -15,7 +15,6 @@ public class SignupDTO {
 	private long userId;
 	private String name;
 	private String birthDate; // 생년월일
-	private String RRN; // 주민등록번호
 	private String address; // 주소
 	private String number; // 핸드폰번호
 	private String email; // 이메일
@@ -27,7 +26,6 @@ public class SignupDTO {
 				.userId(userId)
 				.name(name)
 				.birthDate(birthDate)
-				.RRN(RRN)
 				.address(address)
 				.number(number)
 				.email(email)
