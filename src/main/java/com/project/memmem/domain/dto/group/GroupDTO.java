@@ -2,11 +2,17 @@ package com.project.memmem.domain.dto.group;
 
 import com.project.memmem.domain.entity.Category;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Getter
 @Setter
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class GroupDTO {
 	
 	private Long id;
@@ -15,5 +21,5 @@ public class GroupDTO {
     private String createdAt; // 포맷된 날짜를 저장
     private Category category;
     private Long creatorUserId;
-    private String imgUrl;
+    private String mainImageUrl;
 }
