@@ -16,8 +16,7 @@
 
 				<!-- 사용자 정보 및 로그아웃 표시 -->
 				<li sec:authorize="isAuthenticated()">
-					<a href="/mypage"><span sec:authentication="principal.nickName"></span></a>&nbsp;&nbsp; 
-					<i sec:authentication="principal.email"></i>
+					<a href="/mypage"><span sec:authentication="principal.nickName"></span></a>&nbsp;&nbsp;
 					<a href="/logout">로그아웃</a>
 				</li>
 			</ul>
