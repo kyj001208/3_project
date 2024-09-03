@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>그룹 수정</title>
+    <link rel="stylesheet" href="/css/group/edit-group-form.css">
+</head>
+<body>
+    <div class="edit-group-form-container">
+        <h2>그룹 수정하기</h2>
+        <form th:action="@{/edit-group/{id}(id=${group.id})}" th:object="${group}" method="post">
+            <input type="hidden" name="_csrf" th:value="${_csrf.token}" />
+
+            <!-- 그룹 이름 -->
+            <div class="form-group">
+                <label for="groupName">그룹 이름</label>
+                <input type="text" id="groupName" name="groupName" th:field="*{groupName}" placeholder="그룹 이름을 입력하세요" required>
+            </div>
+
+            <!-- 그룹 설명 -->
+            <div class="form-group">
+                <label for="description">그룹 설명</label>
+                <textarea id="description" name="description" th:field="*{description}" placeholder="그룹 설명을 입력하세요" rows="5" required></textarea>
+            </div>
+
+            <!-- 카테고리 선택 -->
+            <div class="form-group">
+                <label for="category">카테고리</label>
+                <select id="category" name="category" th:field="*{category}" required>
+                    <option value="CATEGORY1" th:text="#{category.CATEGORY1}">Category 1</option>
+                    <option value="CATEGORY2" th:text="#{category.CATEGORY2}">Category 2</option>
+                    <option value="CATEGORY3" th:text="#{category.CATEGORY3}">Category 3</option>
+                    <!-- 필요한 카테고리를 추가하세요 -->
+                </select>
+            </div>
+
+            <!-- 인사말 -->
+            <div class="form-group">
+                <label for="greeting">인사말</label>
+                <textarea id="greeting" name="greeting" th:field="*{greeting}" placeholder="그룹 인사말을 입력하세요" rows="3" required></textarea>
+            </div>
+
+            <!-- 저장 버튼 -->
+            <div class="form-actions">
+                <button type="submit" class="save-button">저장하기</button>
+                <button type="button" class="cancel-button" onclick="closeEditGroupModal()">취소</button>
+            </div>
+        </form>
+    </div>
+
+    <style>
+        .edit-group-form-container {
+            padding: 20px;
+            max-width: 600px;
+            margin: auto;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        .form-group input, .form-group textarea, .form-group select {
+            width: 100%;
+            padding: 8px;
+            box-sizing: border-box;
+        }
+        .form-actions {
+            display: flex;
+            justify-content: space-between;
+        }
+        .save-button, .cancel-button {
+            padding: 10px 15px;
+            cursor: pointer;
+        }
+    </style>
+</body>
+</html>
