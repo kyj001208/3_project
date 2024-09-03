@@ -42,9 +42,6 @@ public class UserEntity {
 	@Column(nullable = false)
 	private String birthDate; // 생년월일
 
-	@Column(nullable = false, unique = true)
-	private String RRN; // 주민등록번호
-
 	@Column(nullable = false)
 	private String address; // 주소
 

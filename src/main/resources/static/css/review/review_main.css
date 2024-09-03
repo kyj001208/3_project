@@ -57,20 +57,22 @@ body {
 
 .imgs-bot {
     display: flex;
-    justify-content: center;
-    align-items: center;
+    flex-wrap: wrap; /* 여러 줄로 감싸서 네 개씩 정렬 */
+    justify-content: space-between; /* 공간을 균등하게 배분 */
     gap: 25px; 
-    padding-bottom: 40px;
+}
+
+.re-list {
+    width: calc(25% - 25px); /* 4개씩 정렬하기 위해 너비를 설정 */
+    box-sizing: border-box; /* padding과 border를 포함하여 너비를 계산 */
 }
 
 #reimgs {
-    width: 300px;
+    width: 100%;
     height: 300px;
     border-radius: 1em;
 }
 
-.re-title{
-	
-	text-align: center;
+.re-title {
+    text-align: center;
 }
-
