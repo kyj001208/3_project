@@ -7,14 +7,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import com.project.memmem.domain.dto.user.UserUpdateDTO;
 import com.project.memmem.domain.entity.UserEntity;
 import com.project.memmem.security.MemmemUserDetails;
 import com.project.memmem.service.MypageService;
-import com.project.memmem.service.impl.UserService;
 
 import lombok.RequiredArgsConstructor;
 
@@ -74,6 +71,23 @@ public class MypageController {
 	    }
 	    return "redirect:/mypage";
 	}
+
+	//모임 목록 조회
+	public String mypageGroupList(@AuthenticationPrincipal MemmemUserDetails userDetails, Model model) {
+	    if (userDetails == null) {
+	        return "redirect:/login";
+	    }
+	    try {
+	        mypageService.listProcess(userDetails.getUserId(), model);
+	        System.out.println("Model attributes: " + model.asMap().keySet());
+	    } catch (Exception e) {
+	        System.err.println("Error in mypageGroupList: " + e.getMessage());
+	        e.printStackTrace();
+	        model.addAttribute("error", "모임 목록을 불러오는 중 오류가 발생했습니다.");
+	    }
+	    return "views/mypage/group";
+	}
+
 	@GetMapping("hidden")
 	public String heddin() {
 		return "/views/mypage/hidden";

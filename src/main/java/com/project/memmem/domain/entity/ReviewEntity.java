@@ -29,7 +29,7 @@ public class ReviewEntity {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private long reID; // 글번호
+	private long reId; // 글번호
 
 	@Column(nullable = false)
 	private String title; // 제목

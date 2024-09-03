@@ -14,6 +14,7 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import org.springframework.stereotype.Service;
 
+import com.project.memmem.domain.dto.naver.HourlyWeatherDTO;
 import com.project.memmem.domain.dto.naver.WeatherInfoDTO;
 import com.project.memmem.domain.dto.naver.WeeklyForecastDTO;
 import com.project.memmem.service.WeatherNaverService;
@@ -47,6 +48,9 @@ public class WeatherNaverServiceProcess implements WeatherNaverService {
         Element temperatureElement = doc.selectFirst(".temperature_text"); // 온도 정보
         Element statusElement = doc.selectFirst(".weather_main"); // 날씨 상태 정보
 
+        // 습도 정보 추출 (여기서 `desc` 클래스의 부모 요소가 `sort` 클래스 안에 있어야 합니다)
+        Element humidityElement = doc.selectFirst(".sort .desc"); // 습도 정보
+        
         // 요소가 존재하는지 확인하고 없을 경우 예외 발생
         if (temperatureElement == null || statusElement == null) {
             throw new IOException("날씨 정보를 가져오는데 실패했습니다. 요소를 찾을 수 없습니다.");
@@ -55,9 +59,8 @@ public class WeatherNaverServiceProcess implements WeatherNaverService {
         // 텍스트 추출 및 정리
         String temperature = temperatureElement.text().trim(); // 온도 텍스트 추출 및 트림
         String status = statusElement.text().trim(); // 날씨 상태 텍스트 추출 및 트림
-
-        // 습도 정보가 없을 때 기본값 설정
-        String humidity = "정보 없음";
+        String humidity = humidityElement.text().trim();
+        
 
         // 결과 DTO 객체 생성 및 반환
         return new WeatherInfoDTO(temperature, status, humidity);
@@ -87,30 +90,37 @@ public class WeatherNaverServiceProcess implements WeatherNaverService {
 
         // 각 주간 예보 요소를 순회하며 데이터 추출
         for (Element weekItem : weekItems) {
-            String day = weekItem.select(".day").text(); // 요일 정보 추출
-            String date = weekItem.select(".date").text(); // 날짜 정보 추출
+            String day = weekItem.select(".day").text();
+            String date = weekItem.select(".date").text();
 
-            // 오전과 오후의 날씨 정보를 추출
-            Element morningWeather = weekItem.selectFirst(".weather_inner:nth-child(1)");
-            Element afternoonWeather = weekItem.selectFirst(".weather_inner:nth-child(2)");
+            // 오전과 오후의 날씨 아이콘 선택
+            Elements weatherIcons = weekItem.select(".weather_left .weather_icon i");
+            String morningWeatherClass = "";
+            String afternoonWeatherClass = "";
+            
+            // 선택된 아이콘이 2개인 경우, 오전과 오후 아이콘을 각각 할당
+            if (weatherIcons.size() >= 2) {
+                morningWeatherClass = weatherIcons.get(0).attr("class");
+                afternoonWeatherClass = weatherIcons.get(1).attr("class");
+            } else if (weatherIcons.size() == 1) {
+                // 아이콘이 하나만 있는 경우, 오전과 오후의 날씨를 동일하게 설정
+                morningWeatherClass = afternoonWeatherClass = weatherIcons.get(0).attr("class");
+            }
 
-            // 오전, 오후의 날씨 상태 변환 (아이콘 클래스 -> 상태 텍스트)
-            String morningWeatherStatus = convertWeatherIconToStatus(morningWeather.select(".weather_left .weather_inner i").attr("class"));
-            String afternoonWeatherStatus = convertWeatherIconToStatus(afternoonWeather.select(".weather_left .weather_inner i").attr("class"));
-
-            // 오전, 오후의 온도 정보 추출 및 기호 제거
-            String morningTemp = morningWeather.select(".temperature").text().replace("°", "");
-            String afternoonTemp = afternoonWeather.select(".temperature").text().replace("°", "");
+            Elements temperatures = weekItem.select(".temperature");
+            String morningTemp = temperatures.size() > 0 ? temperatures.get(0).text().replace("°", "") : "";
+            String afternoonTemp = temperatures.size() > 1 ? temperatures.get(1).text().replace("°", "") : "";
 
             // 강수 확률 정보 추출
             String rainProbability = weekItem.select(".rainfall").text();
 
             // 주간 예보 DTO 객체 생성 및 리스트에 추가
             WeeklyForecastDTO forecast = new WeeklyForecastDTO(
-                day, date, 
-                morningWeatherStatus, afternoonWeatherStatus, 
-                morningTemp, afternoonTemp, 
-                rainProbability
+            		day, date, 
+                    convertWeatherIconToStatus(morningWeatherClass), 
+                    convertWeatherIconToStatus(afternoonWeatherClass), 
+                    morningTemp, afternoonTemp, 
+                    rainProbability
             );
             weeklyForecasts.add(forecast);
         }
@@ -130,12 +140,17 @@ public class WeatherNaverServiceProcess implements WeatherNaverService {
      * @param iconClass - 날씨 아이콘의 CSS 클래스
      * @return String - 날씨 상태 텍스트 (맑음, 흐림, 비, 눈 등)
      */
+ // ico_wt 값에 따른 날씨 상태 결정
     private String convertWeatherIconToStatus(String iconClass) {
-        if (iconClass.contains("ico_sun")) return "맑음"; // 맑은 날씨
-        if (iconClass.contains("ico_cloud")) return "흐림"; // 흐린 날씨
-        if (iconClass.contains("ico_rain")) return "비"; // 비 오는 날씨
-        if (iconClass.contains("ico_snow")) return "눈"; // 눈 오는 날씨
-        return "기타"; // 기타 상태 (기본값)
+        if (iconClass.contains("ico_wt1")) return "맑음";
+        if (iconClass.contains("ico_wt2")) return "구름 조금";
+        if (iconClass.contains("ico_wt3")) return "구름 많음";
+        if (iconClass.contains("ico_wt4")) return "흐림";
+        if (iconClass.contains("ico_wt5")) return "비";
+        if (iconClass.contains("ico_wt6")) return "눈/비";
+        if (iconClass.contains("ico_wt7")) return "눈";
+        // 기타 날씨 상태를 추가할 수 있음
+        return "기타";  // 다른 날씨 상태에 대한 처리
     }
 
     @Override
@@ -151,5 +166,36 @@ public class WeatherNaverServiceProcess implements WeatherNaverService {
             }
         }
         return weatherMap;
+    }
+    
+    @Override
+    public List<HourlyWeatherDTO> getHourlyWeather(String city) throws IOException {
+        String encodedCity = URLEncoder.encode(city, StandardCharsets.UTF_8);
+        String url = "https://search.naver.com/search.naver?where=nexearch&sm=top_hty&fbm=1&ie=utf8&query=" + encodedCity + "+날씨";
+
+        Document doc = Jsoup.connect(url)
+            .userAgent("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36")
+            .get();
+
+        List<HourlyWeatherDTO> hourlyWeatherList = new ArrayList<>();
+        // 선택자 수정: <li class="_li _day" data-day="today"> 요소를 선택합니다.
+        Elements hourlyItems = doc.select(".forecast_wrap ._li"); // 올바른 선택자 사용
+
+        for (Element item : hourlyItems) {
+            // 시간 추출
+            String time = item.select(".time em").text(); // <em> 태그 안의 시간 추출
+            // 온도 추출
+            String temperature = item.select(".degree_point .num").text(); // 온도 숫자 추출
+            // 날씨 아이콘 URL 추출
+            String weatherIcon = item.select(".weather_box .wt_icon img").attr("src"); // 날씨 아이콘 URL 추출
+            // 강수 확률 추출 (현재 코드에서는 포함되지 않음, 필요 시 추가로 구현)
+            String rainProbability = ""; // 필요 시 강수 확률 추출 로직 추가
+
+            HourlyWeatherDTO hourlyWeather = new HourlyWeatherDTO(time, temperature, weatherIcon, rainProbability);
+            hourlyWeatherList.add(hourlyWeather);
+
+        }
+
+        return hourlyWeatherList;
     }
 }

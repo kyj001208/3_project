@@ -1,5 +1,7 @@
 package com.project.memmem.domain.repository;
 
+import java.util.List;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.project.memmem.domain.entity.GroupEntity;
@@ -11,5 +13,7 @@ public interface GroupMemberShipEntityRepository extends JpaRepository<GroupMemb
 	boolean existsByUserAndGroup(UserEntity user, GroupEntity group);
 
 	  boolean existsByUserUserIdAndGroup_Id(Long userId, Long groupId);
+	  
+	  List<GroupMemberShipEntity> findByUser(UserEntity user);
 
 }
