@@ -4,7 +4,7 @@ let flag = false; // 챗봇이 열려있는 상태를 추적하는 플래그
 let isInScenario = false; // 시나리오 모드 플래그
 let weatherScenarioStep = 0;// 날씨 시나리오 단계 추적
 let selectedLocation = '';// 선택된 위치
-
+let currentCategory = ''; // 추가: 현재 선택된 카테고리 저장
 // WebSocket 지원 여부를 출력
 function isWebSocketSupported() {
 	return 'WebSocket' in window;
@@ -110,8 +110,21 @@ function showQuickReplyButtonsfirst() {
 	showMessage(buttonsHTML);
 }
 
-// 시나리오 시작 함수
+// 시나리오 초기화 함수 수정
+function resetScenario() {
+	isInScenario = false;
+	weatherScenarioStep = 0;
+	selectedLocation = '';
+	currentCategory = '';
+	// 서버에 시나리오 초기화 요청
+	if (client) {
+		client.send("/message/bot/reset", {}, JSON.stringify({ key: key }));
+	}
+}
+
+// 시나리오 시작 함수 수정
 function startScenario(message) {
+	resetScenario(); // 시나리오 시작 시 초기화
 	isInScenario = true;
 	sendQuickReply(message);
 }
@@ -122,7 +135,7 @@ function sendQuickReply(message) {
 	btnMsgSendClicked();
 }
 
-// WebSocket 연결 및 처리
+// WebSocket 연결 및 처리 함수 수정
 function connect() {
 	client = Stomp.over(new SockJS('/bookBot'));
 	client.connect({}, (frame) => {
@@ -193,7 +206,7 @@ function connect() {
 				showMessage(tag);
 			}
 
-			// 시나리오 모드에서 버튼 표시 (한 번만 실행)
+			// 시나리오 모드에서 버튼 표시
 			if (msgObj.options && msgObj.options.length > 0) {
 				var buttonHTML = `<div class="msg bot flex">
                     <div class="icon">
@@ -210,6 +223,26 @@ function connect() {
                     </div>
                 </div>`;
 				showMessage(buttonHTML);
+			}
+
+			// 카테고리 URL이 있는 경우 (시나리오의 마지막 단계)
+			if (msgObj.categoryUrl) {
+				currentCategory = msgObj.categoryUrl; // 현재 카테고리 저장
+				var categoryButtonHTML = `<div class="msg bot flex">
+            <div class="icon">
+                <img src="/images/bot-img-none.png">
+            </div>
+            <div class="message">
+                <div class="part chatbot">
+                    <p>이 카테고리의 소모임 목록을 보시겠습니까?</p>
+                    <div class="button-container">
+                        <button class="faq-button" onclick="location.href='${msgObj.categoryUrl}';">소모임 목록 보기</button>
+                    </div>
+                </div>
+                <div class="time">${time}</div>
+            </div>
+        </div>`;
+				showMessage(categoryButtonHTML);
 			}
 
 			if (msgObj.answer.includes("참가")) {
@@ -247,20 +280,17 @@ function connect() {
 				showMessage(buttonHTML);
 			}
 
-			// 시나리오 종료 처리
+			// 시나리오 종료 처리 수정
 			if (msgObj.endScenario) {
-				isInScenario = false;
+				resetScenario();
 				if (msgObj.answer.includes("죄송합니다")) {
-					// 잠시 대기 후 웰컴 메시지와 빠른 답변 버튼 표시
 					setTimeout(() => {
 						showWelcomeMessage();
 						showQuickReplyButtons();
-					}, 1000); // 1초 후 실행
-				} else {
+					}, 1000);
+				} else if (!msgObj.categoryUrl) {
 					showQuickReplyButtons();
 				}
-			} else {
-				isInScenario = true;
 			}
 		});
 	});
@@ -305,34 +335,34 @@ function createBotMessage(message, time) {
 
 // 날씨 상태에 따른 아이콘을 선택하는 함수
 function getWeatherIcon(temperature, humidity) {
-    let icon = "";
+	let icon = "";
 
-    // 온도에 따른 기본 아이콘 설정
-    if (temperature > 35) icon = "🔥"; // 폭염
-    else if (temperature > 30) icon = "☀️"; // 매우 더움
-    else if (temperature > 25) icon = "🌤️"; // 맑고 더움
-    else if (temperature > 20) icon = "😎"; // 따뜻함
-    else if (temperature > 15) icon = "🌻"; // 온화함
-    else if (temperature > 10) icon = "🍃"; // 선선함
-    else if (temperature > 5) icon = "🍂"; // 쌀쌀함
-    else if (temperature > 0) icon = "❄️"; // 추움
-    else if (temperature > -10) icon = "🥶"; // 매우 추움
-    else icon = "☃️"; // 극한의 추위
+	// 온도에 따른 기본 아이콘 설정
+	if (temperature > 35) icon = "🔥"; // 폭염
+	else if (temperature > 30) icon = "☀️"; // 매우 더움
+	else if (temperature > 25) icon = "🌤️"; // 맑고 더움
+	else if (temperature > 20) icon = "😎"; // 따뜻함
+	else if (temperature > 15) icon = "🌻"; // 온화함
+	else if (temperature > 10) icon = "🍃"; // 선선함
+	else if (temperature > 5) icon = "🍂"; // 쌀쌀함
+	else if (temperature > 0) icon = "❄️"; // 추움
+	else if (temperature > -10) icon = "🥶"; // 매우 추움
+	else icon = "☃️"; // 극한의 추위
 
-    // 습도에 따른 아이콘 수정
-    if (humidity > 90) {
-        if (temperature > 0) icon = "🌧️"; // 폭우
-        else icon = "🌨️"; // 폭설
-    } else if (humidity > 80) {
-        if (temperature > 0) icon = "🌦️"; // 비
-        else icon = "🌨️"; // 눈
-    } else if (humidity > 70) {
-        icon += "💨"; 
-    } else if (humidity < 30) {
-        icon += "🏜️"; 
-    }
+	// 습도에 따른 아이콘 수정
+	if (humidity > 90) {
+		if (temperature > 0) icon = "🌧️"; // 폭우
+		else icon = "🌨️"; // 폭설
+	} else if (humidity > 80) {
+		if (temperature > 0) icon = "🌦️"; // 비
+		else icon = "🌨️"; // 눈
+	} else if (humidity > 70) {
+		icon += "💨";
+	} else if (humidity < 30) {
+		icon += "🏜️";
+	}
 
-    return icon;
+	return icon;
 }
 
 // 날씨 정보를 표시하는 함수
@@ -412,15 +442,14 @@ window.addEventListener('beforeunload', function() {
 	localStorage.removeItem('chatContent');
 });
 
-// 버튼 클릭 이벤트 핸들러
+// 챗봇 종료 함수 수정
 function btnCloseClicked() {
 	const botContainer = document.getElementById("bot-container");
 	botContainer.classList.remove('open');
 	saveBotState();
 	disconnect();
 	flag = false;
-	isInScenario = false;
-	weatherScenarioStep = 0;
+	resetScenario(); // 시나리오 초기화 추가
 	document.getElementById("chat-content").innerHTML = "";
 	localStorage.removeItem('chatContent');
 	localStorage.setItem('chatReset', 'true');
@@ -447,6 +476,7 @@ function btnBotClicked() {
 }
 
 // 메시지 전송 버튼 클릭 이벤트 핸들러
+// 메시지 전송 버튼 클릭 이벤트 핸들러 수정
 function btnMsgSendClicked() {
 	if (!client) {
 		console.error("WebSocket client is not initialized.");
@@ -488,11 +518,12 @@ function btnMsgSendClicked() {
 	client.send(`/message/bot/question`, {}, JSON.stringify(data));
 	clearQuestion();
 }
-
+// 입력창 클리어 함수 수정
 function clearQuestion() {
-	document.getElementById("question").value = "";
+	var questionInput = document.getElementById("question");
+	questionInput.value = "";
+	questionInput.focus(); // 옵션: 입력창에 포커스 유지
 }
-
 // 페이지 로드 시 초기화
 document.addEventListener('DOMContentLoaded', (event) => {
 	btnCloseClicked();
