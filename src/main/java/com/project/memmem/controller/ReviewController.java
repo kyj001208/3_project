@@ -14,6 +14,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.project.memmem.domain.dto.img.ImageSaveDTO;
 import com.project.memmem.domain.dto.review.ReviewSaveDTO;
 import com.project.memmem.security.CustomUserDetails;
+import com.project.memmem.security.MemmemUserDetails;
 import com.project.memmem.service.review.ReviewService;
 
 import lombok.RequiredArgsConstructor;
@@ -46,7 +47,7 @@ public class ReviewController {
 
 	// 글 내용 저장하기
 	@PostMapping("/reviews")
-	public String groupSave(ReviewSaveDTO dto, @AuthenticationPrincipal CustomUserDetails user) {
+	public String groupSave(ReviewSaveDTO dto, @AuthenticationPrincipal MemmemUserDetails user) {
 		
 		service.reviewSaveProcess(dto, user.getUserId());
 		return "redirect:/";
