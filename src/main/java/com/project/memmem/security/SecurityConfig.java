@@ -20,7 +20,7 @@ public class SecurityConfig {
     SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
 	        .authorizeHttpRequests(authorize -> authorize
-	        		.requestMatchers("/css/**", "/js/**", "/images/**", "/favicon.ico").permitAll()
+	        		.requestMatchers("/css/**", "/js/**", "/images/**", "/favicon.ico","/bookBot/**","/bot/**","/topic/**","/message/**").permitAll()
 	        		.requestMatchers("/","/groupSave","/login","/logout","/signup", "/login?error=true").permitAll()  // 로그인 페이지와 오류 페이지에 대한 접근 허용               
 	                .requestMatchers("/mypage/","/reviews","/upload-temp").hasRole("USER")
 	                .anyRequest().authenticated()
