@@ -35,22 +35,18 @@ public class SecurityConfig {
 	            .permitAll()
 	        )
 	        .logout(logout -> logout
-	            .logoutUrl("/logout")
-	            .logoutSuccessUrl("/")
-	            .invalidateHttpSession(true)
-	            .deleteCookies("JSESSIONID")
-	            .permitAll()
-	        )
-	        /*
-	        //GET 요청을 통해 로그아웃을 처리하도록 허용
-	        .logout(logout -> logout.logoutRequestMatcher(
-	                 new OrRequestMatcher(
-	                        new AntPathRequestMatcher("/logout", "GET"),
-	                        new AntPathRequestMatcher("/logout", "POST")
-	                    )
-	        ))
-	        */
-	           ;
+                .logoutRequestMatcher(
+                    new OrRequestMatcher(
+                        new AntPathRequestMatcher("/logout", "GET"),
+                        new AntPathRequestMatcher("/logout", "POST")
+                    )
+                )
+                .logoutUrl("/logout") // 기본 로그아웃 URL 설정
+                .logoutSuccessUrl("/") // 로그아웃 성공 후 리다이렉트할 URL
+                .invalidateHttpSession(true) // 세션 무효화
+                .deleteCookies("JSESSIONID") // 쿠키 삭제
+                .permitAll() // 로그아웃 URL 접근 허용
+            );
 
         return http.build();
     }
