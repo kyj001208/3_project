@@ -13,8 +13,8 @@
 			<img src="/images/review.jpg" id="review-img">
 			</div>	
 			<div class="imgs-top">
-				<a>모임 후기</a>
-				<a href="/mem/review-write">후기 등록</a>
+				<a>자유 수다</a>
+				<a href="/mem/review-write">수다 등록</a>
 			</div>
 			
 		</section>
@@ -22,8 +22,8 @@
 		
 			<div class="imgs-bot" >
 				<div class="re-list" th:each="dto:${list}">
-				 <a th:href="@{/mem/detail/{reId}(reId=${dto.reId})}">
-                     <img th:src="${dto.imageUrl}" id="reimgs" alt="Review Image">
+				 <a th:href="@{/mem/detail/{reId}(reId=${dto.reId})}" th:style="|background-image: url('${dto.imageUrl}');|">
+                     <!--/* <img th:src="${dto.imageUrl}" id="reimgs" alt="Review Image"> */-->
                  </a>
 				<div class="re-title" th:text="${dto.title}">강아지와 함께 떠나는 여행모임</div>
 				
