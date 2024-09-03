@@ -15,9 +15,6 @@ document.addEventListener('DOMContentLoaded', function() {
         formatInput(this);
     });
 
-    document.getElementById('rrn-input').addEventListener('input', function() {
-        formatInput(this);
-    });
 });
 
 // 폼 유효성 검사 함수
@@ -58,14 +55,6 @@ function validateForm() {
         return false;
     }
 
-    // 주민등록번호 유효성 검사
-    var ssnInput = document.getElementById("rrn-input");
-    var ssnPattern = /^\d{6}-[1-4]\d{6}$/;
-    if (!ssnPattern.test(ssnInput.value)) {
-        alert("주민등록번호 형식이 올바르지 않습니다.");
-        ssnInput.focus();
-        return false;
-    }
 
     // 휴대전화 유효성 검사
     var phoneInput = document.getElementById("phone-input");
@@ -94,7 +83,7 @@ function submitAndRedirect() {
     xhr.onload = function() {
         if (xhr.status === 200) {
             if (xhr.responseText === "success") {
-                window.location.href = '/signup/admin';
+                window.location.href = '/';
             } else {
                 alert("회원가입에 실패했습니다.");
             }
@@ -122,10 +111,5 @@ function formatInput(target) {
             .replace(/(\-{1,2})$/g, ""); // 잘못된 하이픈 제거
         target.value = value.slice(0, 13); // 최대 13자리로 제한
 
-    } else if (target.id === 'rrn-input') {
-        // 주민등록번호 형식 (000000-0000000)
-        value = value
-            .replace(/^(\d{6})(\d{0,7})$/g, "$1-$2"); // 6자리 뒤에 하이픈 추가
-        target.value = value.slice(0, 14); // 최대 14자리로 제한
-    }
+    } 
 }
