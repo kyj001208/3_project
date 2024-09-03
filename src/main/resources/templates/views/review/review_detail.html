@@ -3,6 +3,8 @@
 	th:replace="~{views/commons/layout :: layout(~{::head} ,~{::main} ) }">
 <head>
 <link rel="stylesheet" href="/css/review/review_detail.css">
+<script src="/js/block/button.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 <body>
 
@@ -13,6 +15,7 @@
 				<img src="/images/pro1.png" id="pro_imgs">
 				<div class="pro_name">김가을</div>
 				<div class="pro_time">59분전</div>
+				<button onclick="confirmBlock()">유저차단</button>
 			</div>
 			
 			<div class="main_imgs">
