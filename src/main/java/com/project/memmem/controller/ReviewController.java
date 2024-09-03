@@ -3,6 +3,7 @@ package com.project.memmem.controller;
 import java.io.IOException;
 import java.util.Map;
 
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -12,6 +13,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.project.memmem.domain.dto.img.ImageSaveDTO;
 import com.project.memmem.domain.dto.review.ReviewSaveDTO;
+import com.project.memmem.security.CustomUserDetails;
 import com.project.memmem.service.review.ReviewService;
 
 import lombok.RequiredArgsConstructor;
@@ -43,20 +45,17 @@ public class ReviewController {
 	}
 
 	// 글 내용 저장하기
-	@PostMapping("/mem/review")
-	public String groupSave(ReviewSaveDTO dto) {
-		System.out.println("DTO Received in Controller: " + dto);
-	    service.reviewSaveProcess(dto);
-	    return "redirect:/";
+	@PostMapping("/reviews")
+	public String groupSave(ReviewSaveDTO dto, @AuthenticationPrincipal CustomUserDetails user) {
+		
+		service.reviewSaveProcess(dto, user.getUserId());
+		return "redirect:/";
 	}
 
-	/*
-	 * // 이미지 저장
-	 * 
-	 * @PostMapping("/uploadImage")
-	 * 
-	 * @ResponseBody public Map<String, String> uploadImage(@RequestParam("file")
-	 * MultipartFile file) throws IOException { return service.s3TempUpload(file); }
-	 */
+	@PostMapping("/upload-temp")
+	@ResponseBody
+	public Map<String, String> uploadImage(@RequestParam("file") MultipartFile file) throws IOException {
+		return service.s3TempUpload(file);
+	}
 
 }
