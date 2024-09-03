@@ -79,17 +79,13 @@
 	                    </div>
 	                    <div class="text-container">
 	                        <p class="categories" th:text="${group.category.koName}">Category</p>
-		                        <p>Since</p> 
-		                        <p th:text="${group.createdAt}">Creation Date</p>
+		                        <p class="date">Since</p> 
+		                        <p class="date" th:text="${group.createdAt}">Creation Date</p>
 	                        <h3 th:text="${group.groupName}">Group Name</h3>
-	                        <span class="location">
-	                            <span th:utext="${group.greeting}">Greeting</span>
-	                            
-	                        </span>
+	                            <p class="intro" th:utext="${group.greeting}">Greeting</p>
 	                        <div class="member">
 	                            <img class="people" src="/images/group.png" alt="Members">
 	                            <span>2</span>/30
-	                            
 	                        </div>
 	                    </div>
 	                </div>

@@ -38,18 +38,14 @@
 	                        <a th:href="@{/group-detail/{id}(id=${group.id})}" class="group-link"></a>
 	                    </div>
 	                    <div class="text-container">
-	                        <p class="category" th:text="${group.category.koName}">Category</p>
-		                        <p>Since</p> 
-		                        <p th:text="${group.createdAt}">Creation Date</p>
+	                        <p class="categories" th:text="${group.category.koName}">Category</p>
+		                        <p class="date">Since</p> 
+		                        <p class="date" th:text="${group.createdAt}">Creation Date</p>
 	                        <h3 th:text="${group.groupName}">Group Name</h3>
-	                        <span class="location">
-	                            <span th:utext="${group.greeting}">Greeting</span>
-	                            
-	                        </span>
+	                            <p class="intro" th:utext="${group.greeting}">Greeting</p>
 	                        <div class="member">
 	                            <img class="people" src="/images/group.png" alt="Members">
 	                            <span>2</span>/30
-	                            
 	                        </div>
 	                    </div>
 	                </div>
@@ -60,50 +56,28 @@
 		</section>
 		</div>
 	
-		<!-- Hotel Section -->
+		<!-- Review Section -->
 		<section class="reviews">
-			<div class="review-container">
-				<div class="container-text">
-					<h2><img class="front" src="/images/2.png">모임 후기</h2>
-					<p>모임 후기를 통해 나에게 맞는 <br>모임을 찾아보세요!</p>
-				</div>
-				<div class="review-cards">
-					<div class="review-card">
-						<a href="/place/detail/1"> <img src="/images/puppy.jpg" alt="Hotel">
-						</a>
-						<div class="review-name">
-							<p>인원수 : 30명</p>
-						</div>
-					</div>
-					<div class="review-card">
-						<a href="/place/detail/1"> <img src="/images/puppy.jpg" alt="Hotel">
-						</a>
-						<div class="review-name">
-							<p>인원수 : 30명</p>
-						</div>
-					</div>
-					<div class="review-card">
-						<a href="/place/detail/1"> <img src="/images/puppy.jpg" alt="Hotel">
-						</a>
-						<div class="review-name">
-							<p>인원수 : 30명</p>
-						</div>
-					</div>
-					<div class="review-card">
-						<a href="/place/detail/1"> <img src="/images/puppy.jpg" alt="Hotel">
-						</a>
-						<div class="review-name">
-							<p>나는 집에 가고 싶다 이거를 왜 하고 있는지도 모르겠고 졸리고 재미도 없고 그냥 빨리 프로젝트가 끝나고 학원이 끝나면 좋겠는데 왜 이러고 있는거지</p>
-						</div>
-					</div>
-					
-					<!-- 다른 호텔 카드 추가 -->
-				</div>
-				<a class="link" href="/mem/review"><span >더보기</span></a>
-			</div>
+		    <div class="review-container">
+		        <div class="container-text">
+		            <h2><img class="front" src="/images/2.png">모임 후기</h2>
+		            <p>모임 후기를 통해 나에게 맞는 <br>모임을 찾아보세요!</p>
+		        </div>
+		        <div class="review-cards">
+		            <!-- 리뷰 카드들을 반복문으로 렌더링 -->
+		            <div th:each="review : ${review}" class="review-card">
+		                <a th:href="@{/mem/detail/{reId}(id=${review.reId})}">
+		                    <img th:src="${review.imageUrl}" alt="Review Image">
+		                </a>
+		                <div class="review-name">
+		                    <p th:utext="${review.title}">Review Content</p>
+		                </div>
+		            </div>
+		            <!-- 리뷰 카드들 끝 -->
+		        </div>
+		        <a class="link" href="/mem/review"><span>더보기</span></a>
+		    </div>
 		</section>
-		
-		
 		
 		<!-- Premium Picks Section -->
 		<section class="premium-picks">

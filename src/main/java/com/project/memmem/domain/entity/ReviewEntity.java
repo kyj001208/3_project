@@ -7,6 +7,8 @@ import java.util.function.Function;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.DynamicUpdate;
 
+
+import com.project.memmem.domain.dto.review.ReviewDTO;
 import com.project.memmem.domain.dto.review.ReviewListDTO;
 
 import jakarta.persistence.Column;
@@ -49,6 +51,19 @@ public class ReviewEntity {
 	@ManyToOne
 	@JoinColumn(name = "userId")
 	private UserEntity user;
+	
+	public String getImageUrl(String imgHost) {
+        return imgHost + this.mainImageBucketKey;
+    }
+
+    public static ReviewDTO toReviewDTO(ReviewEntity reviewEntity, String imgHost) {
+        return ReviewDTO.builder()
+                .reId(reviewEntity.getReId())
+                .imageUrl(reviewEntity.getImageUrl(imgHost))
+                .title(reviewEntity.getTitle())
+                .content(reviewEntity.getContent())
+                .build();
+    }
 
 	public String getImageUrl(String imgHost) {
 		return "http:" + imgHost + this.mainImageBucketKey;

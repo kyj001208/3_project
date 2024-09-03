@@ -16,10 +16,9 @@ public class IndexController {
 	private final IndexService indexservice;
 	
 	@GetMapping("/")
-    public String index(Model model) {
+    public String group(Model model) {
 		indexservice.groupsList(model);
+		indexservice.reviewList(model);
         return "index";
     }
-	
-	
 }
