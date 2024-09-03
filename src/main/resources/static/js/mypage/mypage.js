@@ -12,6 +12,7 @@ document.addEventListener('DOMContentLoaded', () => {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
       const html = await response.text();
+      console.log(`Received HTML content for section ${section}: ${html}`);
       content.innerHTML = html;
 
       // 프로필 수정 버튼에 대한 이벤트 리스너 추가

@@ -7,9 +7,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 
-import com.project.memmem.domain.dto.group.GroupListDTO;
 import com.project.memmem.domain.dto.user.MyGroupListDTO;
 import com.project.memmem.domain.dto.user.UserUpdateDTO;
+import com.project.memmem.domain.entity.GroupEntity;
+import com.project.memmem.domain.entity.GroupMemberShipEntity;
 import com.project.memmem.domain.entity.UserEntity;
 import com.project.memmem.domain.repository.GroupMemberShipEntityRepository;
 import com.project.memmem.domain.repository.UserEntityRepository;
@@ -61,25 +62,24 @@ public class MypageServiceProcess implements MypageService{
     @Transactional(readOnly = true)
     public void listProcess(Long userId, Model model) {
         try {
-            UserEntity user = userRepository.findById(userId)
-                .orElseThrow(() -> new RuntimeException("User not found with id: " + userId));
+            UserEntity user = userRepository.findById(userId).orElseThrow();
 
             // 가입한 모임 조회
-            List<MyGroupListDTO> joinedGroups = groupMemberShipEntityRepository.findByUser(user).stream()
+            List<GroupMemberShipEntity> memberships = groupMemberShipEntityRepository.findByUser(user);
+            
+            List<MyGroupListDTO> joinedGroups = memberships.stream()
                 .map(membership -> MyGroupListDTO.fromMembership(membership, "baseUrl"))
                 .collect(Collectors.toList());
 
             // 만든 모임 조회
-            List<MyGroupListDTO> createdGroups = groupEntityRepository.findByCreator(user).stream()
+            List<GroupEntity> createdGroups = groupEntityRepository.findByCreator(user);
+
+            List<MyGroupListDTO> createdGroupsDTO = createdGroups.stream()
                 .map(group -> MyGroupListDTO.fromGroup(group, "baseUrl"))
                 .collect(Collectors.toList());
 
-            System.out.println("User: " + user.getName());
-            System.out.println("Joined Groups: " + joinedGroups.size());
-            System.out.println("Created Groups: " + createdGroups.size());
-
             model.addAttribute("joinedGroups", joinedGroups);
-            model.addAttribute("createdGroups", createdGroups);
+            model.addAttribute("createdGroups", createdGroupsDTO);
         } catch (Exception e) {
             System.err.println("Error in listProcess: " + e.getMessage());
             e.printStackTrace();
