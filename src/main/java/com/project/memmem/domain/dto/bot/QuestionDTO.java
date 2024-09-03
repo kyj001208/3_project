@@ -14,4 +14,10 @@ public class QuestionDTO {
     private String content;
     private boolean inScenario;
     
+    @Builder.Default
+    private int weatherStep = 0;
+    
+    @Builder.Default
+    private String selectedLocation = "";
+    
 }
