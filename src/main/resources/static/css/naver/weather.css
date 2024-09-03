@@ -1,55 +1,185 @@
 body {
-	font-family: Arial, sans-serif;
-	background-color: #f0f0f0;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	height: 100vh;
-	margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #f0f0f0;
+    margin: 0;
+    padding: 20px;
 }
 
-.weather-card {
-	background-color: white;
-	border-radius: 10px;
-	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-	padding: 20px;
-	text-align: center;
-	max-width: 300px;
-	width: 100%;
+.weather-container {
+    width: 800px;
+    margin: 0 auto;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
 }
 
-.city {
-	font-size: 24px;
-	font-weight: bold;
-	margin-bottom: 10px;
+.current-weather {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
 }
 
 .temperature {
-	font-size: 28px;
-	font-weight: bold;
-	margin: 20px 0;
-}
-
-.status, .humidity {
-	font-size: 18px;
-	margin: 10px 0;
+    font-size: 48px;
+    font-weight: bold;
 }
 
 .weather-icon {
-	font-size: 64px;
-	margin: 20px 0;
+    font-size: 48px;
 }
 
-.weather-icon {
+.weather-details {
+    text-align: right;
+}
+
+.weather-status, .humidity {
+    display: block;
+    font-size: 16px;
+    margin: 5px 0;
+}
+
+.city {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.weekly-forecast h3 {
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+
+.forecast-list {
     display: flex;
+    overflow-x: auto;
+}
+
+.forecast-item {
+    flex: 0 0 auto;
+    width: 120px;
+    text-align: center;
+    margin-right: 10px;
+}
+
+.forecast-day {
+    font-weight: bold;
+}
+
+.forecast-date {
+    font-size: 12px;
+    color: #666;
+}
+
+.forecast-weather {
+    display: flex;
+    justify-content: space-around;
+    margin: 10px 0;
+}
+
+.morning, .afternoon {
+    display: flex;
+    flex-direction: column;
     align-items: center;
-    justify-content: center;
 }
 
-.weather-icon span {
-    margin-right: 8px; /* 아이콘과 상태 텍스트 사이의 간격 */
+.rain-probability {
+    font-size: 12px;
+    color: #4a8af4;
 }
 
-.weather-status {
-    font-size: 16px; /* 상태 텍스트 크기 조정 */
+i[class^="ico_"] {
+    width: 30px;
+    height: 30px;
+    display: inline-block;
+    background-size: 30px;
+    background-repeat: no-repeat;
+}
+
+/* 여기에 네이버 날씨 아이콘에 대한 CSS 클래스를 추가해야 합니다 */
+.ico_sun { background-image: url('path_to_sun_icon.png'); }
+.ico_cloud { background-image: url('path_to_cloud_icon.png'); }
+/* 추가 아이콘들... */
+
+.weekly-forecast {
+    margin-top: 20px;
+}
+
+.forecast-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+}
+
+.forecast-item {
+    border: 1px solid #e0e0e0;
+    border-radius: 5px;
+    padding: 10px;
+    text-align: center;
+}
+
+.forecast-day-date {
+    margin-bottom: 5px;
+}
+
+.forecast-day {
+    font-weight: bold;
+    display: block;
+}
+
+.forecast-date {
+    font-size: 12px;
+    color: #666;
+    display: block;
+}
+
+.forecast-weather {
+    display: flex;
+    justify-content: space-around;
+    margin: 10px 0;
+}
+
+.morning, .afternoon {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-size: 12px;
+}
+
+.weather-icon {
+    font-size: 24px;
+    margin-bottom: 5px;
+}
+
+.rain-probability {
+    font-size: 12px;
+    color: #4a8af4;
+}
+
+/* 반응형 디자인을 위한 미디어 쿼리 */
+@media (max-width: 768px) {
+    .forecast-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 480px) {
+    .forecast-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+.city-selector {
+    margin-bottom: 20px;
+}
+
+.city-selector select {
+    padding: 5px;
+    font-size: 16px;
+}
+
+.city {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 10px;
 }

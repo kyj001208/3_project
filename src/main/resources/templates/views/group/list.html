@@ -74,10 +74,8 @@
 				</div>
 				<div class="group-cards">
 					<div th:each="group : ${groups}" class="group-card">
-	                    <div class="group-img-container">
-	                        <a th:href="@{/group-detail/{id}(id=${group.id})}">
-	                            <img th:src="@{/images/puppy.jpg}" alt="Group Image">
-	                        </a>
+	                    <div class="group-img-container" th:style="|background-image: url(${group.mainImageUrl});|">
+	                        <a th:href="@{/group-detail/{id}(id=${group.id})}" class="group-link"></a>
 	                    </div>
 	                    <div class="text-container">
 	                        <p class="categories" th:text="${group.category.koName}">Category</p>

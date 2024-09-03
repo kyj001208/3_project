@@ -47,9 +47,5 @@ public class ReviewEntity {
 	@JoinColumn(name = "userId")
 	private UserEntity user;
 
-	public void setMainImageBucketKey(String mainImageBucketKey) {
-		// TODO Auto-generated method stub
-		
-	}
 
 }

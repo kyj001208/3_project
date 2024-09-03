@@ -1,4 +1,4 @@
-package com.project.memmem.domain.dto.user;
+package com.project.memmem.domain.dto.naver;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

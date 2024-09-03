@@ -12,7 +12,7 @@ public interface ReviewService {
 
 	
 
-	void reviewSaveProcess(ReviewSaveDTO dto);
+	void reviewSaveProcess(ReviewSaveDTO dto, long userId);
 
 	Map<String, String> s3TempUpload(MultipartFile file) throws IOException;
 

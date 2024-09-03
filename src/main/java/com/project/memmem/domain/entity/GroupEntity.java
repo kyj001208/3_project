@@ -1,9 +1,12 @@
 package com.project.memmem.domain.entity;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 import org.hibernate.annotations.DynamicUpdate;
+
+import com.project.memmem.domain.dto.group.GroupDTO;
 import com.project.memmem.domain.dto.group.GroupListDTO;
 
 import jakarta.persistence.CascadeType;
@@ -92,5 +95,29 @@ public class GroupEntity {
                 .creatorNickname(creator.getNickName())
                 .mainImageUrl(mainImageUrl) // 메인 이미지 URL 설정
                 .build();
+    }
+    
+    public GroupDTO toGroupDTO(String baseUrl) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("YY/MM/dd");
+        String formattedDate = this.createdAt.format(formatter); // GroupEntity의 생성 날짜를 지정된 형식으로 포맷
+
+        return GroupDTO.builder()
+                .id(id)
+                .groupName(this.groupName)
+                .greeting(this.greeting)
+                .category(this.category)
+                .creatorUserId(this.creator.getUserId())
+                .mainImageUrl(getMainImageUrl(baseUrl)) // 메인 이미지 URL 설정 (getMainImageUrl 메서드 사용)
+                .createdAt(formattedDate)
+                .build();
+    }
+
+    private String getMainImageUrl(String baseUrl) {
+        // 이미지 목록 중에서 첫 번째로 찾은 그룹 이미지의 URL을 반환 (없으면 null 반환)
+        return images.stream()
+                .filter(image -> image.getImageType() == ImageEntity.ImageType.GROUP && image.getImageUrl() != null) // 그룹 이미지 타입이면서 URL이 존재하는 이미지 필터링
+                .findFirst() // 첫 번째 일치하는 이미지 찾기
+                .map(image -> baseUrl + image.getImageUrl()) // 이미지 URL에 기본 URL 추가하여 전체 URL 생성
+                .orElse(null); // 이미지가 없는 경우 null 반환
     }
 }

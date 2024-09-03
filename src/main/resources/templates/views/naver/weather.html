@@ -1,23 +1,76 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<link rel="stylesheet" href="/css/naver/weather.css"/>
 <head>
-<meta charset="UTF-8">
-<title>날씨 정보</title>
+    <meta charset="UTF-8">
+    <title>날씨 정보</title>
+    <link rel="stylesheet" href="/css/naver/weather.css"/>
 </head>
 <body>
-	<div th:if="${error != null}" class="error-message" th:text="${error}"></div>
-	<div class="weather-card" th:if="${weatherInfo != null}">
-		<div class="city" th:text="${city}">서울</div>
-		<div class="temperature" th:text="${weatherInfo.temperature}">20°C</div>
-		<div class="weather-icon" th:switch="${weatherInfo.status}">
-			<span th:case="'맑음'">☀️</span>
-			<span th:case="'흐림'">☁️</span>
-			<span th:case="'비'">🌧️</span>
-			<span th:case="*">🌤️</span>
-			<span th:text="${weatherInfo.status}" class="weather-status"></span>
-		</div>
-		<div class="humidity" th:text="'습도: ' + ${weatherInfo.humidity}">습도</div>
-	</div>
+    <div class="weather-container">
+        <div th:if="${error != null}" class="error-message" th:text="${error}"></div>
+        
+        <div class="city-selector">
+            <label for="citySelect">지역 선택:</label>
+            <select id="citySelect" onchange="location.href='/weather?city=' + this.value">
+                <option value="서울" th:selected="${city == '서울'}">서울</option>
+                <option value="부산" th:selected="${city == '부산'}">부산</option>
+                <option value="대구" th:selected="${city == '대구'}">대구</option>
+                <option value="인천" th:selected="${city == '인천'}">인천</option>
+                <option value="광주" th:selected="${city == '광주'}">광주</option>
+            </select>
+        </div>
+        
+        <div class="weather-card" th:if="${weatherInfo != null}">
+            <div class="current-weather">
+                <div class="city" th:text="${city}">서울</div>
+                <div class="temperature" th:text="${weatherInfo.temperature}">현재온도</div>
+                <div class="weather-icon" th:switch="${weatherInfo.status}">
+                    <span th:case="'맑음'">☀️</span>
+                    <span th:case="'흐림'">☁️</span>
+                    <span th:case="'비'">🌧️</span>
+                    <span th:case="*">🌤️</span>
+                </div>
+                <div class="weather-details">
+                    <span th:text="${weatherInfo.status}" class="weather-status"></span>
+                    <span th:text="'습도: ' + ${weatherInfo.humidity}" class="humidity"></span>
+                </div>
+            </div>
+        </div>
+        
+        <div class="weekly-forecast" th:if="${weeklyForecast != null}">
+            <h3>주간 예보</h3>
+            <div class="forecast-grid">
+                <div class="forecast-item" th:each="forecast : ${weeklyForecast}">
+                    <div class="forecast-day-date">
+                        <span class="forecast-day" th:text="${forecast.day}"></span>
+                        <span class="forecast-date" th:text="${forecast.date}"></span>
+                    </div>
+                    <div class="forecast-weather">
+                        <span class="morning">
+                            <span class="weather-icon" th:switch="${forecast.morningWeather}">
+                                <span style="font-size: 12px;">오전</span>
+                                <span th:case="'맑음'">☀️</span>
+                                <span th:case="'흐림'">☁️</span>
+                                <span th:case="'비'">🌧️</span>
+                                <span th:case="*">🌤️</span>
+                            </span>
+                            <span th:text="${forecast.morningTemp + '°'}"></span>
+                        </span>
+                        <span class="afternoon">
+                            <span class="weather-icon" th:switch="${forecast.afternoonWeather}">
+                                <span style="font-size: 12px;">오후</span>
+                                <span th:case="'맑음'">☀️</span>
+                                <span th:case="'흐림'">☁️</span>
+                                <span th:case="'비'">🌧️</span>
+                                <span th:case="*">🌤️</span>
+                            </span>
+                            <span th:text="${forecast.afternoonTemp + '°'}"></span>
+                        </span>
+                    </div>
+                    <div class="rain-probability" th:text="'강수 확률: ' + ${forecast.rainProbability}"></div>
+                </div>
+            </div>
+        </div>
+    </div>
 </body>
 </html>

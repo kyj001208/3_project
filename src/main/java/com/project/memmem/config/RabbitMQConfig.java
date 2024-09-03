@@ -16,7 +16,7 @@ import lombok.extern.slf4j.Slf4j;
 @EnableRabbit
 public class RabbitMQConfig {
 	
-	// 메시지 리스너 어댑터를 정의
+		// 메시지 리스너 어댑터를 정의,MessageMQ
 		@Bean
 		MessageListenerAdapter messageListenerAdapter(Receiver receiver) {
 			//receiver 객체와 receiveMessage 메소드를 사용하여 메시지 리스너 어댑터를 설정

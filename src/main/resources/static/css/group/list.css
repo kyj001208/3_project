@@ -234,6 +234,21 @@ li {
 	flex: 0 0 35%;
 	padding: 10px;
 	width: 100%;
+	background-size: cover;
+	background-position: center;
+	background-repeat: no-repeat;
+	height: 200px;
+	border-radius: 15px;
+}
+
+.group-link {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 10; /* 다른 요소들보다 위에 오도록 설정 */
+    pointer-events: auto; /* 링크 클릭 가능하게 설정 */
 }
 
 .member{
