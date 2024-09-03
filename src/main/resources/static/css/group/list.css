@@ -130,7 +130,8 @@ nav a:hover::after {
 
 /***********************카테고리**************************/
 .category {
-	padding: 20px 0;
+	padding-top: 10px;
+	padding-bottom: 5px;
 	background-color: #f9f9f9;
 	text-align: center;
 	position: sticky;
@@ -153,6 +154,18 @@ nav a:hover::after {
 	margin-left: 65px;
 	text-align: center;
 }
+
+.category-item a {
+	text-decoration: none; /* 기본적으로 링크의 밑줄 제거 */
+	padding-bottom: 5px; /* 밑줄을 추가하기 위한 여백 설정 */
+	color: black; /* 기본 링크 색상 */
+}
+
+.active-category {
+	border-bottom: 2px solid #0046FE; /* 선택된 항목에 밑줄 추가 */
+	font-weight: bold; /* 선택된 항목의 폰트를 굵게 표시 */
+}
+
 ul {
 	
 	display: flex;
@@ -171,11 +184,12 @@ li {
 .category-item img {
 	width: 24px;
 	height: 24px;
-	margin-bottom: 5px;
 	margin-right: 17px;
 }
 
 .category-item a {
+	display:flex;
+	align-items:center;
 	font-weight: 600;
 	font-size: 20px;
 	color: #333;
