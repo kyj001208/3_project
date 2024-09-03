@@ -2,7 +2,9 @@
 	<div class="contact">
 		<img src="/api/placeholder/50/50" alt="프로필">
 		<div class="contact-info">
-			<div class="contact-name">이름</div>
+			<div th:each="blockedUser : ${blockedUsers}">
+        <p th:text="${blockedUser.name}">Blocked User Name</p>
+    </div>
 		</div>
 		<button class="unblock-btn">차단해제</button>
 	</div>
