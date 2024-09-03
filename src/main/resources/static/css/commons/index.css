@@ -196,7 +196,8 @@ nav a:hover::after {
 	background-position: center;
 	background-repeat: no-repeat;
 	height: 200px;
-	border-radius: 15px;
+	border-radius: 10px;
+	margin-right: 10px;
 }
 
 .group-link {
@@ -210,7 +211,7 @@ nav a:hover::after {
 }
 
 .member{
-	margin-top: 20px;
+	margin-top: 10px;
 	color: #999696;
 }
 
@@ -219,19 +220,36 @@ nav a:hover::after {
 	height: 16px;
 }
 
+.group-img-container img {
+	width: 200px;
+	height: 200px;
+	object-fit: cover;
+	border-radius: 5px;
+}
+
 .text-container {
     flex: 1; /* 남은 공간을 모두 차지하도록 설정 */
     min-width: 0; /* 필요한 경우 너비를 줄일 수 있도록 설정 */
     padding: 10px; /* 내부 여백 추가 */
 }
 
-.text-container p {
+.text-container p{
+	font-size: 18px;
+	white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 100%;
+    color: #999696;
     display: inline-block; /* 요소를 인라인 블록으로 설정하여 컨텐츠에 맞게 크기 조정 */
-    font-size: 18px;
-    padding: 5px 0px; /* 텍스트 주변에 여백을 추가하여 시각적 여유를 줌 */
+    margin-bottom: 0;
 }
 
-.text-container .category {
+.text-container .date {
+	margin-top: 0;
+	margin-bottom: 8px;
+}
+
+.text-container .categories {
     display: inline-block; /* 요소를 인라인 블록으로 설정하여 컨텐츠에 맞게 크기 조정 */
     font-size: 18px;
     border: 1px solid #87bfff;
@@ -251,7 +269,7 @@ nav a:hover::after {
     font-size: 24px;
     padding-right: 10px; /* 오른쪽 여백 추가 */
     box-sizing: border-box; /* 패딩을 너비에 포함 */
-    margin-bottom: 10px;
+    margin-top: 10px;
 }
 
 .text-container .location {
@@ -336,13 +354,16 @@ nav a:hover::after {
 }
 
 .review-cards {
-	text-align : left;
-	display: flex;
-	justify-content: space-between;
-	width: 100%; /* 부모 요소의 너비를 100%로 설정 */
-	height: auto; /* 높이는 자동으로 설정 */
-	gap: 20px;
-	flex-wrap: wrap;
+    display: flex;
+    flex-wrap: wrap;
+    text-align : left;
+    justify-content: space-between;
+    width: 100%; /* 부모 요소의 너비를 100%로 설정 */
+    max-height: 330px; /* 카드 높이와 일치시킨 최대 높이 */
+    overflow: hidden; /* 넘치는 내용 숨기기 */
+    gap: 20px; /* 카드 사이 간격 */
+    box-sizing: border-box; /* 패딩과 보더를 포함하여 너비 및 높이를 계산 */
+    background-color: #f4f4f4; /* 배경색 (필요에 따라 조정) */
 }
 
 .review-card {
@@ -361,11 +382,10 @@ nav a:hover::after {
 	font-weight: 400;
 	font-size: 14px;
 	line-height: 22px;
-	overflow: hidden;
-	word-wrap: break-word;
-	display: -webkit-box;
-	-webkit-line-clamp: 2;
-	-webkit-box-orient: vertical;
+	white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 100%;
 }
 
 .link{

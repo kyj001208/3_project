@@ -202,7 +202,6 @@ p {
 	cursor: pointer;
 	width: 70px; /* 이미지 크기 */
 	height: 70px; /* 이미지 크기 */
-	z-index: 2;
 }
 
 #close-button {

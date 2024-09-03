@@ -5,6 +5,8 @@ import java.time.LocalDateTime;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.DynamicUpdate;
 
+import com.project.memmem.domain.dto.review.ReviewDTO;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -29,7 +31,7 @@ public class ReviewEntity {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private long reID; // 글번호
+	private long reId; // 글번호
 
 	@Column(nullable = false)
 	private String title; // 제목
@@ -46,6 +48,17 @@ public class ReviewEntity {
 	@ManyToOne
 	@JoinColumn(name = "userId")
 	private UserEntity user;
+	
+	public String getImageUrl(String imgHost) {
+        return imgHost + this.mainImageBucketKey;
+    }
 
-
+    public static ReviewDTO toReviewDTO(ReviewEntity reviewEntity, String imgHost) {
+        return ReviewDTO.builder()
+                .reId(reviewEntity.getReId())
+                .imageUrl(reviewEntity.getImageUrl(imgHost))
+                .title(reviewEntity.getTitle())
+                .content(reviewEntity.getContent())
+                .build();
+    }
 }

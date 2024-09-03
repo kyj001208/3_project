@@ -7,4 +7,6 @@ public interface IndexService {
 
 	void groupsList(Model model);
 
+	void reviewList(Model model);
+
 }
