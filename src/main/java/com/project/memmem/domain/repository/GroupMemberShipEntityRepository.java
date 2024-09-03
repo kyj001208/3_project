@@ -12,4 +12,6 @@ public interface GroupMemberShipEntityRepository extends JpaRepository<GroupMemb
 
 	  boolean existsByUserUserIdAndGroup_Id(Long userId, Long groupId);
 
+	GroupMemberShipEntity findByUserUserIdAndGroup_Id(long userId, Long groupId);
+
 }
