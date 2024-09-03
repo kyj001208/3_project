@@ -75,7 +75,7 @@
 				<div class="group-cards">
 					<div th:each="group : ${groups}" class="group-card">
 	                    <div class="group-img-container">
-	                        <a th:href="@{/place/detail/{id}(id=${group.id})}">
+	                        <a th:href="@{/group-detail/{id}(id=${group.id})}">
 	                            <img th:src="@{/images/puppy.jpg}" alt="Group Image">
 	                        </a>
 	                    </div>
@@ -85,7 +85,7 @@
 		                        <p th:text="${group.createdAt}">Creation Date</p>
 	                        <h3 th:text="${group.groupName}">Group Name</h3>
 	                        <span class="location">
-	                            <span th:text="${group.greeting}">Greeting</span>
+	                            <span th:utext="${group.greeting}">Greeting</span>
 	                            
 	                        </span>
 	                        <div class="member">

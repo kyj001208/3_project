@@ -2,7 +2,7 @@ document.addEventListener('DOMContentLoaded', function() {
   const toggleBtn = document.querySelector('.toggle-btn');
   const floatingMenu = document.querySelector('.floating-menu');
 
-  const menuItems = floatingMenu.querySelectorAll('.menu-item');
+  const menuItems = floatingMenu.querySelectorAll('.menu-items');
 
 
   toggleBtn.addEventListener('click', function() {
