@@ -65,10 +65,6 @@ public class ReviewEntity {
                 .build();
     }
 
-	public String getImageUrl(String imgHost) {
-		return "http:" + imgHost + this.mainImageBucketKey;
-	}
-
 	public static ReviewListDTO toListDTO(ReviewEntity reviewEntity, String imgHost) {
 		return ReviewListDTO.builder()
 				.reId(reviewEntity.getReId())
