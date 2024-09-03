@@ -8,6 +8,7 @@ import org.hibernate.annotations.DynamicUpdate;
 
 import com.project.memmem.domain.dto.group.GroupDTO;
 import com.project.memmem.domain.dto.group.GroupListDTO;
+import com.project.memmem.domain.dto.group.GroupSaveDTO;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -120,4 +121,12 @@ public class GroupEntity {
                 .map(image -> baseUrl + image.getImageUrl()) // 이미지 URL에 기본 URL 추가하여 전체 URL 생성
                 .orElse(null); // 이미지가 없는 경우 null 반환
     }
+
+	public void update(GroupSaveDTO groupSaveDTO) {
+		this.groupName = groupSaveDTO.getGroupName();
+		this.category = groupSaveDTO.getCategory();
+		this.greeting = groupSaveDTO.getGreeting();
+        this.description = groupSaveDTO.getDescription();
+		
+	}
 }

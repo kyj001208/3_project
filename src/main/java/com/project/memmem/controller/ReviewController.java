@@ -16,7 +16,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.project.memmem.domain.dto.img.ImageSaveDTO;
 import com.project.memmem.domain.dto.review.ReviewSaveDTO;
-import com.project.memmem.domain.entity.ReviewEntity;
+
 import com.project.memmem.security.MemmemUserDetails;
 import com.project.memmem.service.review.ReviewService;
 

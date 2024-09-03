@@ -1,18 +1,40 @@
 @charset "UTF-8";
 
+.gap {
+	padding-bottom: 12px;
+}
+
+.menu-itemm {
+	padding: 14px 15px;
+	padding-right: 143px;
+	margin-top: 100px;
+	background-color: #ffffff;
+	border-radius: 6px;
+	font-size: 16px;
+	border: 1px solid #ccc;
+	text-decoration: none;
+	color: inherit;
+	font-weight: bold;
+}
+
+.menu-itemm:hover {
+	background-color: rgba(236, 240, 241, 0.5);
+	color: #2c3e50;
+	transform: translateX(5px);
+}
+
 .modal {
 	display: none;
-	align-items: center; /* 수직 중앙 정렬 */
-	justify-content: center; /* 수평 중앙 정렬 */
-	display: none;
 	position: fixed;
+	align-items: center;
+	justify-content: center;
 	z-index: 1;
-	left: 0;
+	left: 0; top : 0; width : 100%; height : 100%;
+	overflow: auto;
+	background-color: rgba(0, 0, 0, 0.4);
 	top: 0;
 	width: 100%;
 	height: 100%;
-	overflow: auto;
-	background-color: rgba(0, 0, 0, 0.4);
 }
 
 .modal-content {
@@ -20,20 +42,21 @@
 	background-color: #fdfdfd;
 	padding: 20px;
 	border: 1px solid #888;
-	width: 500px;
+	max-width: 500px;
 	height: 500px;
-	max-height: 500px;
 	overflow-y: scroll;
-	display: flex;
 	flex-direction: column;
+	 box-sizing: border-box;
+	 overflow-x: hidden;
 }
 
+/*/////////////////스크롤바////////////////////*/
 .modal-content::-webkit-scrollbar {
-	width: 12px; /* 스크롤바의 너비 */
+	width: 12px;
 }
 
 .modal-content::-webkit-scrollbar-track {
-	background: #f1f1f1; /* 스크롤바 배경 */
+	background: #f1f1f1;
 	border-radius: 10px; /* 스크롤바의 배경에 둥근 모서리 적용 */
 }
 
@@ -45,14 +68,7 @@
 .modal-content::-webkit-scrollbar-thumb:hover {
 	background: #555; /* 스크롤바 손잡이의 호버 색상 */
 }
-
-.header {
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
-	padding-bottom: 10px;
-}
-
+/*/////////////////////////////////////////*/
 .close {
 	color: #aaa;
 	float: right;
@@ -66,21 +82,14 @@
 	text-decoration: none;
 }
 
-body {
-	font-family: Arial, sans-serif;
-	max-width: 400px;
-	margin: 0 auto;
-	padding: 20px;
-	background-color: #f0f0f0;
-}
-
 .contact {
-	display: flex;
+	width: 450px; display : flex;
 	align-items: center;
 	background-color: white;
 	border-radius: 10px;
 	padding: 10px;
 	margin-bottom: 10px;
+	display: flex;
 }
 
 .contact img {
