@@ -37,27 +37,40 @@ public class LocationService {
         addLocation("포항", 102, 94, "포항시");
         addLocation("창원", 97, 76, "창원시", "마산", "진해");
         addLocation("제주", 52, 38, "제주시", "제주도");
+        addLocation("강릉", 92, 131, "강릉시");
+        addLocation("속초", 87, 141, "속초시");
+        addLocation("원주", 76, 122, "원주시");
+        addLocation("김해", 95, 77, "김해시");
+        addLocation("여수", 73, 66, "여수시");
+        addLocation("충주", 76, 114, "충주시");
+        addLocation("세종", 66, 103, "세종특별자치시", "세종시");
+        addLocation("용인", 62, 120, "용인시");
+        addLocation("고양", 57, 128, "고양시");
+        addLocation("성남", 62, 123, "성남시");
     }
-
+    // 위치와 좌표를 추가하고, 별칭을 설정하는 메소드
     private void addLocation(String name, int nx, int ny, String... aliases) {
+    	// 기본 위치를 등록
         locationCoordinates.put(name, new LocationCoordinate(nx, ny));
+        // 주어진 별칭에 대해 해당 위치의 이름으로 매핑
         for (String alias : aliases) {
             locationAliases.put(alias, name);
         }
     }
-
+    // 위치가 유효한지 확인하는 메소드
 	public boolean isValidLocation(String location) {
 		return locationCoordinates.containsKey(normalizeLocation(location));
 	}
-
+	// 위치에 대한 좌표를 반환하는 메소드. 기본 좌표(서울)로 대체 가능
 	public LocationCoordinate getCoordinateForLocation(String location) {
 		return locationCoordinates.getOrDefault(normalizeLocation(location), new LocationCoordinate(60, 127));
 	}
-
+	// 위치 이름을 정규화하는 메소드. 별칭이 있는 경우 정규화
 	public String normalizeLocation(String location) {
 		return locationAliases.getOrDefault(location, location);
 	}
-
+	
+	// 사용자 입력과 매칭되는 위치를 찾는 메소드
 	public Optional<String> findMatchingLocation(String input) {
 		String normalizedInput = input.toLowerCase();
 		return locationCoordinates.keySet().stream().filter(

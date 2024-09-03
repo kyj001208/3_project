@@ -9,6 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.project.memmem.domain.dto.naver.HourlyWeatherDTO;
 import com.project.memmem.domain.dto.naver.WeatherInfoDTO;
 import com.project.memmem.domain.dto.naver.WeeklyForecastDTO;
 import com.project.memmem.service.WeatherNaverService;
@@ -26,17 +27,19 @@ public class WeatherNaverController {
 	    try {
 	        WeatherInfoDTO weatherInfo = weatherNaverService.getWeatherInfo(city);
 	        List<WeeklyForecastDTO> weeklyForecast = weatherNaverService.getWeeklyForecast(city);
+	        List<HourlyWeatherDTO> hourlyWeather = weatherNaverService.getHourlyWeather(city);
 	        
 	        if (weatherInfo != null) {
 	            model.addAttribute("weatherInfo", weatherInfo);
 	            model.addAttribute("city", city);
 	            model.addAttribute("weeklyForecast", weeklyForecast);
+	            model.addAttribute("hourlyWeather", hourlyWeather);
 	        } else {
 	            model.addAttribute("error", "날씨 정보를 가져오는데 실패했습니다.");
 	        }
 	        
 	        // 여러 도시의 날씨 정보 가져오기
-            List<String> cities = Arrays.asList("서울", "부산", "대구", "인천", "광주");
+            List<String> cities = Arrays.asList("서울", "부산", "대구", "인천", "광주", "대전", "울산", "세종", "경주", "춘천", "전주", "제주", "포항", "안동");
             Map<String, WeatherInfoDTO> weatherMap = weatherNaverService.getMultipleWeatherInfo(cities);
             model.addAttribute("weatherMap", weatherMap);
             
@@ -51,7 +54,7 @@ public class WeatherNaverController {
 	@GetMapping("/weather/multiple")
     public String getMultipleWeather(Model model) {
         try {
-            List<String> cities = Arrays.asList("서울", "부산", "대구", "인천", "광주");
+        	List<String> cities = Arrays.asList("서울", "부산", "대구", "인천", "광주", "대전", "울산", "세종", "경주", "춘천", "전주", "제주", "포항", "안동");
             Map<String, WeatherInfoDTO> weatherMap = weatherNaverService.getMultipleWeatherInfo(cities);
             model.addAttribute("weatherMap", weatherMap);
 

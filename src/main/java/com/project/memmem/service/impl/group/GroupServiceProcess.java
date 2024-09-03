@@ -121,5 +121,26 @@ public class GroupServiceProcess implements GroupService {
 	public boolean isUserMemberOfGroup(long userId, Long groupId) {
 		return groupMemberShipRepository.existsByUserUserIdAndGroup_Id(userId, groupId);
 	}
+	
+	 // 사용자가 그룹의 생성자인지 확인하는 메서드 추가
+    @Override
+    public boolean isUserCreatorOfGroup(long userId, Long groupId) {
+        GroupEntity group = groupRepository.findById(groupId)
+                .orElseThrow(() -> new IllegalArgumentException("Invalid group ID"));
 
+        GroupMemberShipEntity membership = groupMemberShipRepository.findByUserUserIdAndGroup_Id(userId, groupId);
+        return membership != null && membership.getRole() == GroupMemberShipEntity.Role.ROLE_CREATOR;
+    }
+
+	@Override
+	public void updateGroup(Long id, GroupSaveDTO groupSaveDTO) {
+		groupRepository.findById(id).orElseThrow().update(groupSaveDTO);
+		
+	}
+
+	@Override
+	public GroupEntity findGroupById(Long id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

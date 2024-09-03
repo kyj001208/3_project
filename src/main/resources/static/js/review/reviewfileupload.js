@@ -72,8 +72,9 @@ function saveToServer(file) {
     const formData = new FormData();
     formData.append('file', file);
 
-    uploadImage('/uploadImg', formData)  // `/uploadImg` 엔드포인트로 업로드
+    uploadImage('/upload-temp', formData)  // `/uploadImg` 엔드포인트로 업로드
         .then(result => {
+			console.log("result",result);
             const url = result.url;  // 서버에서 반환된 이미지 URL
             insertToEditor(url);  // 에디터에 이미지 URL 삽입
         })
@@ -85,27 +86,29 @@ function saveToServer(file) {
 
 // uploadImage 함수 정의
 function uploadImage(url, formData) {
-   const csrfToken = document.querySelector('meta[name="_csrf"]').getAttribute('content');
+    const csrfToken = document.querySelector('meta[name="_csrf"]').getAttribute('content');
 
-     let headers = {
+    let headers = {
         'X-CSRF-TOKEN': csrfToken, // CSRF 토큰을 헤더에 추가
     };
+    
 
     return fetch(url, {
         method: "POST",
         body: formData,
         headers: headers
-    })
-    .then(response => {
-        if (!response.ok) {
-            throw new Error('Server responded with status: ' + response.status);
-        }
-        return response.json();
-    })
-    .catch(error => {
-        console.error('Error:', error);
-        throw error;
-    });
+    })  
+    
+     .then(response => {
+      if (!response.ok) {
+         throw new Error('Server responded with status: ' + response.status);
+      }
+      return response.json();
+   })
+   .catch(error => {
+      console.error('Error:', error);
+      throw error;
+   });
 }
 
 
@@ -151,7 +154,7 @@ function fileupload(input) {
     var formData = new FormData();
     formData.append("file", files[0]);
 
-    uploadImage("/uploadImg", formData)
+    uploadImage("/upload-temp", formData)
         .then(result => {
             console.log("Server response:", result);
             const url = result.url;
@@ -163,8 +166,8 @@ function fileupload(input) {
                 return;
             }
 
-            let bucketKeyInput = document.querySelector('input[name="mainImageBucketKey"]');
-            let orgNameInput = document.querySelector('input[name="mainImageOrgName"]');
+            let bucketKeyInput = document.querySelector('#mainImageBucketKey');
+            let orgNameInput = document.querySelector('#mainImageOrgName');
 
             if (bucketKeyInput) {
                 bucketKeyInput.value = bucketKey;

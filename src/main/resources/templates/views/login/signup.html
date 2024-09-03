@@ -22,7 +22,6 @@
 	                <form action="/signup" role ="form" method="post" th:object="${signupDTO}">
 	                    <input type="text" th:field="*{name}" id="name-input"placeholder="이름을 입력하세요." required>
 	                    <input type="date" th:field="*{birthDate}" id="birth-input" maxlength="10" placeholder="생년월일을 입력하세요." required>
-	                    <input type="text" th:field="*{RRN}" id="rrn-input" oninput="formatInput(this)" maxlength="14" placeholder="주민등록 번호를 입력하세요." required>
 	                    <input type="text" th:field="*{address}" id="address-input" placeholder="주소를 입력하세요." required>
 	                    <input type="text" th:field="*{number}" id="phone-input" oninput="formatInput(this)" maxlength="13" placeholder="전화번호를 입력하세요." required>
 	                    <input type="email" th:field="*{email}" id="email-input" placeholder="이메일을 입력하세요." required>
