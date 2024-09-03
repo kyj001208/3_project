@@ -27,7 +27,6 @@ public class SignupDTO {
 				.userId(userId)
 				.name(name)
 				.birthDate(birthDate)
-				.RRN(RRN)
 				.address(address)
 				.number(number)
 				.email(email)

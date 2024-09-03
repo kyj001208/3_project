@@ -6,6 +6,7 @@
 	<link rel="stylesheet" href="/css/group/group.css">
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/gsap.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/ScrollTrigger.min.js"></script>
+	<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 	<script src="/js/group/group.js"></script>
 </head>
 
@@ -23,7 +24,7 @@
 				</div>
 
 				<!-- Additional Information -->
-				<div class="info-box" th:each="group : ${groups}">
+				<div class="info-box">
 					<h3>참여하시는 분들께</h3>
 					<p th:utext="${group.greeting}"></p>
 				</div>
@@ -47,20 +48,8 @@
 					</div>
 				</div>
 
-				<!--		 Photo Gallery 
-				<div class="content-section">
-					<div class="section-title">그룹 사진</div>
-					<ul class="photo-list">
-						<li><img src="images/groupEx.jpg" alt="사진 1" class="clickable-image"></li>
-						<li><img src="images/groupEx.jpg" alt="사진 2" class="clickable-image"></li>
-						<li><img src="images/groupEx.jpg" alt="사진 3" class="clickable-image"></li>
-					</ul>
-				</div>-->
-
 				<!-- Members List -->
 				<div class="member-intro">
-
-
 					<h4>멤버소개</h4>
 					<h3 th:text="${group.creatorNickname} + ' 님이 만든 모임입니다.'">우리 반갑게 만나요</h3>
 					<div class="profile">
@@ -68,7 +57,6 @@
 					</div>
 
 					<h3>참여자 목록</h3>
-
 					<!-- Profile List -->
 					<div class="profile-list">
 						<img src="/images/profile1.jpg" alt="프로필 사진 1">
@@ -90,14 +78,27 @@
 					<!-- 알림 메시지 표시 -->
 					<div th:if="${message}" class="alert alert-success" th:text="${message}"></div>
 					<div th:if="${errorMessage}" class="alert alert-danger" th:text="${errorMessage}"></div>
-					
+
 					<!-- 그룹 가입 버튼 -->
 					<form th:action="@{/join-group/{id}(id=${group.id})}" method="post" style="display:inline;">
-					    <input type="hidden" name="_csrf" th:value="${_csrf.token}" /> <!-- CSRF 토큰 -->
-					    <button type="submit" class="join-button" th:if="${not isMember}">그룹 가입하기</button>
+						<input type="hidden" name="_csrf" th:value="${_csrf.token}" /> <!-- CSRF 토큰 -->
+						<button type="submit" class="join-button" th:if="${not isMember}">그룹 가입하기</button>
 					</form>
-					<span th:if="${isMember}" class="joined-message">이미 이 그룹의 멤버입니다.</span>
+					<span th:if="${isMember}" class="joined-message">이미 그룹의 멤버입니다</span>
 					<a href="/create-group" class="create-group-button">나도 만들러 가기</a>
+
+					<!-- 그룹 수정 버튼 -->
+					<div th:if="${isCreator}">
+					    <button class="edit-group-button" th:onclick="'openEditGroupModal(' + ${group.id} + ')'">그룹 수정하기</button>
+					</div>
+					<!-- 수정 모달 -->
+					<div id="editGroupModal" class="modal" style="display: none;">
+						<div class="modal-content">
+							<span class="close-button" onclick="closeEditGroupModal()">&times;</span>
+							<!-- 비동기로 로드된 내용이 여기로 들어옴 -->
+							<div id="editGroupFormContainer"></div>
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>

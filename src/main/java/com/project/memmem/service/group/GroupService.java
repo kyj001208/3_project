@@ -9,6 +9,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.project.memmem.domain.dto.group.GroupListDTO;
 import com.project.memmem.domain.dto.group.GroupSaveDTO;
+import com.project.memmem.domain.entity.GroupEntity;
 
 public interface GroupService {
 
@@ -21,5 +22,11 @@ public interface GroupService {
 	void joinGroup(long userId, Long groupId);
 
 	boolean isUserMemberOfGroup(long userId, Long groupId);
+
+	boolean isUserCreatorOfGroup(long userId, Long groupId);
+
+	void updateGroup(Long id, GroupSaveDTO groupSaveDTO);
+
+	GroupEntity findGroupById(Long id);
 
 }
