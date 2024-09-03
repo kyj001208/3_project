@@ -20,6 +20,6 @@ public class CustomUserDetailsService implements UserDetailsService {
     	System.out.println(">>>>>>email:"+email);
         UserEntity user = userRepository.findByEmail(email);
 
-        return new CustomUserDetails(user);
+        return new MemmemUserDetails(user);
     }
 }

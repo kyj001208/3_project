@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.project.memmem.domain.dto.user.UserUpdateDTO;
 import com.project.memmem.domain.entity.UserEntity;
-import com.project.memmem.security.CustomUserDetails;
+import com.project.memmem.security.MemmemUserDetails;
 import com.project.memmem.service.MypageService;
 import com.project.memmem.service.impl.UserService;
 
@@ -26,7 +26,7 @@ public class MypageController {
 	private final MypageService mypageService; // 사용자 추가 정보를 가져오는 서비스
 
 	@GetMapping("/mypage")
-    public String myPage(@AuthenticationPrincipal CustomUserDetails userDetails, Model model) {
+    public String myPage(@AuthenticationPrincipal MemmemUserDetails userDetails, Model model) {
         if (userDetails != null) {
         	addUserDetailsToModel(userDetails.getUserId(), model);
         }
@@ -35,7 +35,7 @@ public class MypageController {
     }
 
     @GetMapping("/mypage/{section}")
-    public String loadSection(@AuthenticationPrincipal CustomUserDetails userDetails,
+    public String loadSection(@AuthenticationPrincipal MemmemUserDetails userDetails,
                               @PathVariable("section") String section, 
                               Model model) {
         if (userDetails != null) {
@@ -58,7 +58,7 @@ public class MypageController {
 
 	
 	@GetMapping("/mypage/edit")
-    public String showEditForm(@AuthenticationPrincipal CustomUserDetails userDetails, Model model) {
+    public String showEditForm(@AuthenticationPrincipal MemmemUserDetails userDetails, Model model) {
         if (userDetails != null) {
             UserEntity userEntity = mypageService.getUserById(userDetails.getUserId());
             model.addAttribute("user", userEntity);
@@ -67,7 +67,7 @@ public class MypageController {
     }
 
 	@PostMapping("/mypage/update")
-	public String updateProfile(@AuthenticationPrincipal CustomUserDetails userDetails,
+	public String updateProfile(@AuthenticationPrincipal MemmemUserDetails userDetails,
 	                            @ModelAttribute("user") UserUpdateDTO userUpdateDTO) {
 	    if (userDetails != null) {
 	        mypageService.updateUser(userDetails.getUserId(), userUpdateDTO);
