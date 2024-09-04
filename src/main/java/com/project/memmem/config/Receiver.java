@@ -7,7 +7,7 @@ import org.thymeleaf.context.Context;
 
 import com.project.memmem.domain.dto.bot.MessageDTO;
 import com.project.memmem.domain.dto.bot.QuestionDTO;
-import com.project.memmem.service.impl.KomoranService;
+import com.project.memmem.service.impl.KomoranServiceProcess;
 
 import lombok.RequiredArgsConstructor;
 
@@ -17,7 +17,7 @@ public class Receiver {
 	// RabbitMQ 사용시 주석해제
 		private final SimpMessagingTemplate smt;
 		
-		private final KomoranService komoranService;
+		private final KomoranServiceProcess komoranService;
 		private final TemplateEngine templateEngine; // Inject Thymeleaf template engine
 		//RabbitTemplate template 에서 전달한 메세지가 전송된다.
 		public void receiveMessage(QuestionDTO dto) {

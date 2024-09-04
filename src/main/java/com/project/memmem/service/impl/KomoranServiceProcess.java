@@ -13,7 +13,7 @@ import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
 @Service
-public class KomoranService {
+public class KomoranServiceProcess {
 	private final Komoran komoran; // Komoran 형태소 분석기
 
 	public MessageDTO nlpAnalyze(String message) {

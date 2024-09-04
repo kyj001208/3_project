@@ -18,16 +18,4 @@ public class AnswerDTO {
     private boolean endScenario;
     private String categoryUrl;
 
-    public AnswerDTO nnpNo(int nnpNo) {
-        this.nnpNo = nnpNo;
-        return this;
-    }
-
-    public void setEndScenario(boolean endScenario) {
-        this.endScenario = endScenario;
-    }
-
-    public void setCategoryUrl(String categoryUrl) {
-        this.categoryUrl = categoryUrl;
-    }
 }

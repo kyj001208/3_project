@@ -9,11 +9,11 @@ import org.springframework.stereotype.Service;
 import com.project.memmem.domain.entity.LocationCoordinate;
 
 @Service
-public class LocationService {
+public class LocationServiceProcess {
     private final Map<String, LocationCoordinate> locationCoordinates;
     private final Map<String, String> locationAliases;
 
-    public LocationService() {
+    public LocationServiceProcess() {
         locationCoordinates = new HashMap<>();
         locationAliases = new HashMap<>();
 
