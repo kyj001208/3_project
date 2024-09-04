@@ -24,5 +24,18 @@
 				</li>
 			</ul>
 		</nav>
+		<!-- 페이지 내용 끝 부분에 추가 -->
+		<div id="recaptchaModal" class="modal" style="display: none;">
+			<div class="modal-content">
+				<h2>보안 확인</h2>
+				<p>계속하려면 아래 확인을 완료해주세요.</p>
+				<div id="recaptcha-container"></div>
+				<button id="submitRecaptcha">확인</button>
+			</div>
+		</div>
+
+		<!-- JavaScript 파일 로드 -->
+		<script src="https://www.google.com/recaptcha/api.js?render=explicit" async defer></script>
+		<script src="/js/commons/recaptcha-modal.js"></script>
 	</div>
 </header>

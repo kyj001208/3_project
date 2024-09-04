@@ -45,7 +45,9 @@ dependencies {
 	  	
 	//hidden
 	implementation 'org.springframework.boot:spring-boot-starter-webflux' // WebClient 사용 시
-
+	
+	//recaptcha 보안 이용
+	implementation 'org.springframework.boot:spring-boot-starter-validation'
     	
 	implementation 'com.github.mwiede:jsch:0.2.18'
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
