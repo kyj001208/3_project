@@ -15,8 +15,6 @@ import com.project.memmem.domain.entity.ReviewEntity;
 
 public interface ReviewService {
 
-	
-
 	void reviewSaveProcess(ReviewSaveDTO dto, long userId);
 
 	Map<String, String> s3TempUpload(MultipartFile file) throws IOException;
@@ -26,8 +24,7 @@ public interface ReviewService {
 	void getReviewDetail(long reId, Model model);
 
 	void reviewDelete(long reId, long userId);
-
-
+  
 	void reviewUpdateProcess(long reId, ReviewUpDateDTO dto, long userId);
 
 	List<ReviewEntity> getReviewsExcludingBlockedUsers(Long userId);

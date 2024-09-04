@@ -1,32 +1,14 @@
 <div class="container">
-	<div class="contact">
-		<img src="/api/placeholder/50/50" alt="프로필">
-		<div class="contact-info">
-			<div th:each="blockedUser : ${blockedUsers}">
-        <p th:text="${blockedUser.name}">Blocked User Name</p>
-    </div>
+	<div th:each="block : ${blockedUsers}">
+		<div>
+			<div th:text="${block.blockedNickName}">닉네임</div>
+			<div
+				th:text="${#dates.format(block.blockTime, 'yyyy-MM-dd HH:mm:ss')}">차단
+				날짜</div>
+			<form th:action="@{/unblockUser}" method="post">
+				<input type="hidden" name="blockedId" th:value="${block.id}" />
+				<button type="submit">차단 해제</button>
+			</form>
 		</div>
-		<button class="unblock-btn">차단해제</button>
-	</div>
-	<div class="contact">
-		<img src="/api/placeholder/50/50" alt="프로필">
-		<div class="contact-info">
-			<div class="contact-name">이름</div>
-		</div>
-		<button class="unblock-btn">차단해제</button>
-	</div>
-	<div class="contact">
-		<img src="/api/placeholder/50/50" alt="프로필">
-		<div class="contact-info">
-			<div class="contact-name">이름</div>
-		</div>
-		<button class="unblock-btn">차단해제</button>
-	</div>
-	<div class="contact">
-		<img src="/api/placeholder/50/50" alt="프로필">
-		<div class="contact-info">
-			<div class="contact-name">이름</div>
-		</div>
-		<button class="unblock-btn">차단해제</button>
 	</div>
 </div>

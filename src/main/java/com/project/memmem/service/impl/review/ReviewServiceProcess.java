@@ -54,6 +54,15 @@ public class ReviewServiceProcess implements ReviewService {
 	}
 
 
+	// 이유진언니꺼
+	@Override
+	@Transactional
+	public List<ReviewEntity> getReviewsExcludingBlockedUsers(Long userId) {
+		UserEntity user = userRepository.findById(userId).orElseThrow(() -> new RuntimeException("User not found"));
+		List<UserEntity> blockedUsers = blockRepository.findBlockedUsersByBlocker(user);
+		return reviewRepository.findAllExcludingBlockedUsers(blockedUsers);
+	}
+
 	// 이미지 및 컨텐츠 저장
 	@Transactional
 	@Override
@@ -108,6 +117,7 @@ public class ReviewServiceProcess implements ReviewService {
 		return createdAt.format(formatter);
 	}
 
+
 	//내글만 삭제 가능하도록 하는 메서드
 	@Override
 	public void reviewDelete(long reId, long userId) {
@@ -123,25 +133,22 @@ public class ReviewServiceProcess implements ReviewService {
 
 	}
 
-
 	@Transactional
 	@Override
 	public void reviewUpdateProcess(long reId, ReviewUpDateDTO dto, long userId) {
-	    System.out.println("ReviewUpdateDTO: " + dto);
+		System.out.println("ReviewUpdateDTO: " + dto);
 
-	    // Update DTO with new bucket key
-	    String mainImageBucketKey = fileUploadUtil.s3TempToImage(dto.getMainImageBucketKey());
-	    dto.setMainImageBucketKey(mainImageBucketKey);
+		// Update DTO with new bucket key
+		String mainImageBucketKey = fileUploadUtil.s3TempToImage(dto.getMainImageBucketKey());
+		dto.setMainImageBucketKey(mainImageBucketKey);
 
-	    // Convert DTO to entity
-	    ReviewEntity reviewEntity = dto.toReviewEntity();
-	    
-	    // Log entity fields before saving
-	    System.out.println("ReviewEntity: " + reviewEntity);
+		// Convert DTO to entity
+		ReviewEntity reviewEntity = dto.toReviewEntity();
 
-	    // Save to database
-	    reviewRepository.save(reviewEntity);
+		// Log entity fields before saving
+		System.out.println("ReviewEntity: " + reviewEntity);
+
+		// Save to database
+		reviewRepository.save(reviewEntity);
 	}
-
-
 }
