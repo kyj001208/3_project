@@ -3,9 +3,15 @@
 	th:replace="~{views/commons/layout :: layout(~{::head} ,~{::main} ) }">
 <head>
 <title>Review Detail</title>
+<meta name="_csrf" th:content="${_csrf.token}" />
+<meta name="_csrf_header" th:content="${_csrf.headerName}" />
+<script src="/js/block/button.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <link rel="stylesheet" href="/css/review/review_detail.css">
+
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 <script src="/js/review/reviewdetail.js"></script>
+
 </head>
 <body>
 	<main>
@@ -18,11 +24,15 @@
 				작성자: 
 				<span th:text="${review.user != null ? review.user.nickName : 'Anonymous'}"></span>
 			</p>
+
 			<p class="review-created-at">
 				작성 시간: 
 				<span th:text="${formattedTime}"></span>
 			</p>
 			</div>
+
+			<button onclick="confirmBlock('${currentUserId}', '${review.user.userId}')">유저차단</button>
+
 			<h2 class="review-title" th:text="${review.title}"></h2>
 			<!-- 이미지가 로드되지 않을 때를 대비한 기본 이미지 설정 -->
 			<img th:src="${imageUrl}" alt="Review Image"  id="detailimgs"/>

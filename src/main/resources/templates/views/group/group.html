@@ -7,6 +7,8 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/gsap.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/ScrollTrigger.min.js"></script>
 	<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/quill@2.0.2/dist/quill.js"></script>
+	<link href="https://cdn.jsdelivr.net/npm/quill@2.0.2/dist/quill.snow.css" rel="stylesheet" />
 	<script src="/js/group/group.js"></script>
 </head>
 
@@ -14,6 +16,7 @@
 	<main>
 		<div class="group-container">
 			<!-- Left Section: Header Image and Title Card -->
+			<div id="groupInfoSection">
 			<div class="left-section" th:each="group : ${groups}">
 				<!-- Header Image -->
 				<div class="header-image" th:style="|background-image: url(${group.mainImageUrl});|"></div>
@@ -42,10 +45,7 @@
 				<!-- Group Description -->
 				<div class="content-section">
 					<div class="section-title">그룹 설명</div>
-					<div class="group-description" th:utext="${group.description}">
-						이 소모임은 서울의 아름다운 야경을 함께 즐기며 사진을 찍는 것을 좋아하는 사람들을 위한 모임입니다. 매주 금요일 저녁에 모여서 다양한 명소를 탐방하고, 서로의 사진 기술을
-						공유합니다.
-					</div>
+					<div class="group-description" th:utext="${group.description}"></div>
 				</div>
 
 				<!-- Members List -->
@@ -89,18 +89,66 @@
 
 					<!-- 그룹 수정 버튼 -->
 					<div th:if="${isCreator}">
-					    <button class="edit-group-button" th:onclick="'openEditGroupModal(' + ${group.id} + ')'">그룹 수정하기</button>
+						<button class="edit-group-button" onclick="openEditGroupForm()">그룹 수정하기</button>
 					</div>
-					<!-- 수정 모달 -->
-					<div id="editGroupModal" class="modal" style="display: none;">
-						<div class="modal-content">
-							<span class="close-button" onclick="closeEditGroupModal()">&times;</span>
-							<!-- 비동기로 로드된 내용이 여기로 들어옴 -->
-							<div id="editGroupFormContainer"></div>
-						</div>
+</div>
+					<!-- 수정 폼 섹션 (숨김 처리) -->
+					<div class="edit-group-section" id="editGroupSection" style="display: none;">
+						<h2>그룹 수정하기</h2>
+						<!-- 그룹 생성 폼과 동일한 양식 -->
+						<form id="edit-group-form" method="post" th:action="@{/edit-group/{id}(id=${group.id})}">
+							<input type="hidden" th:if="${_csrf}" th:name="${_csrf.parameterName}"
+								th:value="${_csrf.token}">
+							<div class="form-group">
+								<label for="group-name">그룹 이름</label>
+								<input type="text" id="group-name" name="groupName" placeholder="소모임 이름을 입력하세요"
+									required>
+								<div class="help-text">그룹 이름은 간결하고 명확하게 작성하세요.</div>
+							</div>
+
+							<div class="form-group">
+								<label for="group-category">그룹 카테고리</label>
+								<div id="category-buttons" class="category-buttons">
+									<button type="button" class="category-button" th:each="category : ${categories}"
+										th:text="${category.koName}" th:data-value="${category.name()}"
+										onclick="selectCategory(this)"></button>
+								</div>
+								<div class="help-text">그룹의 카테고리를 선택하세요.</div>
+								<input type="hidden" name="category" id="selected-category">
+							</div>
+
+							<div class="form-group">
+								<label for="group-greeting">그룹 인삿말</label>
+								<div id="group-greeting-editor" style="height: 150px;"></div>
+								<div class="help-text">인삿말을 간단하게 작성하세요.</div>
+							</div>
+
+							<div class="form-group">
+								<label for="group-description">그룹 설명</label>
+								<div id="group-description-editor" style="height: 150px;"></div>
+								<div class="help-text">그룹 활동과 목적을 간단하게 설명하세요.</div>
+							</div>
+
+							<div class="form-group">
+								<label for="group-image">그룹 대표 이미지</label>
+								<input type="file" id="group-image" name="groupImage" accept="image/*">
+								<div id="group-image-preview" class="image-preview-container"></div>
+								<div class="help-text">이미지를 업로드하여 그룹을 대표할 수 있습니다.</div>
+							</div>
+
+							<!-- 숨겨진 input 필드를 추가하여 Quill 내용을 저장 -->
+							<input type="hidden" name="greeting" id="group-greeting-input" value="">
+							<input type="hidden" name="description" id="group-description-input" value="">
+							<input type="hidden" name="mainImageBucketKey" id="mainImageBucketKey">
+							<input type="hidden" name="mainImageOrgName" id="mainImageOrgName">
+
+							<button type="submit" class="submit-button">저장하기</button>
+							<button type="button" class="cancel-button" onclick="cancelEditGroup()">취소</button>
+						</form>
 					</div>
 				</div>
 			</div>
+		</div>
 		</div>
 	</main>
 </body>

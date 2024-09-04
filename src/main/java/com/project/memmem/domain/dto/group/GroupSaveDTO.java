@@ -14,6 +14,7 @@ import lombok.Setter;
 @Setter
 public class GroupSaveDTO {
 
+	private Long id;
 	private String groupName;
 	private String greeting;
 	private String description;
@@ -28,6 +29,7 @@ public class GroupSaveDTO {
     
     public GroupEntity toGroupEntity(UserEntity creator) {
     	return GroupEntity.builder()
+    			.id(id)
     			.groupName(groupName)
     			.greeting(greeting)
     			.description(description)

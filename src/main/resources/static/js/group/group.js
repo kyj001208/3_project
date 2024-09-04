@@ -1,3 +1,28 @@
+// 그룹 수정 폼 열기 및 취소 기능
+function openEditGroupForm() {
+    var groupInfoSection = document.getElementById('groupInfoSection');
+    var editGroupSection = document.getElementById('editGroupSection');
+
+    if (groupInfoSection && editGroupSection) {
+        groupInfoSection.style.display = 'none';
+        editGroupSection.style.display = 'block';
+    } else {
+        console.error('groupInfoSection or editGroupSection element not found.');
+    }
+}
+
+function cancelEditGroup() {
+    var groupInfoSection = document.getElementById('groupInfoSection');
+    var editGroupSection = document.getElementById('editGroupSection');
+
+    if (groupInfoSection && editGroupSection) {
+        editGroupSection.style.display = 'none';
+        groupInfoSection.style.display = 'block';
+    } else {
+        console.error('groupInfoSection or editGroupSection element not found.');
+    }
+}
+
 document.addEventListener('DOMContentLoaded', function() {
     // GSAP ScrollTrigger 플러그인 등록
     gsap.registerPlugin(ScrollTrigger);
@@ -19,23 +44,22 @@ document.addEventListener('DOMContentLoaded', function() {
         ease: "elastic.out(1, 0.3)",
         delay: 0.6
     });
-});
 
-// 함수를 전역 범위로 이동
-function openEditGroupModal(groupId) {
-    $.ajax({
-        url: '/edit-group/' + groupId,
-        type: 'GET',
-        success: function(data) {
-            $('#editGroupFormContainer').html(data); // 서버에서 가져온 HTML을 모달 내용으로 설정
-            $('#editGroupModal').show(); // 모달 표시
-        },
-        error: function() {
-            alert('수정 페이지를 로드하는 데 실패했습니다.');
-        }
+    // Quill 에디터 초기화
+    var quillGreeting = new Quill('#group-greeting-editor', {
+        theme: 'snow'
     });
-}
 
-function closeEditGroupModal() {
-    $('#editGroupModal').hide(); // 모달 숨기기
-}
+    var quillDescription = new Quill('#group-description-editor', {
+        theme: 'snow'
+    });
+
+    // 폼 전송 시 Quill 에디터 내용을 숨겨진 input에 저장
+    var form = document.getElementById('edit-group-form');
+    if (form) {
+        form.onsubmit = function() {
+            document.getElementById('group-greeting-input').value = quillGreeting.root.innerHTML;
+            document.getElementById('group-description-input').value = quillDescription.root.innerHTML;
+        };
+    }
+});

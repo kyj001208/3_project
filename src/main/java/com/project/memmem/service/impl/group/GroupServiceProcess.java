@@ -135,12 +135,10 @@ public class GroupServiceProcess implements GroupService {
 	@Override
 	public void updateGroup(Long id, GroupSaveDTO groupSaveDTO) {
 		groupRepository.findById(id).orElseThrow().update(groupSaveDTO);
-		
 	}
 
 	@Override
 	public GroupEntity findGroupById(Long id) {
-		// TODO Auto-generated method stub
-		return null;
+	    return groupRepository.findById(id).orElseThrow();
 	}
 }

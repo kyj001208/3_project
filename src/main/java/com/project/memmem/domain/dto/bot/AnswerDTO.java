@@ -12,19 +12,22 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class AnswerDTO {
-	private String answer;
-	private int nnpNo;
+    private String answer;
+    private int nnpNo;
+    private List<String> options;
+    private boolean endScenario;
+    private String categoryUrl;
 
-	private List<String> options;
-	private boolean endScenario;
+    public AnswerDTO nnpNo(int nnpNo) {
+        this.nnpNo = nnpNo;
+        return this;
+    }
 
-	public AnswerDTO nnpNo(int nnpNo) {
-		this.nnpNo = nnpNo;
-		return this;
-	}
+    public void setEndScenario(boolean endScenario) {
+        this.endScenario = endScenario;
+    }
 
-	public void setEndScenario(boolean endScenario) {
-		this.endScenario = endScenario;
-	}
-
+    public void setCategoryUrl(String categoryUrl) {
+        this.categoryUrl = categoryUrl;
+    }
 }
