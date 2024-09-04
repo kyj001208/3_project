@@ -27,14 +27,14 @@ import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
 @Service
-public class ChatbotService {
+public class ChatbotServiceProcess {
 
-	private final KomoranService komoranService;
+	private final KomoranServiceProcess komoranService;
 	private final KeywordRepository keywordRepository;
 	private final AnswerRepository answerRepository;
 	private final ScenarioRepository scenarioRepository;
-	private final WeatherService weatherService;
-	private final LocationService locationService;
+	private final WeatherServiceProcess weatherService;
+	private final LocationServiceProcess locationService;
 
 	// 현재 시나리오와 날씨 조회를 위한 지역 정보를 저장하는 변수
 	private ScenarioEntity currentScenario;
@@ -42,31 +42,36 @@ public class ChatbotService {
 
 	@Transactional
 	public AnswerDTO processUserQuestion(QuestionDTO questionDTO) {
-		// 질문 내용 분석
+		
+		// 사용자의 질문 내용을 자연어 처리(NLP)하여 분석
 		MessageDTO analysisResult = komoranService.nlpAnalyze(questionDTO.getContent());
 		Set<String> nouns = analysisResult.getNouns();
-
+		
+		// 질문 내용에 "날씨", "기온", "습도"가 포함되어 있거나, 날씨 관련 대화 단계가 진행 중인 경우
 		if (nouns.contains("날씨") || nouns.contains("기온") || nouns.contains("습도") || questionDTO.getWeatherStep() > 0) {
 			return handleWeatherQuery(questionDTO);
 		}
-
+		
+		// 시나리오가 진행 중이거나, 사용자가 소모임 추천을 요청한 경우
 		if (questionDTO.isInScenario() || "소모임 추천해주세요!".equals(questionDTO.getContent())) {
 			return processScenario(questionDTO.getContent());
 		}
-
+		// NLP 분석 결과로 얻은 명사를 바탕으로 의도를 추출
 		Set<NNPIntentionEntity> nnpIntentions = findNNPIntention(nouns);
 		Optional<AnswerEntity> answerEntityOptional = Optional.empty();
-
+		
+		// 의도가 발견되지 않은 경우, 기본 응답을 찾음
 		if (nnpIntentions.isEmpty()) {
 			answerEntityOptional = answerRepository.findByNnpIntention_NnpNo(0);
 		} else {
+			// 발견된 의도가 있을 경우, 해당 의도에 맞는 답변을 찾음
 			for (NNPIntentionEntity nnpIntention : nnpIntentions) {
 				if (answerEntityOptional.isEmpty()) {
 					answerEntityOptional = answerRepository.findByNnpIntention_NnpNo(nnpIntention.getNnpNo());
 				}
 			}
 		}
-
+		// 적절한 답변이 발견된 경우, AnswerDTO로 변환하여 반환
 		if (answerEntityOptional.isPresent()) {
 			AnswerEntity answerEntity = answerEntityOptional.get();
 			return AnswerDTO.builder().answer(answerEntity.getAnswer()).nnpNo(answerEntity.getNnpIntention().getNnpNo())
@@ -126,13 +131,17 @@ public class ChatbotService {
 
 	// 시나리오 처리를 위한 메소드
 	private AnswerDTO processScenario(String userInput) {
+		// currentScenario가 null인 경우, 첫 번째 시나리오 단계(root)를 찾음
 		if (currentScenario == null) {
+			// 부모 시나리오가 없는 (root) 시나리오를 dept 0으로 검색
 			Optional<ScenarioEntity> rootScenario = scenarioRepository.findByDeptAndParentIsNull(0);
+			// root 시나리오가 존재하면 현재 시나리오로 설정하고 다음 단계로 이동
 			if (rootScenario.isPresent()) {
 				currentScenario = rootScenario.get();
 				return getNextScenarioStep(currentScenario);
 			}
 		} else {
+			// currentScenario가 존재하는 경우, 사용자의 입력을 바탕으로 다음 시나리오를 찾음
 			Optional<ScenarioEntity> nextScenario = findNextScenario(currentScenario, userInput);
 			if (nextScenario.isPresent()) {
 				currentScenario = nextScenario.get();
@@ -142,16 +151,19 @@ public class ChatbotService {
 				return getNextScenarioStep(currentScenario);
 			}
 		}
+		// 시나리오를 찾지 못하거나 입력을 이해하지 못한 경우 초기 상태로 돌아가도록 설정
 		currentScenario = null;
 		return AnswerDTO.builder().answer("죄송합니다. 해당 내용을 이해하지 못했습니다. 처음 질문으로 돌아가겠습니다.").endScenario(true).build();
 	}
 
-	// 이 메소드를 추가합니다
+	// 주어진 현재 시나리오와 사용자 입력을 바탕으로 다음 시나리오를 찾는 메서드
 	private Optional<ScenarioEntity> findNextScenario(ScenarioEntity currentScenario, String userInput) {
 		return scenarioRepository.findByParentAndContentContaining(currentScenario, userInput);
 	}
 
+	// 현재 시나리오 단계의 정보를 바탕으로 다음 단계의 답변을 생성하는 메서드
 	private AnswerDTO getNextScenarioStep(ScenarioEntity scenario) {
+		// 현재 시나리오의 자식 시나리오들을 검색하고, 내용만 리스트로 추출
 		List<ScenarioEntity> children = scenarioRepository.findByParentOrderByDept(scenario);
 		List<String> options = children.stream().map(ScenarioEntity::getContent).toList();
 
