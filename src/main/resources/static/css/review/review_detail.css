@@ -84,3 +84,45 @@ body {
 	background: none;
 	font-size: 16px;
 }
+
+/* ////////////////////숨겨진 태그 css//////////////////////// */
+
+  .image-upload {
+            position: relative;
+            display: inline-block;
+            cursor: pointer;
+        }
+
+
+        #plus-icon {
+            font-size: 24px;
+            color: #555;
+        }
+
+        #file-upload {
+            display: none;
+        }
+
+        
+
+
+
+.upload-button {
+    display: inline-block;
+    cursor: pointer;
+    border: 1px solid #ccc;
+    padding: 5px;
+    background: #f9f9f9;
+}
+
+.upload-button input[type="file"] {
+    display: none; /* 기본 파일 입력은 숨김 */
+}
+
+.image-preview {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin-top: 10px;
+}
+
