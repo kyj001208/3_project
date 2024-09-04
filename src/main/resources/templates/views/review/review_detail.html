@@ -9,29 +9,46 @@
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <link rel="stylesheet" href="/css/review/review_detail.css">
 
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script src="/js/review/reviewdetail.js"></script>
+
 </head>
 <body>
-	<main class="main-content container">
-		<div th:if="${errorMessage}" class="error-message">
-			<p th:text="${errorMessage}"></p>
-		</div>
+	<main>
+	<form>
+	<div class="main-content">
 		<div th:if="${review != null}" class="review-detail"
 			th:attr="data-review-id=${review.reId}">
-			<p class="review-created-at">
-				작성 시간: <span th:text="${formattedTime}"></span>
-			</p>
+			<div class="detail_pro">
 			<p class="review-nickname">
-				작성자: <span
-					th:text="${review.user != null ? review.user.nickName : 'Anonymous'}"></span>
+				작성자: 
+				<span th:text="${review.user != null ? review.user.nickName : 'Anonymous'}"></span>
 			</p>
+
+			<p class="review-created-at">
+				작성 시간: 
+				<span th:text="${formattedTime}"></span>
+			</p>
+			</div>
+
 			<button onclick="confirmBlock('${currentUserId}', '${review.user.userId}')">유저차단</button>
+
 			<h2 class="review-title" th:text="${review.title}"></h2>
 			<!-- 이미지가 로드되지 않을 때를 대비한 기본 이미지 설정 -->
-			<img th:src="${imageUrl}" alt="Review Image"
-				onerror="this.onerror=null; this.src='/images/default-image.png';" />
+			<img th:src="${imageUrl}" alt="Review Image"  id="detailimgs"/>
 			<p class="review-content" th:utext="${review.content}"></p>
-
 		</div>
+			<div class="detail_btns">
+				
+				<a href="/mem/review" class="reviewmain">이전</a>
+				<button class="detailupdate">수정</button>
+				<button class="detaildelete" type="button" th:onclick="|deletebtnClicked(${review.reId})|">삭제</button>
+			</div>
+		
+		
+		</div>
+		</form>
 	</main>
+	
 </body>
 </html>

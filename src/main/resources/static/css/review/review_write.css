@@ -6,6 +6,7 @@ body {
 }
 
 .write-con {
+	
     padding-top: 80px;
     display: flex;
     justify-content: center;
@@ -18,6 +19,7 @@ body {
     background-color: #ffffff;
     max-width: 800px;
     width: 100%;
+    padding:20px;
     box-sizing: border-box;
 }
 
