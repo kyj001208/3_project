@@ -4,8 +4,8 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.PageImpl;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
@@ -46,21 +46,21 @@ public class GroupListServiceProcess implements GroupListService {
 
         model.addAttribute("groups", groupDTOs); // 변환된 DTO 리스트를 모델에 추가
     }
-
-    @Override
-    public Page<GroupDTO> Scroll(Category category, Pageable pageable) {
-        Page<GroupEntity> groupEntities;
-
-        if (category != null) {
-            groupEntities = groupRepository.findByCategory(category, pageable);
+    
+    @Override //그룹 데이터의 페이지를 조회하는 메서드
+    public Page<GroupDTO> getGroupsPage(int page, int size, Category category) {
+        // 페이지 요청을 위한 Pageable 객체 생성
+        Pageable pageable = PageRequest.of(page, size);
+        
+        Page<GroupEntity> groupPage;
+        
+        if (category == null) {
+            groupPage = groupRepository.findAll(pageable);
         } else {
-            groupEntities = groupRepository.findAll(pageable);
+            groupPage = groupRepository.findByCategory(category, pageable);
         }
-
-        List<GroupDTO> groupDTOs = groupEntities.getContent().stream()
-                .map(this::convertToDTO)
-                .collect(Collectors.toList());
-
-        return new PageImpl<>(groupDTOs, pageable, groupEntities.getTotalElements());
+        
+        return groupPage.map(this::convertToDTO);
     }
-}
+
+}	
