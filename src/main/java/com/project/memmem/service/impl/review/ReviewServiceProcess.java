@@ -54,15 +54,6 @@ public class ReviewServiceProcess implements ReviewService {
 	}
 
 
-	// 이유진언니꺼
-	@Override
-	@Transactional
-	public List<ReviewEntity> getReviewsExcludingBlockedUsers(Long userId) {
-		UserEntity user = userRepository.findById(userId).orElseThrow(() -> new RuntimeException("User not found"));
-		List<UserEntity> blockedUsers = blockRepository.findBlockedUsersByBlocker(user);
-		return reviewRepository.findAllExcludingBlockedUsers(blockedUsers);
-	}
-
 	// 이미지 및 컨텐츠 저장
 	@Transactional
 	@Override
