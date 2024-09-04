@@ -9,6 +9,8 @@ import org.hibernate.annotations.DynamicUpdate;
 import com.project.memmem.domain.dto.group.GroupDTO;
 import com.project.memmem.domain.dto.group.GroupListDTO;
 import com.project.memmem.domain.dto.group.GroupSaveDTO;
+import com.project.memmem.domain.dto.group.GroupUpdateDTO;
+import com.project.memmem.domain.repository.ImageEntityRepository;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -122,11 +124,31 @@ public class GroupEntity {
                 .orElse(null); // 이미지가 없는 경우 null 반환
     }
 
-	public void update(GroupSaveDTO groupSaveDTO) {
-		this.groupName = groupSaveDTO.getGroupName();
-		this.category = groupSaveDTO.getCategory();
-		this.greeting = groupSaveDTO.getGreeting();
-        this.description = groupSaveDTO.getDescription();
+
+	public void update(GroupUpdateDTO dto) {
+		this.groupName = dto.getGroupName();
+		this.category = dto.getCategory();
+		this.greeting = dto.getGreeting();
+        this.description = dto.getDescription();
 		
 	}
+	
+	// 이미지 업데이트 메서드
+    public void updateImages(List<String> imageUrls, ImageEntityRepository imageRepository) {
+        // 기존 이미지 삭제
+        if (!this.images.isEmpty()) {
+            imageRepository.deleteAll(this.images);
+            this.images.clear();
+        }
+
+        // 새 이미지 추가
+        for (String imageUrl : imageUrls) {
+            ImageEntity newImage = ImageEntity.builder()
+                    .groups(this)
+                    .imageUrl(imageUrl)
+                    .imageType(ImageEntity.ImageType.GROUP)
+                    .build();
+            this.images.add(newImage);
+        }
+    }
 }
