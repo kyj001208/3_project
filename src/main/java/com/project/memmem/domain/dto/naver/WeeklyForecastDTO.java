@@ -19,4 +19,7 @@ public class WeeklyForecastDTO {
     private String morningTemp;
     private String afternoonTemp;
     private String rainProbability;
+    
+    private String lowestTemp;  // 추가된 필드: 최저 기온
+    private String highestTemp; // 추가된 필드: 최고 기온
 }

@@ -1,79 +1,88 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
+
 <head>
-    <meta charset="UTF-8">
-    <title>그룹 수정</title>
-    <link rel="stylesheet" href="/css/group/edit-group-form.css">
+	<meta charset="UTF-8">
+	<meta name="_csrf" th:content="${_csrf.token}" />
+	<meta name="_csrf_header" th:content="${_csrf.headerName}" />
+	<link rel="stylesheet" href="/css/group/create-group.css">
+	<link href="https://cdn.jsdelivr.net/npm/quill@2.0.2/dist/quill.snow.css" rel="stylesheet" />
+	<script src="https://cdn.jsdelivr.net/npm/quill@2.0.2/dist/quill.js"></script>
+	<script src="/js/group/create-group.js"></script>
 </head>
+
 <body>
-    <div class="edit-group-form-container">
-        <h2>그룹 수정하기</h2>
-        <form th:action="@{/edit-group/{id}(id=${group.id})}" th:object="${group}" method="post">
-            <input type="hidden" name="_csrf" th:value="${_csrf.token}" />
+	<main>
+		<div class="create-group-container">
+			<h2>그룹 수정하기</h2>
+			<!-- 배경 이미지 설정 -->
+			<div class="header-image" th:style="|background-image: url('@{${group.mainImageUrl}}');|"></div>
+			<form id="edit-group-form" method="post" th:action="@{/update-group/{id}(id=${group.id})}" enctype="multipart/form-data">
+				<input type="hidden" th:if="${_csrf}" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+				<input type="hidden" name="_method" value="put" />
+				<!-- 그룹 이름 -->
+				<div class="form-group">
+					<label for="group-name">그룹 이름</label>
+					<input type="text" id="group-name" name="groupName" th:value="${group.groupName}"
+						placeholder="소모임 이름을 입력하세요" required>
+					<div class="help-text">그룹 이름은 간결하고 명확하게 작성하세요.</div>
+				</div>
 
-            <!-- 그룹 이름 -->
-            <div class="form-group">
-                <label for="groupName">그룹 이름</label>
-                <input type="text" id="groupName" name="groupName" th:field="*{groupName}" placeholder="그룹 이름을 입력하세요" required>
-            </div>
+				<!-- 그룹 카테고리 -->
+				<div class="form-group">
+					<label for="group-category">그룹 카테고리</label>
+					<div id="category-buttons" class="category-buttons">
+						<!-- Thymeleaf를 사용하여 카테고리 버튼을 동적으로 생성 -->
+						<button type="button" class="category-button" th:each="category : ${categories}"
+							th:text="${category.koName}" th:data-value="${category.name}"
+							th:classappend="${category.name} == ${group.category.name()} ? 'selected' : ''"
+							onclick="selectCategory(this)">
+						</button>
+					</div>
+					<div class="help-text">그룹의 카테고리를 선택하세요.</div>
+					<input type="hidden" name="category" id="selected-category" th:value="${group.category.name()}">
+				</div>
 
-            <!-- 그룹 설명 -->
-            <div class="form-group">
-                <label for="description">그룹 설명</label>
-                <textarea id="description" name="description" th:field="*{description}" placeholder="그룹 설명을 입력하세요" rows="5" required></textarea>
-            </div>
 
-            <!-- 카테고리 선택 -->
-            <div class="form-group">
-                <label for="category">카테고리</label>
-                <select id="category" name="category" th:field="*{category}" required>
-                    <option value="CATEGORY1" th:text="#{category.CATEGORY1}">Category 1</option>
-                    <option value="CATEGORY2" th:text="#{category.CATEGORY2}">Category 2</option>
-                    <option value="CATEGORY3" th:text="#{category.CATEGORY3}">Category 3</option>
-                    <!-- 필요한 카테고리를 추가하세요 -->
-                </select>
-            </div>
+				<!-- 그룹 인삿말 -->
+				<div class="form-group">
+					<label for="group-greeting">그룹 인삿말</label>
+					<div id="group-greeting-editor" style="height: 150px;" th:utext="${group.greeting}"></div>
+					<div class="help-text">인삿말을 간단하게 작성하세요.</div>
+				</div>
 
-            <!-- 인사말 -->
-            <div class="form-group">
-                <label for="greeting">인사말</label>
-                <textarea id="greeting" name="greeting" th:field="*{greeting}" placeholder="그룹 인사말을 입력하세요" rows="3" required></textarea>
-            </div>
+				<!-- 그룹 설명 -->
+				<div class="form-group">
+					<label for="group-description">그룹 설명</label>
+					<div id="group-description-editor" th:utext="${group.description}"></div>
+					<div class="help-text">그룹 활동과 목적을 간단하게 설명하세요.</div>
+				</div>
 
-            <!-- 저장 버튼 -->
-            <div class="form-actions">
-                <button type="submit" class="save-button">저장하기</button>
-                <button type="button" class="cancel-button" onclick="closeEditGroupModal()">취소</button>
-            </div>
-        </form>
-    </div>
+				<!-- 그룹 대표 이미지 -->
+				<div class="form-group">
+					<label for="group-image">그룹 대표 이미지</label>
+					<input type="file" id="group-image" name="groupImage" accept="image/*">
+					<div id="group-image-preview" class="image-preview-container">
+						<!-- 현재 그룹 이미지 -->
+						<img th:if="${group.mainImageUrl}" th:src="@{${group.mainImageUrl}}" alt="현재 그룹 이미지">
+					</div>
+					<div class="help-text">이미지를 업로드하여 그룹을 대표할 수 있습니다.</div>
+				</div>
 
-    <style>
-        .edit-group-form-container {
-            padding: 20px;
-            max-width: 600px;
-            margin: auto;
-        }
-        .form-group {
-            margin-bottom: 15px;
-        }
-        .form-group label {
-            display: block;
-            margin-bottom: 5px;
-        }
-        .form-group input, .form-group textarea, .form-group select {
-            width: 100%;
-            padding: 8px;
-            box-sizing: border-box;
-        }
-        .form-actions {
-            display: flex;
-            justify-content: space-between;
-        }
-        .save-button, .cancel-button {
-            padding: 10px 15px;
-            cursor: pointer;
-        }
-    </style>
+				<!-- 숨겨진 input 필드를 추가하여 Quill 내용을 저장 -->
+				<input type="hidden" name="greeting" id="group-greeting-input" th:value="${group.greeting}">
+				<input type="hidden" name="description" id="group-description-input" th:value="${group.description}">
+
+				<!-- 추가 숨겨진 input 필드 -->
+				<input type="hidden" name="mainImageBucketKey" id="mainImageBucketKey"
+					th:value="${group.mainImageBucketKey}">
+				<input type="hidden" name="mainImageOrgName" id="mainImageOrgName" th:value="${group.mainImageOrgName}">
+
+				<!-- 그룹 수정 버튼 -->
+				<button type="submit" class="submit-button">그룹 수정하기</button>
+			</form>
+		</div>
+	</main>
 </body>
+
 </html>

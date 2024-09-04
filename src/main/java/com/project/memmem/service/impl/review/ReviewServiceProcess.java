@@ -43,6 +43,16 @@ public class ReviewServiceProcess implements ReviewService {
 
 	@Value("${spring.cloud.aws.s3.host}")
 	private String imgHost;
+	
+	//이유진언니꺼
+	@Override
+	@Transactional
+	public List<ReviewEntity> getReviewsExcludingBlockedUsers(Long userId) {
+		UserEntity user = userRepository.findById(userId).orElseThrow(() -> new RuntimeException("User not found"));
+		List<UserEntity> blockedUsers = blockRepository.findBlockedUsersByBlocker(user);
+		return reviewRepository.findAllExcludingBlockedUsers(blockedUsers);
+	}
+
 
 	// 이유진언니꺼
 	@Override
@@ -107,7 +117,8 @@ public class ReviewServiceProcess implements ReviewService {
 		return createdAt.format(formatter);
 	}
 
-	// 내글만 삭제 가능하도록 하는 메서드
+
+	//내글만 삭제 가능하도록 하는 메서드
 	@Override
 	public void reviewDelete(long reId, long userId) {
 		ReviewEntity review = reviewRepository.findById(reId)
@@ -140,5 +151,4 @@ public class ReviewServiceProcess implements ReviewService {
 		// Save to database
 		reviewRepository.save(reviewEntity);
 	}
-
 }

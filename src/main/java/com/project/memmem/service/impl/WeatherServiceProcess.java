@@ -20,7 +20,7 @@ import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor
-public class WeatherService {
+public class WeatherServiceProcess {
 	@Value("${weather.api.key}")
 	private String apiKey;
 
@@ -30,7 +30,7 @@ public class WeatherService {
 	// HTTP 요청을 보내기 위한 RestTemplate을 주입받습니다.
 	private final RestTemplate restTemplate;
 	// 위치 정보를 처리하는 LocationService를 주입받습니다.
-	private final LocationService locationService;
+	private final LocationServiceProcess locationService;
 
 	// 현재 날씨 정보를 가져오는 메서드
 	public Map<String, String> getCurrentWeather(String location) {

@@ -2,7 +2,13 @@ package com.project.memmem.controller;
 
 import java.util.List;
 
+import org.springframework.security.core.Authentication;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,6 +23,7 @@ import com.project.memmem.security.MemmemUserDetails;
 import com.project.memmem.service.MypageService;
 import com.project.memmem.service.group.GroupService;
 
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 
 
@@ -26,6 +33,7 @@ public class MypageController {
 	
 	private final MypageService mypageService; // 사용자 추가 정보를 가져오는 서비스
 	private final GroupService groupService;
+	private final UserDetailsService userDetailsService;
 
 	@GetMapping("/mypage")
     public String myPage(@AuthenticationPrincipal MemmemUserDetails userDetails, Model model) {
@@ -69,29 +77,30 @@ public class MypageController {
     }
 
 	@PostMapping("/mypage/update")
-	public String updateProfile(@AuthenticationPrincipal MemmemUserDetails userDetails,
-	                            @ModelAttribute("user") UserUpdateDTO userUpdateDTO) {
-	    if (userDetails != null) {
-	        mypageService.updateUser(userDetails.getUserId(), userUpdateDTO);
-	    }
-	    return "redirect:/mypage";
-	}
+    public String updateProfile(@AuthenticationPrincipal MemmemUserDetails userDetails,
+                                @ModelAttribute("user") UserUpdateDTO userUpdateDTO,
+                                HttpSession session) {
+        if (userDetails != null) {
+            // 사용자 정보 업데이트
+            mypageService.updateUser(userDetails.getUserId(), userUpdateDTO);
+
+            // 업데이트된 사용자 정보로 새로운 UserDetails 객체 생성
+            UserDetails updatedUserDetails = userDetailsService.loadUserByUsername(userDetails.getUsername());
+
+            //새로운 Authentication 객체 생성 및 SecurityContext에 설정
+            Authentication newAuth = new UsernamePasswordAuthenticationToken(updatedUserDetails, null, updatedUserDetails.getAuthorities());
+            SecurityContextHolder.getContext().setAuthentication(newAuth);
+
+            // 세션 갱신
+            session.setAttribute("SPRING_SECURITY_CONTEXT", SecurityContextHolder.getContext());
+        }
+        return "redirect:/mypage";
+    }
 
 	//목록 조회
 	@GetMapping("/mypage/myGroup")
 	private String mypageGroupList(@AuthenticationPrincipal MemmemUserDetails userDetails, Model model) {
-        System.out.println("Processing group list for user ID: " + userDetails.getUserId());
-        try {
             mypageService.listProcess(userDetails.getUserId(), model);
-            List<?> joinedGroups = (List<?>) model.getAttribute("joinedGroups");
-            List<?> createdGroups = (List<?>) model.getAttribute("createdGroups");
-            System.out.println("Joined Groups Size: " + (joinedGroups != null ? joinedGroups.size() : "null"));
-            System.out.println("Created Groups Size: " + (createdGroups != null ? createdGroups.size() : "null"));
-        } catch (Exception e) {
-            System.err.println("Error in mypageGroupList: " + e.getMessage());
-            e.printStackTrace();
-            model.addAttribute("error", "모임 목록을 불러오는 중 오류가 발생했습니다.");
-        }
         return "views/mypage/mygroup :: content";
     }
 	

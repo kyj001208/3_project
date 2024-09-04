@@ -232,7 +232,7 @@ li {
 
 .group-card {
     display: flex;
-    background-color: #f9f9f9;
+    background-color: rgb(244, 244, 244);
     border-radius: 10px;
     border: 1px solid #f9f9f9;
     overflow: hidden;
@@ -288,15 +288,21 @@ li {
     padding: 10px; /* 내부 여백 추가 */
 }
 
-.text-container p{
-	font-size: 18px;
-	white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    max-width: 100%;
-    color: #999696;
-    display: inline-block; /* 요소를 인라인 블록으로 설정하여 컨텐츠에 맞게 크기 조정 */
-    margin-bottom: 0;
+
+.text-container p,i, strong,span {
+    font-size: 18px;
+    white-space: nowrap; /* 한 줄로 제한 */
+    overflow: hidden; /* 넘치는 부분 숨기기 */
+    text-overflow: ellipsis; /* 넘치는 부분에 '...' 표시 */
+    max-width: 100%; /* 최대 너비를 100%로 설정 */
+    color: rgb(56, 53, 53);
+    display:inline-block; /* 블록 요소로 설정 */
+    margin: 0;
+    font-style: normal;
+}
+
+.text-container i {
+    margin: 9px 0;
 }
 
 .text-container .date {
@@ -325,6 +331,7 @@ li {
     padding-right: 10px; /* 오른쪽 여백 추가 */
     box-sizing: border-box; /* 패딩을 너비에 포함 */
     margin-top: 10px;
+    margin-bottom: 18px;
 }
 
 .text-container .location {
@@ -361,11 +368,4 @@ li {
 
 .group-card:hover .overlay {
 	opacity: 1;
-}
-
-.loading-indicator {
-    text-align: center;
-    font-size: 18px;
-    color: #333;
-    margin: 20px 0;
 }

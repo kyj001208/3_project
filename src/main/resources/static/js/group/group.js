@@ -1,28 +1,3 @@
-// 그룹 수정 폼 열기 및 취소 기능
-function openEditGroupForm() {
-    var groupInfoSection = document.getElementById('groupInfoSection');
-    var editGroupSection = document.getElementById('editGroupSection');
-
-    if (groupInfoSection && editGroupSection) {
-        groupInfoSection.style.display = 'none';
-        editGroupSection.style.display = 'block';
-    } else {
-        console.error('groupInfoSection or editGroupSection element not found.');
-    }
-}
-
-function cancelEditGroup() {
-    var groupInfoSection = document.getElementById('groupInfoSection');
-    var editGroupSection = document.getElementById('editGroupSection');
-
-    if (groupInfoSection && editGroupSection) {
-        editGroupSection.style.display = 'none';
-        groupInfoSection.style.display = 'block';
-    } else {
-        console.error('groupInfoSection or editGroupSection element not found.');
-    }
-}
-
 document.addEventListener('DOMContentLoaded', function() {
     // GSAP ScrollTrigger 플러그인 등록
     gsap.registerPlugin(ScrollTrigger);
@@ -45,21 +20,52 @@ document.addEventListener('DOMContentLoaded', function() {
         delay: 0.6
     });
 
-    // Quill 에디터 초기화
-    var quillGreeting = new Quill('#group-greeting-editor', {
-        theme: 'snow'
-    });
+    // CSRF 토큰과 헤더 이름 가져오기
+    const csrfToken = document.querySelector('meta[name="_csrf"]').getAttribute('content');
+    const csrfHeader = document.querySelector('meta[name="_csrf_header"]').getAttribute('content');
 
-    var quillDescription = new Quill('#group-description-editor', {
-        theme: 'snow'
-    });
+    // Delete 버튼에 이벤트 리스너 추가
+    const deleteButtons = document.querySelectorAll('.delete-button');
+    deleteButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            const groupId = this.getAttribute('data-group-id');
 
-    // 폼 전송 시 Quill 에디터 내용을 숨겨진 input에 저장
-    var form = document.getElementById('edit-group-form');
-    if (form) {
-        form.onsubmit = function() {
-            document.getElementById('group-greeting-input').value = quillGreeting.root.innerHTML;
-            document.getElementById('group-description-input').value = quillDescription.root.innerHTML;
-        };
-    }
+            // 데이터가 제대로 설정되었는지 확인
+            if (groupId && csrfToken && csrfHeader) {
+                deleteGroup(groupId, csrfToken, csrfHeader);
+            } else {
+                console.error('그룹 ID 또는 CSRF 토큰이 설정되지 않았습니다.');
+            }
+        });
+    });
 });
+
+function deleteGroup(id, csrfToken, csrfHeader) {
+    if (confirm('정말로 이 그룹을 삭제하시겠습니까?')) {
+        fetch(`/delete/${id}`, {
+            method: 'DELETE',
+            headers: {
+                [csrfHeader]: csrfToken,  // CSRF 토큰 설정
+                'Content-Type': 'application/json'
+            }
+        })
+        .then(response => {
+            if (response.ok) {
+                alert('그룹이 삭제되었습니다.');
+                window.location.href = '/';  // 홈으로 리디렉션
+            } else if (response.status === 403) {
+                alert('삭제 권한이 없습니다.');
+            } else {
+                alert('삭제에 실패했습니다.');
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert('삭제 중 오류가 발생했습니다.');
+        });
+    }
+}
+function openEditGroupForm(groupId) {
+    window.location.href = `/edit-group/${groupId}`;
+}
+

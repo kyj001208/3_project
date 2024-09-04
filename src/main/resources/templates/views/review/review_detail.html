@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
-	th:replace="~{views/commons/layout :: layout(~{::head} ,~{::main} ) }">
+    th:replace="~{views/commons/layout :: layout(~{::head} ,~{::main} ) }">
 <head>
 <title>Review Detail</title>
 <meta name="_csrf" th:content="${_csrf.token}" />
@@ -76,6 +76,7 @@
 					<input type="hidden" id="mainImageBucketKey" name="bucketKey">
 					<input type="hidden" id="mainImageOrgName" name="orgName">
 
+
 					<label for="editContent">내용:</label>
 					<textarea id="editContent" name="content" rows="4" required
 						th:utext="${review.content}"></textarea>
@@ -88,7 +89,6 @@
 
 
 			<!-- 버튼들 -->
-
 		</div>
 	</main>
 </body>

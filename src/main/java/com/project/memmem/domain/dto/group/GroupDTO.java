@@ -19,7 +19,7 @@ public class GroupDTO {
     private String groupName;
     private String greeting;
     private String createdAt; // 포맷된 날짜를 저장
-    private Category category;
+    private String categoryKoName;
     private Long creatorUserId;
     private String mainImageUrl;
 }

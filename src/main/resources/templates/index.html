@@ -38,14 +38,14 @@
 	                        <a th:href="@{/group-detail/{id}(id=${group.id})}" class="group-link"></a>
 	                    </div>
 	                    <div class="text-container">
-	                        <p class="categories" th:text="${group.category.koName}">Category</p>
+	                        <p class="categories" th:text="${group.categoryKoName}">Category</p>
 		                        <p class="date">Since</p> 
 		                        <p class="date" th:text="${group.createdAt}">Creation Date</p>
 	                        <h3 th:text="${group.groupName}">Group Name</h3>
-	                            <p class="intro" th:utext="${group.greeting}">Greeting</p>
+	                            <i class="intro" th:utext="${group.greeting}">Greeting</i>
 	                        <div class="member">
 	                            <img class="people" src="/images/group.png" alt="Members">
-	                            <span>2</span>/30
+	                            2/30
 	                        </div>
 	                    </div>
 	                </div>
@@ -83,12 +83,17 @@
 		<section class="premium-picks">
 			<div class="picks-container">
 				<div class="picks-container-text">
-					<h2><img class="front" src="/images/3.png">최고의 모임</h2>
-					<p>무슨 모임 가입하지 고민될 때 <br>최고의 모임으로 오세요!</p>
+					<h2>
+						<img class="front" src="/images/3.png">최고의 모임
+					</h2>
+					<p>
+						무슨 모임 가입하지 고민될 때 <br>최고의 모임으로 오세요!
+					</p>
 				</div>
 				<div class="pick-cards">
 					<div class="pick-card">
-						<a href="/place/detail/3"> <img src="/images/puppy.jpg"	alt="Pick">
+						<a href="/place/detail/3"> <img src="/images/puppy.jpg"
+							alt="Pick">
 						</a>
 						<div class="pick-overlay">
 							<h3>모임 이름 3</h3>
@@ -96,7 +101,8 @@
 						</div>
 					</div>
 					<div class="pick-card">
-						<a href="/place/detail/3"> <img src="/images/puppy.jpg"	alt="Pick">
+						<a href="/place/detail/3"> <img src="/images/puppy.jpg"
+							alt="Pick">
 						</a>
 						<div class="pick-overlay">
 							<h3>모임 이름 3</h3>
@@ -104,7 +110,8 @@
 						</div>
 					</div>
 					<div class="pick-card">
-						<a href="/place/detail/3"> <img src="/images/puppy.jpg"	alt="Pick">
+						<a href="/place/detail/3"> <img src="/images/puppy.jpg"
+							alt="Pick">
 						</a>
 						<div class="pick-overlay">
 							<h3>모임 이름 3</h3>

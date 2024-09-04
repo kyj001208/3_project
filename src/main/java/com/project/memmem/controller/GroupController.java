@@ -10,10 +10,13 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -22,6 +25,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.project.memmem.domain.dto.group.GroupListDTO;
 import com.project.memmem.domain.dto.group.GroupSaveDTO;
+import com.project.memmem.domain.dto.group.GroupUpdateDTO;
 import com.project.memmem.domain.entity.Category;
 import com.project.memmem.domain.entity.GroupEntity;
 import com.project.memmem.security.MemmemUserDetails;
@@ -35,70 +39,78 @@ public class GroupController {
 
 	private final GroupService groupService;
 
+	@GetMapping("/group-detail/{id}")
+	public String groupDetail(@PathVariable("id") Long groupId, Model model,
+			@AuthenticationPrincipal MemmemUserDetails userDetails) {
+		List<GroupListDTO> groups = groupService.getGroupsByGroupId(groupId);
+		boolean isMember = groupService.isUserMemberOfGroup(userDetails.getUserId(), groupId);
+		boolean isCreator = groupService.isUserCreatorOfGroup(userDetails.getUserId(), groupId);
+		model.addAttribute("groups", groups);
+		model.addAttribute("isCreator", isCreator);
+		model.addAttribute("isMember", isMember);
 
-    @GetMapping("/group-detail/{id}")
-    public String groupDetail(@PathVariable("id") Long groupId, Model model,
-                              @AuthenticationPrincipal MemmemUserDetails userDetails) {
-        List<GroupListDTO> groups = groupService.getGroupsByGroupId(groupId);
-        boolean isMember = groupService.isUserMemberOfGroup(userDetails.getUserId(), groupId);
-        boolean isCreator = groupService.isUserCreatorOfGroup(userDetails.getUserId(), groupId);
-        model.addAttribute("groups", groups);
-        model.addAttribute("isCreator", isCreator);
-        model.addAttribute("isMember", isMember);
+		return "views/group/group";
+	}
 
-        return "views/group/group";
-    }
+	@PostMapping("/groupSave")
+	public String groupSave(@AuthenticationPrincipal MemmemUserDetails userDetails, GroupSaveDTO dto) {
+		groupService.groupSaveProcess(userDetails.getUserId(), dto);
+		return "redirect:/";
+	}
 
-    @PostMapping("/groupSave")
-    public String groupSave(@AuthenticationPrincipal MemmemUserDetails userDetails, GroupSaveDTO dto) {
-        groupService.groupSaveProcess(userDetails.getUserId(), dto);
-        return "redirect:/";
-    }
+	@PostMapping("/uploadImage")
+	@ResponseBody
+	public Map<String, String> uploadImage(@RequestParam("file") MultipartFile file) throws IOException {
+		return groupService.s3TempUpload(file);
+	}
 
-    @PostMapping("/uploadImage")
-    @ResponseBody
-    public Map<String, String> uploadImage(@RequestParam("file") MultipartFile file) throws IOException {
-        return groupService.s3TempUpload(file);
-    }
+	@PostMapping("/join-group/{id}")
+	public String joinGroup(@PathVariable("id") Long groupId, @AuthenticationPrincipal MemmemUserDetails userDetails,
+			RedirectAttributes redirectAttributes) {
+		try {
+			groupService.joinGroup(userDetails.getUserId(), groupId);
+			redirectAttributes.addFlashAttribute("message", "그룹에 성공적으로 가입되었습니다!");
+		} catch (IllegalStateException e) {
+			redirectAttributes.addFlashAttribute("errorMessage", "이미 이 그룹의 멤버입니다.");
+		}
+		return "redirect:/group-detail/" + groupId;
+	}
 
-    @PostMapping("/join-group/{id}")
-    public String joinGroup(@PathVariable("id") Long groupId, @AuthenticationPrincipal MemmemUserDetails userDetails,
-                            RedirectAttributes redirectAttributes) {
-        try {
-            groupService.joinGroup(userDetails.getUserId(), groupId);
-            redirectAttributes.addFlashAttribute("message", "그룹에 성공적으로 가입되었습니다!");
-        } catch (IllegalStateException e) {
-            redirectAttributes.addFlashAttribute("errorMessage", "이미 이 그룹의 멤버입니다.");
-        }
-        return "redirect:/group-detail/" + groupId;
-    }
+	@GetMapping("/create-group")
+	public String createGroup(Model model) {
+		List<Category> categories = Arrays.asList(Category.values());
+		model.addAttribute("categories", categories);
+		return "views/group/create-group";
+	}
 
-    @GetMapping("/create-group")
-    public String createGroup(Model model) {
-        List<Category> categories = Arrays.asList(Category.values());
-        model.addAttribute("categories", categories);
-        return "views/group/create-group";
-    }
+	// 그룹 수정 페이지 표시
+	@GetMapping("/edit-group/{id}")
+	public String showEditGroupForm(@PathVariable("id") Long id, Model model) {
+		// 그룹 정보를 가져와서 DTO에 저장
+		GroupUpdateDTO groupUpdateDTO = groupService.getGroupUpdateDTOById(id);
+		List<Category> categories = Arrays.asList(Category.values());
+		model.addAttribute("categories", categories);
+		model.addAttribute("group", groupUpdateDTO);
+		// 그룹 수정 폼을 렌더링할 뷰 이름을 반환
+		return "views/group/edit-group-form";
+	}
 
-    // 그룹 수정 페이지에 대한 기존 GET 요청은 제거합니다.
-    
-    @PostMapping("/edit-group/{id}")
-    @ResponseBody
-    public ResponseEntity<?> editGroup(@PathVariable("id") Long id, @RequestBody GroupSaveDTO groupSaveDTO,
-                                       @AuthenticationPrincipal MemmemUserDetails userDetails) {
-        try {
-            groupService.updateGroup(id, groupSaveDTO);
-            return ResponseEntity.ok("그룹이 성공적으로 수정되었습니다.");
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("그룹 수정에 실패했습니다.");
-        }
-    }
+	// 그룹 정보 업데이트 (PUT)
+	@PutMapping("/update-group/{id}")
+	public String updateGroup(@PathVariable("id") Long id, GroupUpdateDTO dto, BindingResult result,
+			@RequestParam(value = "groupImage", required = false) MultipartFile groupImage) {
 
-    // 새로운 비동기 그룹 정보 요청
-    @GetMapping("/group/{id}/info")
-    @ResponseBody
-    public ResponseEntity<GroupEntity> getGroupInfo(@PathVariable("id") Long id) {
-        GroupEntity group = groupService.findGroupById(id);
-        return ResponseEntity.ok(group);
-    }
+		// 서비스 호출을 통해 그룹 정보 업데이트
+		groupService.updateProcess(id, dto, groupImage);
+
+		return "redirect:/";
+	}
+
+	@DeleteMapping("/delete/{id}")
+	public String deleteGroup(@PathVariable("id") Long id) {
+
+	    groupService.deleteGroup(id);
+	    return "views/group/group";  // 삭제 후 홈으로 리디렉션
+	}
+
 }

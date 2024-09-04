@@ -24,7 +24,7 @@ public interface ReviewService {
 	void getReviewDetail(long reId, Model model);
 
 	void reviewDelete(long reId, long userId);
-
+  
 	void reviewUpdateProcess(long reId, ReviewUpDateDTO dto, long userId);
 
 	List<ReviewEntity> getReviewsExcludingBlockedUsers(Long userId);

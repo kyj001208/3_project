@@ -13,5 +13,4 @@ public interface ReviewRepository extends JpaRepository<ReviewEntity, Long> {
 
 	@Query("SELECT r FROM ReviewEntity r WHERE r.user NOT IN :blockedUsers")
 	List<ReviewEntity> findAllExcludingBlockedUsers(@Param("blockedUsers") List<UserEntity> blockedUsers);
-
 }

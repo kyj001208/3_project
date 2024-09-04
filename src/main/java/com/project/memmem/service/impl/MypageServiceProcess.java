@@ -64,14 +64,13 @@ public class MypageServiceProcess implements MypageService{
         try {
             UserEntity user = userRepository.findById(userId).orElseThrow();
 
-            // 가입한 모임 조회
-            List<GroupMemberShipEntity> memberships = groupMemberShipEntityRepository.findByUser(user);
-            
+            // 내가 만든 모임 조회 (내가 가입한 모임 제외)
+            List<GroupMemberShipEntity> memberships = groupMemberShipEntityRepository.findByUserAndRole(user, GroupMemberShipEntity.Role.ROLE_MEMBER);           
             List<MyGroupListDTO> joinedGroups = memberships.stream()
                 .map(membership -> MyGroupListDTO.fromMembership(membership, "baseUrl"))
                 .collect(Collectors.toList());
 
-            // 만든 모임 조회
+            //내가 가입한 모임 조회
             List<GroupEntity> createdGroups = groupEntityRepository.findByCreator(user);
 
             List<MyGroupListDTO> createdGroupsDTO = createdGroups.stream()
