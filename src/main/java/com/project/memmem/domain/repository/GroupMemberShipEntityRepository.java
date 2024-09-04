@@ -17,6 +17,8 @@ public interface GroupMemberShipEntityRepository extends JpaRepository<GroupMemb
 	  List<GroupMemberShipEntity> findByUser(UserEntity user);
 
 	GroupMemberShipEntity findByUserUserIdAndGroup_Id(long userId, Long groupId);
+
+	List<GroupMemberShipEntity> findByUserAndRole(UserEntity user, GroupMemberShipEntity.Role role);
 	
 
 }

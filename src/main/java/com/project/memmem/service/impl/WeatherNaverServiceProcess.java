@@ -53,7 +53,7 @@ public class WeatherNaverServiceProcess implements WeatherNaverService {
         
         // 요소가 존재하는지 확인하고 없을 경우 예외 발생
         if (temperatureElement == null || statusElement == null) {
-            throw new IOException("날씨 정보를 가져오는데 실패했습니다. 요소를 찾을 수 없습니다.");
+            throw new IOException("날씨 정보를 가져오는데 실패했습니다. 해당 지역을 찾을 수 없습니다.");
         }
 
         // 텍스트 추출 및 정리
@@ -82,8 +82,9 @@ public class WeatherNaverServiceProcess implements WeatherNaverService {
 
         // Jsoup을 사용하여 HTML 문서 가져오기
         Document doc = Jsoup.connect(url)
-            .userAgent("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36")
-            .get();
+        	    .userAgent("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36")
+        	    .header("Accept-Encoding", "gzip, deflate")
+        	    .get();
 
         List<WeeklyForecastDTO> weeklyForecasts = new ArrayList<>(); // 주간 예보 정보를 저장할 리스트
         Elements weekItems = doc.select(".weekly_forecast_area .week_item"); // 주간 예보 항목 선택
@@ -94,33 +95,34 @@ public class WeatherNaverServiceProcess implements WeatherNaverService {
             String date = weekItem.select(".date").text();
 
             // 오전과 오후의 날씨 아이콘 선택
-            Elements weatherIcons = weekItem.select(".weather_left .weather_icon i");
-            String morningWeatherClass = "";
-            String afternoonWeatherClass = "";
+            String morningWeatherIconClass = weekItem.select(".cell_weather span:nth-child(1) i").attr("class");
+            String afternoonWeatherIconClass = weekItem.select(".cell_weather span:nth-child(2) i").attr("class");
             
-            // 선택된 아이콘이 2개인 경우, 오전과 오후 아이콘을 각각 할당
-            if (weatherIcons.size() >= 2) {
-                morningWeatherClass = weatherIcons.get(0).attr("class");
-                afternoonWeatherClass = weatherIcons.get(1).attr("class");
-            } else if (weatherIcons.size() == 1) {
-                // 아이콘이 하나만 있는 경우, 오전과 오후의 날씨를 동일하게 설정
-                morningWeatherClass = afternoonWeatherClass = weatherIcons.get(0).attr("class");
-            }
+            // 날씨 아이콘 파일명으로 변환
+            String morningWeatherIcon = getWeatherIconFileName(morningWeatherIconClass);
+            String afternoonWeatherIcon = getWeatherIconFileName(afternoonWeatherIconClass);
+            
 
+            //온도 정보 추출
             Elements temperatures = weekItem.select(".temperature");
             String morningTemp = temperatures.size() > 0 ? temperatures.get(0).text().replace("°", "") : "";
             String afternoonTemp = temperatures.size() > 1 ? temperatures.get(1).text().replace("°", "") : "";
 
             // 강수 확률 정보 추출
             String rainProbability = weekItem.select(".rainfall").text();
+            
+            // 최저 기온과 최고 기온 크롤링
+            String lowestTemp = weekItem.select(".lowest").text().replace("°", "");
+            String highestTemp = weekItem.select(".highest").text().replace("°", "");
 
             // 주간 예보 DTO 객체 생성 및 리스트에 추가
             WeeklyForecastDTO forecast = new WeeklyForecastDTO(
             		day, date, 
-                    convertWeatherIconToStatus(morningWeatherClass), 
-                    convertWeatherIconToStatus(afternoonWeatherClass), 
+            		morningWeatherIcon,  // 아이콘 파일 이름으로 변경
+                    afternoonWeatherIcon,  // 아이콘 파일 이름으로 변경 
                     morningTemp, afternoonTemp, 
-                    rainProbability
+                    rainProbability, lowestTemp,  // 새로 추가된 최저 기온
+                    highestTemp  // 새로 추가된 최고 기온
             );
             weeklyForecasts.add(forecast);
         }
@@ -140,17 +142,15 @@ public class WeatherNaverServiceProcess implements WeatherNaverService {
      * @param iconClass - 날씨 아이콘의 CSS 클래스
      * @return String - 날씨 상태 텍스트 (맑음, 흐림, 비, 눈 등)
      */
- // ico_wt 값에 따른 날씨 상태 결정
-    private String convertWeatherIconToStatus(String iconClass) {
-        if (iconClass.contains("ico_wt1")) return "맑음";
-        if (iconClass.contains("ico_wt2")) return "구름 조금";
-        if (iconClass.contains("ico_wt3")) return "구름 많음";
-        if (iconClass.contains("ico_wt4")) return "흐림";
-        if (iconClass.contains("ico_wt5")) return "비";
-        if (iconClass.contains("ico_wt6")) return "눈/비";
-        if (iconClass.contains("ico_wt7")) return "눈";
-        // 기타 날씨 상태를 추가할 수 있음
-        return "기타";  // 다른 날씨 상태에 대한 처리
+    // ico_wt 값에 따른 날씨 상태 결정
+    private String getWeatherIconFileName(String iconClass) {
+        // "ico_wt" 다음에 오는 숫자를 추출
+        String iconNumber = iconClass.replaceAll(".*ico_wt(\\d{1,2}).*", "$1");
+        if (!iconNumber.isEmpty()) {
+            return "icon_flat_wt" + iconNumber + ".svg";
+        }
+        // 기본 아이콘 파일 이름
+        return "icon_flat_wt1.svg"; // 기본 값 설정
     }
 
     @Override
@@ -170,6 +170,7 @@ public class WeatherNaverServiceProcess implements WeatherNaverService {
     
     @Override
     public List<HourlyWeatherDTO> getHourlyWeather(String city) throws IOException {
+    	
         String encodedCity = URLEncoder.encode(city, StandardCharsets.UTF_8);
         String url = "https://search.naver.com/search.naver?where=nexearch&sm=top_hty&fbm=1&ie=utf8&query=" + encodedCity + "+날씨";
 
