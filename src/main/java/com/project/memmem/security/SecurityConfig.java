@@ -1,6 +1,8 @@
 package com.project.memmem.security;
+
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.web.SecurityFilterChain;
@@ -8,10 +10,12 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.springframework.security.web.util.matcher.OrRequestMatcher;
 
 import lombok.RequiredArgsConstructor;
+
 @Configuration
 @EnableWebSecurity
 @RequiredArgsConstructor
 public class SecurityConfig {
+
     //private final CustomUserDetailsService customUserDetailsService;
     private final MemmemLoginSuccessHandler LoginSuccessHandler;
     
@@ -21,19 +25,20 @@ public class SecurityConfig {
     SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
 	        .authorizeHttpRequests(authorize -> authorize
-	        		.requestMatchers("/css/**", "/js/**", "/images/**", "/favicon.ico","/bookBot/**","/bot/**","/topic/**","/message/**").permitAll()
-	        		.requestMatchers("/","/groupSave","/login/**","/logout/**","/signup/**", "/login?error=true").permitAll()  // 로그인 페이지와 오류 페이지에 대한 접근 허용               
-	                .requestMatchers("/mypage/","/reviews","/upload-temp").hasRole("USER")
-	                .anyRequest().authenticated()
-	            )
+               .requestMatchers("/css/**", "/js/**", "/images/**", "/favicon.ico", "/bookBot/**", "/bot/**","/topic/**", "/message/**")
+               .permitAll().requestMatchers("/", "/groupSave", "/login", "/logout", "/signup", "/login?error=true").permitAll() // 로그인 페이지와 오류 페이지에 대한 접근 허용
+               .requestMatchers(HttpMethod.DELETE, "/delete/**").hasRole("USER") // DELETE 메서드에 대해 명시적으로 설정
+               .requestMatchers("/mypage/","/reviews","/upload-temp").hasRole("USER")
+                .anyRequest().authenticated()
+          )
 	        .formLogin(login -> login
-	            .loginPage("/login")
-	            .loginProcessingUrl("/login")
-	            .usernameParameter("email")
-	            .passwordParameter("password")
-	            .successHandler(LoginSuccessHandler)
-	            .failureUrl("/login?error=true") // 로그인 실패 시 리다이렉트할 URL
-	            .permitAll()
+	             .loginPage("/login")
+	              .loginProcessingUrl("/login")
+	              .usernameParameter("email")
+	             .passwordParameter("password")
+	             .successHandler(LoginSuccessHandler)
+	              .failureUrl("/login?error=true") // 로그인 실패 시 리다이렉트할 URL
+	              .permitAll()
 	        )
 	        .logout(logout -> logout
                 .logoutRequestMatcher(
@@ -60,6 +65,6 @@ public class SecurityConfig {
                 })
             );
 
-        return http.build();
-    }
+		return http.build();
+	}
 }
