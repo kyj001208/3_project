@@ -103,10 +103,10 @@ public class GroupEntity {
         String formattedDate = this.createdAt.format(formatter); // GroupEntity의 생성 날짜를 지정된 형식으로 포맷
 
         return GroupDTO.builder()
-                .id(id)
+        		.id(this.id)
                 .groupName(this.groupName)
                 .greeting(this.greeting)
-                .category(this.category)
+                .categoryKoName(this.category.getKoName()) // Category의 한국어 이름 설정
                 .creatorUserId(this.creator.getUserId())
                 .mainImageUrl(getMainImageUrl(baseUrl)) // 메인 이미지 URL 설정 (getMainImageUrl 메서드 사용)
                 .createdAt(formattedDate)

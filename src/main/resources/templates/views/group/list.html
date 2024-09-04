@@ -23,7 +23,7 @@
 
 		<!-- Category Section -->
 		<section class="category">
-			<form action="/search/places" method="get" class="category-container">
+			<form method="get" class="category-container">
 				<ul>
 					<li class="category-item">
 				        <a href="/group-list">전체</a>
@@ -75,31 +75,12 @@
 
 		<!-- Profile Section -->
 		<section class="groups">
-			<div class="groups-container">
-				<div class="container-text">
-				</div>
-				<div class="group-cards">
-					<div th:each="group : ${groups}" class="group-card">
-	                    <div class="group-img-container" th:style="|background-image: url(${group.mainImageUrl});|">
-	                        <a th:href="@{/group-detail/{id}(id=${group.id})}" class="group-link"></a>
-	                    </div>
-	                    <div class="text-container">
-	                        <p class="categories" th:text="${group.category.koName}">Category</p>
-		                        <p class="date">Since</p> 
-		                        <p class="date" th:text="${group.createdAt}">Creation Date</p>
-	                        <h3 th:text="${group.groupName}">Group Name</h3>
-	                            <p class="intro" th:utext="${group.greeting}">Greeting</p>
-	                        <div class="member">
-	                            <img class="people" src="/images/group.png" alt="Members">
-	                            <span>2</span>/30
-	                        </div>
-	                    </div>
-	                </div>
-	                <div id="loading-indicator" class="loading-indicator" style="display:none;">Loading...</div>
-					<!-- 다른 프로필 카드 추가 -->
-				</div>
-			</div>
-		</section>
+        <div class="groups-container">
+            <div class="group-cards" id="group-container">
+                <!-- 그룹 카드가 여기에 동적으로 추가됩니다 -->
+            </div>
+        </div>
+    </section>
 	</main>
 </body>
 

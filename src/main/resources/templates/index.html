@@ -38,14 +38,14 @@
 	                        <a th:href="@{/group-detail/{id}(id=${group.id})}" class="group-link"></a>
 	                    </div>
 	                    <div class="text-container">
-	                        <p class="categories" th:text="${group.category.koName}">Category</p>
+	                        <p class="categories" th:text="${group.categoryKoName}">Category</p>
 		                        <p class="date">Since</p> 
 		                        <p class="date" th:text="${group.createdAt}">Creation Date</p>
 	                        <h3 th:text="${group.groupName}">Group Name</h3>
-	                            <p class="intro" th:utext="${group.greeting}">Greeting</p>
+	                            <i class="intro" th:utext="${group.greeting}">Greeting</i>
 	                        <div class="member">
 	                            <img class="people" src="/images/group.png" alt="Members">
-	                            <span>2</span>/30
+	                            2/30
 	                        </div>
 	                    </div>
 	                </div>
