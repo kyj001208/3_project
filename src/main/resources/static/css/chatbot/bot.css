@@ -168,7 +168,7 @@ p {
 	border-bottom-right-radius: 10px;
 	background: #f0f7ff;
 	word-wrap: break-word; /* 줄바꿈 허용 */
-	max-width: 170px;
+
 }
 
 #chat-content>div>div>div.part.guest {
@@ -329,13 +329,13 @@ p {
 	font-weight: 500;
 	letter-spacing: 0.5px;
 	padding: 0 15px;
-	border-radius: 25px;
+	border-radius: 3px;
 	color: #ffffff;
 	background-color: #3a95ff;
 	border: none;
 	box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 	transition: all 0.3s ease;
-	width: 110px;
+	width: 1000px;
 	height: 44px;
 	white-space: nowrap;
 	overflow: hidden;
@@ -380,13 +380,13 @@ p {
 	font-weight: 500;
 	letter-spacing: 0.5px;
 	padding: 0 15px;
-	border-radius: 25px;
+	border-radius: 3px;
 	color: #ffffff;
 	background-color: #3a95ff;
 	border: none;
 	box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 	transition: all 0.3s ease;
-	width: 110px;
+	width: 100px;
 	height: 44px;
 	white-space: nowrap;
 	overflow: hidden;

@@ -47,6 +47,8 @@ public class LocationServiceProcess {
         addLocation("용인", 62, 120, "용인시");
         addLocation("고양", 57, 128, "고양시");
         addLocation("성남", 62, 123, "성남시");
+        addLocation("구미", 89, 91, "구미시");
+        addLocation("통영", 91, 67, "통영시");
     }
     // 위치와 좌표를 추가하고, 별칭을 설정하는 메소드
     private void addLocation(String name, int nx, int ny, String... aliases) {
