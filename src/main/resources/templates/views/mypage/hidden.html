@@ -10,18 +10,18 @@
     <link rel="stylesheet" href="/css/mypage/hidden.css">
     <meta name="_csrf" th:content="${_csrf.token}"/>
     <meta name="_csrf_header" th:content="${_csrf.headerName}"/>
+<script src="https://www.google.com/recaptcha/api.js?render=6LedOzYqAAAAAIkfmP_W-qCzUgUag3__KaDaOKdU"></script>
+<script src="/js/mypage/recaptcha.js" defer></script>
 </head>
 <body>
 <div class="gpt-container">
   <div class="location-info" id="locationInfo">
     <!-- Location information will be displayed here -->
   </div>
-  <form id="demo-form" action="/submit-form" method="POST">
-    <!-- 폼 필드들 -->
-    <button class="g-recaptcha" 
-            data-sitekey="6LedOzYqAAAAAIkfmP_W-qCzUgUag3__KaDaOKdU"
-            data-callback='onSubmit' 
-            data-action='submit'>Submit</button>
+  <form id="demo-form" onsubmit="return false;">
+        <input type="hidden" th:if="${_csrf}" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+        <!-- 폼 필드들 -->
+        <div id="recaptchaStatus"></div> <!-- reCAPTCHA 상태 표시 -->
   </form>
   <div class="chat-header">
     <h2>인간 시대의 끝이 도래했다.</h2>
@@ -35,51 +35,5 @@
     <button class="details-btn" id="askButton">메세지 입력</button>
   </div>
 </div>
-
-<script src="https://www.google.com/recaptcha/api.js"></script>
-<script>
-function onSubmit(token) {
-  // reCAPTCHA 토큰을 서버로 전송하고 검증
-  fetch('/verify-recaptcha', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({ recaptchaToken: token })
-  })
-  .then(response => response.json())
-  .then(data => {
-    if (data.success) {
-      console.log("reCAPTCHA 검증 성공");
-      document.getElementById("demo-form").submit();
-    } else {
-      console.log("reCAPTCHA 검증 실패");
-      alert("보안 검증에 실패했습니다. 다시 시도해주세요.");
-    }
-  })
-  .catch(error => {
-    console.error('reCAPTCHA 검증 중 오류 발생:', error);
-    alert('검증 과정에서 오류가 발생했습니다. 나중에 다시 시도해주세요.');
-  });
-}
-
-// 페이지 로드 시 reCAPTCHA 실행
-grecaptcha.ready(function() {
-  grecaptcha.execute('6LedOzYqAAAAAIkfmP_W-qCzUgUag3__KaDaOKdU', {action: 'homepage'})
-    .then(function(token) {
-      // 토큰을 hidden 필드에 저장하거나 서버로 전송할 수 있습니다.
-      console.log("Generated token:", token);
-    });
-});
-
-// 메시지 입력 버튼 클릭 시 reCAPTCHA 실행
-document.getElementById('askButton').addEventListener('click', function(e) {
-  e.preventDefault();
-  grecaptcha.execute('6LedOzYqAAAAAIkfmP_W-qCzUgUag3__KaDaOKdU', {action: 'submit'})
-    .then(function(token) {
-      onSubmit(token);
-    });
-});
-</script>
 </body>
 </html>
