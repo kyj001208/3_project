@@ -1,6 +1,7 @@
 package com.project.memmem.service.impl;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -40,10 +41,27 @@ public class BlockServiceProcess implements BlockService {
 	}
 
 	@Override
-	public List<UserEntity> getBlockedUsers(Long userId) {
-        UserEntity user = userRepository.findById(userId).orElseThrow(() -> new RuntimeException("User not found"));
-        return blockRepository.findBlockedUsersByBlocker(user);
+	public List<BlockDTO> getBlockedUsers(Long userId) {
+	    UserEntity user = userRepository.findById(userId)
+	            .orElseThrow(() -> new RuntimeException("User not found"));
+	    List<BlockListEntity> blockedEntities = blockRepository.findByBlocker(user);
+
+	    return blockedEntities.stream()
+	            .map(block -> BlockDTO.builder()
+	                    .id(block.getId())
+	                    .blockerNickName(block.getBlocker().getNickName())
+	                    .blockedNickName(block.getBlocked().getNickName())
+	                    .blockTime(block.getBlockTime())
+	                    .build())
+	            .collect(Collectors.toList());
+	    
+	    
 	}
+	public String formatTime(LocalDateTime blockTime) {
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
+		return blockTime.format(formatter);
+	}
+	
 	
 	
 }

@@ -18,13 +18,5 @@ public class BlockDTO {
     private String blockedNickName; // 차단 당한 사용자 닉네임
 	private LocalDateTime blockTime; //차단 날짜
 	
-	public BlockDTO(Long id, String blockerNickName, String blockedNickName, LocalDateTime blockTime) {
-		BlockDTO blockDTO = BlockDTO.builder()
-		        .id(id)
-		        .blockerNickName(blockerNickName)
-		        .blockedNickName(blockedNickName)
-		        .blockTime(blockTime)
-		        .build();
-	}
 	
 }
