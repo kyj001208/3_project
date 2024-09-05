@@ -55,6 +55,8 @@ public class GroupEntity {
     @Column(columnDefinition = "TEXT")
     private String description; // 소모임 설명, TEXT
 
+    private String notice; // 공지사항을 저장할 필드
+
     @Column(nullable = false)
     private LocalDateTime createdAt; // 생성일, DATETIME
 
