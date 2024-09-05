@@ -42,16 +42,16 @@ public class ChatbotServiceProcess {
 
 	@Transactional
 	public AnswerDTO processUserQuestion(QuestionDTO questionDTO) {
-		
+
 		// 사용자의 질문 내용을 자연어 처리(NLP)하여 분석
 		MessageDTO analysisResult = komoranService.nlpAnalyze(questionDTO.getContent());
 		Set<String> nouns = analysisResult.getNouns();
-		
+
 		// 질문 내용에 "날씨", "기온", "습도"가 포함되어 있거나, 날씨 관련 대화 단계가 진행 중인 경우
 		if (nouns.contains("날씨") || nouns.contains("기온") || nouns.contains("습도") || questionDTO.getWeatherStep() > 0) {
 			return handleWeatherQuery(questionDTO);
 		}
-		
+
 		// 시나리오가 진행 중이거나, 사용자가 소모임 추천을 요청한 경우
 		if (questionDTO.isInScenario() || "소모임 추천해주세요!".equals(questionDTO.getContent())) {
 			return processScenario(questionDTO.getContent());
@@ -59,7 +59,7 @@ public class ChatbotServiceProcess {
 		// NLP 분석 결과로 얻은 명사를 바탕으로 의도를 추출
 		Set<NNPIntentionEntity> nnpIntentions = findNNPIntention(nouns);
 		Optional<AnswerEntity> answerEntityOptional = Optional.empty();
-		
+
 		// 의도가 발견되지 않은 경우, 기본 응답을 찾음
 		if (nnpIntentions.isEmpty()) {
 			answerEntityOptional = answerRepository.findByNnpIntention_NnpNo(0);
@@ -125,7 +125,7 @@ public class ChatbotServiceProcess {
 		String temperature = weatherInfo.get("temperature");
 		String humidity = weatherInfo.get("humidity");
 		// 위치와 함께 기온과 습도를 포함한 답변 문자열을 생성합니다.
-		 String answer = String.format("%s의 현재 기온은 %s°C이고, 습도는 %s%%입니다.", locationName, temperature, humidity);
+		String answer = String.format("%s의 현재 기온은 %s°C이고, 습도는 %s%%입니다.", locationName, temperature, humidity);
 		// 생성된 답변을 포함한 AnswerDTO 객체를 반환합니다.
 		return AnswerDTO.builder().answer(answer).nnpNo(0).build();
 	}
@@ -168,9 +168,17 @@ public class ChatbotServiceProcess {
 		List<ScenarioEntity> children = scenarioRepository.findByParentOrderByDept(scenario);
 		List<String> options = children.stream().map(ScenarioEntity::getContent).toList();
 
-		AnswerDTO answerDTO = AnswerDTO.builder().answer(scenario.getContent()).options(options).build();
+		String answer;
+		if (scenario.getDept() == 1) { // 카테고리 선택 직후 단계
+			answer = "어떤 활동을 좋아하시나요?";
+		} else if (scenario.getDept() == 2) { // 사용자가 활동을 선택한 후
+			answer = scenario.getContent() + " 안내해드릴게요!";
+		} else {
+			answer = scenario.getContent();
+		}
 
-		// 마지막 단계 (리프 노드)인 경우 카테고리 URL 추가
+		AnswerDTO answerDTO = AnswerDTO.builder().answer(answer).options(options).build();
+
 		if (children.isEmpty() && scenario.getCategory() != null) {
 			answerDTO.setCategoryUrl("/group-list?category=" + scenario.getCategory());
 			answerDTO.setEndScenario(true);
