@@ -97,7 +97,7 @@ p {
 #bot-top {
 	border-top-left-radius: 12px;
 	border-top-right-radius: 12px;
-	height: 50px; /* 높이 증가 */
+	height: 45px; /* 높이 증가 */
 	background: linear-gradient(135deg, #3a95ff, #0076FF, #0046FE, #0035c0);
 	/* 대각선 그라데이션 */
 	display: flex; /* 추가 */
@@ -329,13 +329,13 @@ p {
 	font-weight: 500;
 	letter-spacing: 0.5px;
 	padding: 0 15px;
-	border-radius: 3px;
+	border-radius: 10px;
 	color: #ffffff;
 	background-color: #3a95ff;
 	border: none;
 	box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 	transition: all 0.3s ease;
-	width: 1000px;
+	width: 130px;
 	height: 44px;
 	white-space: nowrap;
 	overflow: hidden;
@@ -364,7 +364,7 @@ p {
 	flex-wrap: wrap;
 	justify-content: center;
 	gap: 12px;
-	padding: 15px 0;
+	padding: 15px 0px; /* 좌우 20px, 상하 15px */
 }
 
 .notice-button {
@@ -380,7 +380,7 @@ p {
 	font-weight: 500;
 	letter-spacing: 0.5px;
 	padding: 0 15px;
-	border-radius: 3px;
+	border-radius: 10px;
 	color: #ffffff;
 	background-color: #3a95ff;
 	border: none;

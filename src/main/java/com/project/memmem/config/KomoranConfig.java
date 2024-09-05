@@ -29,7 +29,7 @@ public class KomoranConfig {
 		createDictionaryDIC(); // 명사 사전 생성
 
 		// Komoran 인스턴스를 생성하고, 기본 모델을 FULL로 설정
-		Komoran komoran = new Komoran(DEFAULT_MODEL.FULL);
+		Komoran komoran = new Komoran(DEFAULT_MODEL.LIGHT);
 
 		// 사용자 정의 사전 파일 경로를 Komoran에 설정
 		komoran.setUserDic(DICTIONARY_FILE); // 통합된 사전 파일 설정
