@@ -30,7 +30,7 @@ public class IndexServiceProcess implements IndexService {
     
     @Override
     public void groupsList(Model model) {
-        List<GroupEntity> groups = groupRepository.findAll();
+    	List<GroupEntity> groups = groupRepository.findAllByOrderByCreatedAtDesc();
         List<GroupDTO> groupDTOs = groups.stream()
             .map(group -> group.toGroupDTO(baseUrl))
             .collect(Collectors.toList());
@@ -39,7 +39,7 @@ public class IndexServiceProcess implements IndexService {
 
     @Override
     public void reviewList(Model model) {
-        List<ReviewDTO> reviewDTOs = reviewRepository.findAll().stream()
+    	List<ReviewDTO> reviewDTOs = reviewRepository.findAllByOrderByCreatedAtDesc().stream()
             .map(review -> ReviewEntity.toReviewDTO(review, imgHost)) // 'toReviewDTO' -> 'toListDTO'로 변경
             .collect(Collectors.toList());
         

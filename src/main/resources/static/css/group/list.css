@@ -53,79 +53,7 @@ body {
 	z-index: 1;
 }
 
-/************************* 헤더 *******************************************/
-.banner-header {
-	width: 100%;
-	padding: 5px 0;
-	position: fixed; /* 헤더가 배너 영역 내에서 고정되도록 설정 */
-	top: 0;
-	left: 0;
-	z-index: 10; /* 다른 요소들 위에 배치되도록 z-index 높임 */
-	background-color: rgba(248, 248, 248, 0.3); /* 반투명 배경색 */
-	backdrop-filter: blur(10px); /* 배경을 흐리게 처리 */
-}
-
-.banner-header .container {
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
-}
-
-nav ul {
-	list-style: none;
-	display: flex;
-	gap: 20px;
-	padding: 0;
-	margin: 0;
-}
-
-nav a {
-	text-decoration: none;
-	color: #333;
-	position: relative; /* ::after를 위한 위치 기준 */
-	padding-bottom: 5px; /* 하단 줄이 들어갈 공간 확보 */
-}
-
-nav a::after {
-	content: ''; /* 줄을 추가할 내용 없음 */
-	position: absolute;
-	width: 0;
-	height: 2px;
-	background-color: #0046FE; /* 줄 색상 */
-	left: 0;
-	bottom: 0;
-	transition: width 0.3s ease; /* 부드러운 애니메이션 효과 */
-}
-
-nav a:hover::after {
-	width: 100%; /* hover 시 줄이 전체 너비로 확장 */
-}
-
-.signup-btn {
-	padding: 8px 16px;
-	border: 1px solid #333;
-	border-radius: 4px;
-	background-color: rgba(255, 255, 255, 0.8); /* 투명 배경 */
-}
-
-.banner-text {
-	position: relative;
-	z-index: 2;
-}
-
-.banner h1 {
-	font-size: 2.5em;
-	margin-bottom: 0.5em;
-}
-
-.banner h2 {
-	font-size: 1.8em;
-	font-weight: normal;
-}
-
-.banner h2 span.highlight {
-	font-weight: bold;
-}
+/************************* 배너 *******************************************/
 
 .front {
     width: 24px;
@@ -173,7 +101,7 @@ nav a:hover::after {
 }
 
 ul {
-	
+    white-space: nowrap;
 	display: flex;
 	padding-right: 100px;
 }

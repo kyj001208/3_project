@@ -21,7 +21,7 @@
     top: 0;
     left: 0;
     z-index: 15; /* 다른 요소들 위에 배치되도록 z-index 높임 */
-    background-color: rgba(248, 248, 248, 0.3); /* 반투명 배경색 */
+    background-color: rgba(249, 249, 249, 0.8);
     backdrop-filter: blur(10px); /* 배경을 흐리게 처리 */
 }
 
