@@ -59,12 +59,12 @@ public class ReviewController {
 	}
 
 	// 메인페이지 저장된 값 뿌려주기, 언니와 나의 합작
-		@GetMapping("/mem/review")
-		public String review(@AuthenticationPrincipal MemmemUserDetails user, Model model) {
-		    Long userId = user.getUserId();
-		    service.reviewListProcess(model, userId);
-		    return "views/review/review_main";
-		}
+	@GetMapping("/mem/review")
+	public String review(@AuthenticationPrincipal MemmemUserDetails user, Model model) {
+		Long userId = user.getUserId();
+		service.reviewListProcess(model, userId);
+		return "views/review/review_main";
+	}
 	
 	// 상세페이지 저장된 값 뿌려주기
 	@GetMapping("/mem/detail/{reId}")
@@ -82,8 +82,18 @@ public class ReviewController {
 		return "views/review/review_main";
 	}
 
+	
 	///////////////////////////////////////////////////스탑
 	
+	
+	
+	
+	
+	
+	
+	
+	
+	//업데이트 하는 컨트롤러
 	@PutMapping("/mem/detail/{reId}")
 	public String reviewUpdate(@PathVariable("reId") long reId, @AuthenticationPrincipal MemmemUserDetails user,
 	            ReviewUpDateDTO dto, @RequestParam(value = "image", required = false) MultipartFile image) {
