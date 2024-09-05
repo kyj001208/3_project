@@ -10,6 +10,7 @@ import org.hibernate.annotations.DynamicUpdate;
 
 import com.project.memmem.domain.dto.review.ReviewDTO;
 import com.project.memmem.domain.dto.review.ReviewListDTO;
+import com.project.memmem.domain.dto.review.ReviewUpDateDTO;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -73,5 +74,20 @@ public class ReviewEntity {
 				.content(reviewEntity.getContent())
 				.createdAt(reviewEntity.getCreatedAt())
 				.nickName(reviewEntity.getUser() != null ? reviewEntity.getUser().getNickName() : "Anonymous").build();
+	}
+
+	
+
+	public void setMainImageBucketKey(String bucketKey) {
+		this.mainImageBucketKey = bucketKey;
+		
+	}
+
+	public void update(ReviewUpDateDTO dto) {
+		
+		this.title = dto.getTitle();
+		this.content = dto.getContent();
+		this.mainImageBucketKey = dto.getMainImageBucketKey(); // DTO에서 이미지 키를 가져옵니다.
+		
 	}
 }
