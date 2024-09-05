@@ -185,8 +185,10 @@ body {
 /* .photo-list img:hover {
 	transform: scale(1.1);
 } */
-.join-button, .create-group-button, .edit-group-button, .delete-button {
+.join-button, .create-group-button, .edit-group-button, .delete-button,
+	.leave-button {
 	display: inline-block;
+	white-space: nowrap; /* 버튼 안의 텍스트가 줄 바꿈되지 않도록 설정 */
 	padding: 12px 30px;
 	background-color: #007bff;
 	color: #fff;
@@ -197,11 +199,12 @@ body {
 	text-align: center;
 	text-decoration: none;
 	margin-top: 20px;
-	margin-right: 10px;
 	transition: background-color 0.3s ease;
+	 
+	margin-right: 10px;
 }
 
-.join-button:hover, .create-group-button:hover {
+.join-button:hover, .create-group-button:hover, .leave-button:hover {
 	background-color: #0056b3;
 }
 
@@ -258,22 +261,31 @@ body {
 /* 버튼 그룹 컨테이너 스타일 */
 .button-group {
 	display: flex;
-	align-items: center; /* 모든 버튼을 수평 중앙에 정렬 */
-	justify-content: center;
-	gap: 15px; /* 버튼 사이 간격 조절 */
+	flex-wrap: wrap; /* 줄 바꿈이 필요할 경우 자동으로 다음 줄로 이동하도록 설정 */
+	justify-content: flex-start; /* 버튼들을 가로축의 가운데로 정렬 */
+    align-items: center; /* 버튼들을 수직 가운데 정렬 */
+	width: 100%; /* 버튼 그룹이 부모 요소의 너비를 채우도록 설정 */
+	box-sizing: border-box;
 }
 
 .joined-message {
 	display: inline-block;
-	text-align: center;
-	font-size: 14px;
+	margin-right: 10px;
+	white-space: nowrap; /* 버튼 안의 텍스트가 줄 바꿈되지 않도록 설정 */
+	padding: 12px 30px;
 	color: #fff;
 	background-color: #6c757d;
-	margin-top: 20px;
-	padding: 10px 20px;
+	font-size: 16px;
+	border: none;
 	border-radius: 5px;
+	cursor: pointer;
+	text-align: center;
+	text-decoration: none;
+	margin-top: 20px;
+	transition: background-color 0.3s ease;
 	cursor: default;
 	box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+	background-color: #6c757d;
 }
 /* 버튼 호버 스타일 */
 .create-group-button:hover, .edit-group-button:hover, .delete-button:hover

@@ -37,6 +37,8 @@ public interface GroupService {
 
 	Map<String, String> getInitialsForUserAndCreator(Long groupId, long userId);
 
+	void leaveGroup(long userId, Long groupId);
+
 
 
 }

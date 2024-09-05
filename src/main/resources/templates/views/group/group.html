@@ -104,6 +104,15 @@
 								<button class="delete-button"
 									th:attr="data-group-id=${group.id}, data-csrf-token=${_csrf.token}">그룹 삭제하기</button>
 							</div>
+
+							<!-- 그룹 탈퇴 버튼 (only for members) -->
+							<div th:if="${isMember}">
+								<form th:action="@{/leave-group/{id}(id=${group.id})}" method="post"
+									style="display:inline;">
+									<input type="hidden" name="_csrf" th:value="${_csrf.token}" /> <!-- CSRF 토큰 -->
+									<button type="submit" class="leave-button">그룹 탈퇴하기</button>
+								</form>
+							</div>
 						</div>
 					</div>
 				</div>

@@ -30,19 +30,18 @@
 
 				<!-- 그룹 카테고리 -->
 				<div class="form-group">
-					<label for="group-category">그룹 카테고리</label>
-					<div id="category-buttons" class="category-buttons">
-						<!-- Thymeleaf를 사용하여 카테고리 버튼을 동적으로 생성 -->
-						<button type="button" class="category-button" th:each="category : ${categories}"
-							th:text="${category.koName}" th:data-value="${category.name}"
-							th:classappend="${category.name} == ${group.category.name()} ? 'selected' : ''"
-							onclick="selectCategory(this)">
-						</button>
-					</div>
-					<div class="help-text">그룹의 카테고리를 선택하세요.</div>
-					<input type="hidden" name="category" id="selected-category" th:value="${group.category.name()}">
+				    <label for="group-category">그룹 카테고리</label>
+				    <div id="category-buttons" class="category-buttons">
+				        <!-- Thymeleaf를 사용하여 카테고리 버튼을 동적으로 생성 -->
+				        <button type="button" class="category-button" th:each="category : ${categories}"
+				                th:text="${category.koName}" th:data-value="${category.name}"
+				                th:classappend="${category.name()} == ${group.category.name()} ? 'selected' : ''"
+				                onclick="selectCategory(this)">
+				        </button>
+				    </div>
+				    <div class="help-text">그룹의 카테고리를 선택하세요.</div>
+				    <input type="hidden" name="category" id="selected-category" th:value="${group.category.name()}">
 				</div>
-
 
 				<!-- 그룹 인삿말 -->
 				<div class="form-group">
