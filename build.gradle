@@ -12,6 +12,13 @@ java {
 		languageVersion = JavaLanguageVersion.of(17)
 	}
 }
+jar{
+	enabled=false
+}
+
+bootJar{
+	archiveFileName= "memmem.jar"
+}
 
 configurations {
 	compileOnly {
