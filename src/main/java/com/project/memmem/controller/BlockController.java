@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.project.memmem.controller.BlockController.ErrorResponse;
+import com.project.memmem.controller.BlockController.SuccessResponse;
 import com.project.memmem.security.MemmemUserDetails;
 import com.project.memmem.service.BlockService;
 
@@ -33,8 +35,11 @@ public class BlockController {
 	
 	@PostMapping("/blockUser")
 	@ResponseBody
-	public ResponseEntity<?> blockUser(@RequestParam("blockerId") Long blockerId,
-			@RequestParam("blockedId") Long blockedId) {
+	public ResponseEntity<?> blockUser(@RequestParam("blockedId") Long blockedId,
+			@AuthenticationPrincipal MemmemUserDetails user) {
+
+		Long blockerId = user.getUserId();
+
 		try {
 			blockService.blockUser(blockerId, blockedId);
 			return ResponseEntity.ok().body(new SuccessResponse("차단 완료!"));
