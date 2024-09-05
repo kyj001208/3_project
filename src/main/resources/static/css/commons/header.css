@@ -2,7 +2,7 @@
 
 /************************* 헤더 *******************************************/
 .container {
-    width: 90%;
+	width: 90%;
     max-width: 1200px;
     min-width: 800px;
     margin: 0 auto;
@@ -20,7 +20,7 @@
     position: fixed; /* 헤더가 배너 영역 내에서 고정되도록 설정 */
     top: 0;
     left: 0;
-    z-index: 10; /* 다른 요소들 위에 배치되도록 z-index 높임 */
+    z-index: 15; /* 다른 요소들 위에 배치되도록 z-index 높임 */
     background-color: rgba(248, 248, 248, 0.3); /* 반투명 배경색 */
     backdrop-filter: blur(10px); /* 배경을 흐리게 처리 */
 }
@@ -40,10 +40,39 @@ nav ul {
 }
 
 nav a {
+	font-weight : bold;
     text-decoration: none;
     color: #333;
     position: relative; /* ::after를 위한 위치 기준 */
     padding-bottom: 5px; /* 하단 줄이 들어갈 공간 확보 */
+}
+nav ul li form { /*로그아웃*/
+    display: inline; /* 인라인 요소로 설정 */
+	font-weight : bold;
+	
+}
+nav button { /*로그아웃*/
+    text-decoration: none;
+    color: #333;
+    position: relative; /* ::after를 위한 위치 기준 */
+    padding-bottom: 5px; /* 하단 줄이 들어갈 공간 확보 */
+    background: none; /* 배경 제거 */
+    border: none; /* 테두리 제거 */
+    padding-bottom: 5px; /* 패딩 제거 */
+    font: inherit; /* 상속된 폰트 스타일 사용 */
+}
+nav button::after { /*로그아웃*/
+    content: ''; /* 줄을 추가할 내용 없음 */
+    position: absolute;
+    width: 0;
+    height: 2px;
+    background-color: #0046FE; /* 줄 색상 */
+    left: 0;
+    bottom: 0;
+    transition: width 0.3s ease; /* 부드러운 애니메이션 효과 */
+}
+nav button:hover::after {
+    width: 100%; /* hover 시 줄이 전체 너비로 확장 */
 }
 
 nav a::after {
@@ -51,7 +80,7 @@ nav a::after {
     position: absolute;
     width: 0;
     height: 2px;
-    background-color: #ff5722; /* 줄 색상 */
+    background-color: #0046FE; /* 줄 색상 */
     left: 0;
     bottom: 0;
     transition: width 0.3s ease; /* 부드러운 애니메이션 효과 */
@@ -68,12 +97,6 @@ nav a:hover::after {
     background-color: rgba(255, 255, 255, 0.8); /* 투명 배경 */
 }
 
-.banner-text {
-    position: relative;
-    z-index: 2;
-    margin-top: 150px; /* 헤더 아래로 배너 텍스트 내리기 */
-}
-
 .banner h1 {
     font-size: 2.5em;
     margin-bottom: 0.5em;
@@ -86,5 +109,4 @@ nav a:hover::after {
 
 .banner h2 span.highlight {
     font-weight: bold;
-    color: #ff5722; /* 강조 텍스트 색상 */
 }

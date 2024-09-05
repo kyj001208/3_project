@@ -1,0 +1,140 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Arial', sans-serif;
+    background-color: #f9f9f9;
+}
+
+.write-con {
+	
+    padding-top: 80px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-sizing: border-box;
+    padding-bottom: 80px;
+}
+
+.write-top {
+    background-color: #ffffff;
+    max-width: 800px;
+    width: 100%;
+    padding:20px;
+    box-sizing: border-box;
+}
+
+.page-title {
+    text-align: center;
+    font-size: 28px;
+    font-weight: bold;
+    margin-bottom: 30px;
+}
+
+.post-form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.input-section {
+    width: 100%;
+}
+
+.title-input {
+    width: 100%;
+    padding: 15px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    font-size: 18px;
+    box-sizing: border-box;
+    height: 50px;
+    margin-bottom: 20px;
+}
+
+.image-upload {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 20px;
+    position: relative;
+    width: 100%;
+}
+
+.upload-button {
+    width: 100%;
+    height: 370px;
+    border: 2px dashed #007bff;
+    border-radius: 12px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    position: relative;
+    overflow: hidden;
+    background-color: #fff;
+}
+
+#plus-icon {
+    font-size: 50px;
+    color: #85A5DB;
+}
+
+.upload-button:hover {
+    background-color: rgba(0, 123, 255, 0.1);
+}
+
+#file-upload {
+    display: none;
+}
+
+.image-preview {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: cover;
+    position: absolute;
+    top: 0;
+    left: 0;
+    border-radius: 12px;
+    border: 1px solid #ddd;
+    margin-top: 10px; /* 플러스 아이콘 아래에 여백 추가 */
+    display: none; /* 기본적으로 숨김 */
+}
+
+.write_btns {
+    display: flex;
+    gap: 30px;
+    justify-content: center;
+}
+
+.returnA {
+    text-decoration: none;
+    text-align: center;
+    color: #fff;
+    font-size: 16px;
+}
+
+.submit-button, .returnA {
+    background-color: #85A5DB;
+    color: #fff;
+    padding: 15px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    font-size: 16px;
+    width: 100%;
+    text-align: center;
+}
+
+.submit-button:hover {
+    background-color: #0046FE;
+}
+
+.returnA:hover {
+    background-color: #0046FE;
+}
+
+#editor {
+    height: 400px; /* 또는 원하는 높이 */
+}

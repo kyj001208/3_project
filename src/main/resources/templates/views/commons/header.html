@@ -7,25 +7,35 @@
 		</div>
 		<nav>
 			<ul>
-				<li><a href="#">지역 탐색</a></li>
-				<li><a href="#">추천 숙소</a></li>
-				<li><a href="/reservation">예약조회</a></li>
+				<li><a href="/group-list">모임</a></li>
+				<li><a href="/mem/review">모임후기</a></li>
 
 				<!-- 로그인/회원가입 링크 -->
-				<li sec:authorize="isAnonymous()">
-					<a href="/login" id="loginLink">로그인/회원가입</a>
-				</li>
+				<li sec:authorize="isAnonymous()"><a href="/login"
+					id="loginLink">로그인/회원가입</a></li>
 
 				<!-- 사용자 정보 및 로그아웃 표시 -->
 				<li sec:authorize="isAuthenticated()">
-					<a href="/logout">로그아웃</a>
-					<i sec:authentication="principal.email"></i>
-				</li>
-				<!-- 파트너가 아닌 사용자에게만 보이는 링크 -->
-				<li sec:authorize="!hasRole('ROLE_PARTNER')">
-					<a href="/partner-login">파트너로 가입하기</a>
+					<a href="/mypage"><span sec:authentication="principal.nickName"></span></a>&nbsp;&nbsp;
+					<form action="/logout" method="post">
+						<button type="submit">로그아웃</button>
+						<input type="hidden" th:if="${_csrf}" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+					</form>
 				</li>
 			</ul>
 		</nav>
+		<!-- 페이지 내용 끝 부분에 추가 -->
+		<div id="recaptchaModal" class="modal" style="display: none;">
+			<div class="modal-content">
+				<h2>보안 확인</h2>
+				<p>계속하려면 아래 확인을 완료해주세요.</p>
+				<div id="recaptcha-container"></div>
+				<button id="submitRecaptcha">확인</button>
+			</div>
+		</div>
+
+		<!-- JavaScript 파일 로드 -->
+		<script src="https://www.google.com/recaptcha/api.js?render=explicit" async defer></script>
+		<script src="/js/commons/recaptcha-modal.js"></script>
 	</div>
 </header>

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>로그인 페이지</title>
+    <link rel="stylesheet" href="/css/login/login.css">
+</head>
+<body>
+    <div class="outer-container">
+        <div class="blur-background"></div>
+        <div class="container">
+            <div class="image-container">
+                <div class="overlay">
+                    <h1>오늘 뭐하지<br> 고민 될 때</h1>
+                    <p>memmemmemmemmemmemme<br> mmem멤memmemmemmemm<br> emmemmemmemmeㅁmemmem<br> memmemmeㅁmemmemmeㅁme<br> mmemmemmemmㅔㅁmemmemm<br> emmem멤memmemmemmㅔm<br> memmemmemmemmemmem</p>
+                </div>
+            </div>
+            <div class="login-container">
+                <div class="login-box">
+                    <img src="/images/logo.png" alt="memmem 로고" class="logo">
+                    <form action="/login"  method="post">
+                        <div class="wrap">
+                            <input type="email" name="email" id="email" placeholder="   이메일을 입력하세요." required>
+                            <input type="password" name="password" id="password" placeholder="   비밀번호를 입력하세요." required>
+                        </div>
+                        <label class="remember-me">
+                            <input type="checkbox" name="remember"> 아이디 저장
+                        </label>
+                        <p th:if="${loginErrorMsg}" class="error" th:text="${loginErrorMsg}"></p>
+                        <button type="submit">로그인</button>
+                        <input type="hidden" th:if="${_csrf}" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+                    </form>
+                        <div class="links">
+                            <a href="/signup" id="signup-link">회원가입하기</a>
+                            <a href="#">비밀번호 찾기</a>
+                        </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

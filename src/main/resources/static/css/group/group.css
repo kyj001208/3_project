@@ -1,0 +1,282 @@
+body {
+	font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+	background-color: #f8f9fa; /* 밝고 깨끗한 배경색 */
+	margin: 0;
+	padding: 0;
+	padding-top: 80px; /* 고정된 헤더 아래에 여백 추가 */
+}
+
+.group-container {
+	width: 80%;
+	max-width: 1200px;
+	margin: 40px auto;
+	background-color: #ffffff;
+	border-radius: 8px;
+	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05); /* 좀 더 부드러운 그림자 효과 */
+	overflow: hidden;
+}
+
+.left-section, .right-section {
+	padding: 20px;
+	flex: 1; /* 좌우 섹션이 균등하게 공간을 차지 */
+}
+
+.header-image {
+	width: 100%;
+	height: 450px;
+	background-size: cover;
+	background-position: center;
+	border-radius: 8px;
+	margin-bottom: 20px;
+}
+
+.title-card {
+	background-color: #ffffff;
+	padding: 15px 20px;
+	border-radius: 8px;
+	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08); /* 부드러운 그림자 */
+	text-align: center;
+	margin-bottom: 30px;
+}
+
+.title-card .small-title {
+	font-size: 14px;
+	color: #6c757d; /* 회색 대신 중간 밝기의 텍스트 색상 */
+	margin-bottom: 5px;
+}
+
+.title-card .main-title {
+	font-size: 18px;
+	color: #343a40; /* 진한 회색으로 가독성 증가 */
+	font-weight: bold;
+	line-height: 1.4;
+}
+
+.content-section {
+	margin-top: 20px;
+}
+
+.section-title {
+	font-weight: bold;
+	font-size: 20px;
+	margin-bottom: 10px;
+	color: #343a40; /* 진한 회색 */
+}
+
+.group-description {
+	display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+	font-size: 16px;
+	color: #495057; /* 중간 밝기의 회색 */
+	margin-bottom: 20px;
+	line-height: 1.6;
+}
+
+.member-intro {
+	margin-top: 80px;
+	background-color: #eaf4fc; /* 연한 하늘색 배경으로 변경 */
+	padding: 20px;
+	border-radius: 8px;
+}
+
+.member-intro h3 {
+	color: #343a40; /* 진한 회색 */
+	font-size: 18px;
+	margin-bottom: 10px;
+}
+
+.member-intro h4 {
+	color: #007bff;
+}
+
+.member-intro p {
+	color: #6c757d; /* 중간 밝기의 텍스트 색상 */
+	font-size: 14px;
+	margin-bottom: 20px;
+}
+
+.profile {
+	display: flex;
+}
+
+.profile p {
+	padding: 10px;
+}
+
+.profile img {
+	width: 50px;
+	height: 50px;
+	border-radius: 50%;
+	object-fit: cover;
+	border: 2px solid #dee2e6; /* 부드러운 회색 테두리 */
+}
+
+.profile-list {
+	display: flex;
+	justify-content: center;
+	gap: 10px;
+	margin-bottom: 20px;
+}
+
+.profile-list img {
+	width: 50px;
+	height: 50px;
+	border-radius: 50%;
+	object-fit: cover;
+	border: 2px solid #dee2e6; /* 부드러운 회색 테두리 */
+}
+
+.profile-list .add-member {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 50px;
+	height: 50px;
+	border-radius: 50%;
+	background-color: #ffffff;
+	border: 2px dashed #dee2e6;
+	cursor: pointer;
+	font-size: 24px;
+	color: #007bff;
+}
+
+.announcement-list, .photo-list {
+	list-style-type: none;
+	padding: 0;
+	margin: 0 0 20px 0;
+}
+
+.announcement-list li {
+	background-color: #f8f9fa; /* 밝고 부드러운 배경색 */
+	padding: 10px;
+	margin-bottom: 8px;
+	border-radius: 5px;
+	color: #343a40;
+}
+
+.photo-list li {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	margin-right: 10px;
+	margin-bottom: 15px;
+}
+
+.photo-list img {
+	width: 85%;
+	height: 85%;
+	object-fit: cover;
+	border-radius: 5px;
+	border: 1px solid #dee2e6;
+	transition: transform 0.2s ease;
+}
+
+/* .photo-list img:hover {
+	transform: scale(1.1);
+} */
+.join-button, .create-group-button, .edit-group-button, .delete-button {
+	display: inline-block;
+	padding: 12px 30px;
+	background-color: #007bff;
+	color: #fff;
+	font-size: 16px;
+	border: none;
+	border-radius: 5px;
+	cursor: pointer;
+	text-align: center;
+	text-decoration: none;
+	margin-top: 20px;
+	margin-right: 10px;
+	transition: background-color 0.3s ease;
+}
+
+.join-button:hover, .create-group-button:hover {
+	background-color: #0056b3;
+}
+
+.info-box {
+	background-color: #f1f3f5; /* 좀 더 밝은 회색으로 변경 */
+	padding: 15px;
+	border-radius: 5px;
+	font-size: 14px;
+	color: #495057; /* 중간 밝기의 텍스트 색상 */
+	margin-top: 20px;
+}
+
+.info-box h3 {
+	color: #0046FE;
+}
+
+.review-section {
+	margin-top: 20px;
+	background-color: #f1f3f5; /* 밝은 회색 배경 */
+	padding: 15px;
+	border-radius: 8px;
+}
+
+.review-section h4 {
+	font-size: 16px;
+	margin-bottom: 10px;
+	color: #343a40; /* 진한 회색 */
+}
+
+.review-section p {
+	font-size: 14px;
+	color: #495057; /* 중간 밝기의 텍스트 색상 */
+	margin-bottom: 5px;
+}
+
+.alert {
+	padding: 10px;
+	margin-top: 10px;
+	border: 1px solid transparent;
+	border-radius: 5px;
+}
+
+.alert-success {
+	color: #155724;
+	background-color: #d4edda;
+	border-color: #c3e6cb;
+}
+
+.alert-danger {
+	color: #721c24;
+	background-color: #f8d7da;
+	border-color: #f5c6cb;
+}
+/* 버튼 그룹 컨테이너 스타일 */
+.button-group {
+    display: flex;
+    align-items: center; /* 모든 버튼을 수평 중앙에 정렬 */
+    justify-content: center;
+    gap: 15px; /* 버튼 사이 간격 조절 */
+}
+
+.joined-message {
+    display: inline-block; 
+    text-align: center;
+    font-size: 14px;
+    color: #fff;
+    background-color: #6c757d; 
+    margin-top:20px;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: default;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+/* 버튼 호버 스타일 */
+.create-group-button:hover,
+.edit-group-button:hover,
+.delete-button:hover {
+  background-color: #0056b3;
+  transform: translateY(-2px);
+}
+
+/* 버튼 클릭 스타일 */
+.create-group-button:active,
+.edit-group-button:active,
+.delete-button:active {
+  transform: translateY(1px);
+}

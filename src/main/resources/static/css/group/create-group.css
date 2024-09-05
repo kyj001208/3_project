@@ -1,0 +1,155 @@
+@charset "UTF-8";
+
+body {
+	font-family: Arial, sans-serif;
+	background-color: #f8f9fa;
+	margin: 0;
+	padding: 0px;
+	padding-top: 80px; /* 고정된 헤더 아래에 여백 추가 */
+}
+
+.create-group-container {
+	width: 60%;
+	max-width: 800px;
+	margin: 40px auto;
+	background-color: #ffffff;
+	padding: 30px;
+	border-radius: 8px;
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+h2 {
+	color: #333333;
+	font-size: 28px;
+	text-align: center;
+	margin-bottom: 30px;
+	font-weight: 600;
+}
+
+.form-group {
+	margin-bottom: 25px;
+	position: relative;
+}
+
+.header-image {
+    width: 100%;
+    height: 250px;
+    background-color: #f0f0f0; /* 기본 배경색 */
+    background-size: cover;
+    background-position: center;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #777; /* 기본 텍스트 색상 */
+    font-size: 18px; /* 기본 텍스트 크기 */
+    font-weight: bold;
+    position: relative; /* 텍스트 제어를 위한 상대적 위치 */
+}
+
+/* 이미지가 없을 때 텍스트를 표시하는 스타일 */
+.header-image::before {
+    
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    color: #777;
+    font-size: 18px;
+}
+
+label {
+	display: block;
+	font-weight: 600;
+	margin-bottom: 10px;
+	color: #333333;
+	font-size: 14px;
+}
+
+input[type="text"], textarea, input[type="file"] {
+	width: 95%;
+	padding: 15px;
+	border: 1px solid #d1d1d1;
+	border-radius: 8px;
+	font-size: 16px;
+	transition: border-color 0.3s;
+}
+
+input[type="text"]:focus, textarea:focus, input[type="file"]:focus {
+	border-color: #007bff;
+	outline: none;
+}
+
+textarea {
+	resize: vertical;
+	height: 120px;
+}
+
+.submit-button {
+	width: 100%;
+	padding: 15px;
+	background-color: #007bff;
+	color: #ffffff;
+	font-size: 18px;
+	font-weight: 600;
+	border: none;
+	border-radius: 8px;
+	cursor: pointer;
+	margin-top: 30px;
+	transition: background-color 0.3s ease;
+}
+
+.submit-button:hover {
+	background-color: #0056b3;
+}
+
+.help-text {
+	font-size: 13px;
+	color: #777777;
+	margin-top: 8px;
+}
+
+.input-icon {
+	position: absolute;
+	right: 15px;
+	top: 40px;
+	color: #cccccc;
+}
+
+.form-group.error input {
+	border-color: #e74c3c;
+}
+
+.form-group.error .help-text {
+	color: #e74c3c;
+}
+
+.category-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.category-button {
+    padding: 10px 20px;
+    border: 1px solid #007bff;
+    border-radius: 5px;
+    background-color: white;
+    color: #007bff;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.category-button:hover {
+    background-color: #007bff;
+    color: white;
+}
+
+.category-button.active {
+    background-color: #007bff;
+    color: white;
+    font-weight: bold;
+}
+

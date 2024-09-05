@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	th:replace="~{views/commons/layout :: layout(~{::head} ,~{::main} ) }">
+<head>
+<head>
+    <meta charset="UTF-8">
+    <title>날씨 정보</title>
+    <link rel="stylesheet" href="/css/naver/weather.css"/>
+</head>
+<body>
+	<main>
+    <div class="weather-container">
+        <div th:if="${error != null}" class="error-message" th:text="${error}"></div>
+        
+        <div class="city-selector">
+            <form action="/weather" method="get" class="city-search-form">
+                <label for="cityInput">지역 입력:</label>
+                <input type="text" id="cityInput" name="city" th:value="${city}" placeholder="예: 서울시 노원구 상계동">
+                <button type="submit">날씨 확인</button>
+            </form>
+        </div>
+
+		<div class="weather-card" th:if="${weatherInfo != null}">
+			<div class="current-weather">
+				<div class="city" th:text="${city}">서울</div>
+				<div class="temperature" th:text="${weatherInfo.temperature}">현재온도</div>
+				<div class="weather-icon" th:switch="${weatherInfo.status}">
+					<span th:case="'맑음'">☀️</span> <span th:case="'흐림'">☁️</span> 
+					<span th:case="'비'">🌧️</span> <span th:case="*">🌤️</span>
+				</div>
+				<div class="weather-details">
+					<div class="weather-status"><b th:text="${weatherInfo.status}"></b></div>
+    				<div class="humidity"><b th:text="'체감: ' + ${weatherInfo.humidity}"></b></div>
+				</div>
+				
+			</div>
+		</div>
+		<div th:if="${hourlyWeather != null}">
+			<h3>시간대별 날씨</h3>
+			<div class="hourly-weather-container">
+				<div class="hourly-weather-item"
+					th:each="weather : ${hourlyWeather}">
+					<div class="hourly-weather-info">
+						<span class="hour-temperature" th:text="${weather.temperature}"></span>
+						<span class="time" th:text="${weather.time}"></span>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="weekly-forecast" th:if="${weeklyForecast != null}">
+			<h3>주간 예보</h3>
+			<div class="forecast-grid">
+				<div class="forecast-item" th:each="forecast : ${weeklyForecast}">
+					<div class="forecast-day-date">
+						<span class="forecast-day" th:text="${forecast.day}"></span> <span
+							class="forecast-date" th:text="${forecast.date}"></span>
+					</div>
+					<div class="forecast-weather">
+						<span class="morning">
+							<span style="font-size: 12px;">오전</span>
+								<img th:src="@{'/images/weather/' + ${forecast.morningWeather}}" alt="Morning Weather" /> 
+								<span th:text="${forecast.morningTemp}"></span>
+						</span>
+						<span class="afternoon">
+							<span style="font-size: 12px;">오후</span>
+							<img th:src="@{'/images/weather/' + ${forecast.afternoonWeather}}" alt="Afternoon Weather" />
+							<span th:text="${forecast.afternoonTemp}"></span>
+						</span>
+					</div>
+					<div class="forecast-temperature">
+						<!--<span th:text="${forecast.lowestTemp + '° / ' + forecast.highestTemp + '°'}"></span>-->
+						기온 : <span th:text="${forecast.lowestTemp.replace('최저기온', '')} + '° / ' + ${forecast.highestTemp.replace('최고기온', '')}+ '°'"></span>
+						<br/>
+					</div>
+					<div class="rain-probability" th:text="'강수 확률: ' + ${forecast.rainProbability}"></div>
+				</div>
+			</div>
+		</div>
+	</div>
+	</main>
+</body>
+</html>

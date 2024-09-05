@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>프로필</title>
+</head>
+<body>
+<div th:fragment="content">
+    <h1>프로필</h1>
+    <div class="profile-info">
+        <p><strong>이름:</strong> <span th:text="${name}">이름</span></p>
+        <p><strong>닉네임:</strong> <span th:text="${nickName}">닉네임</span></p>
+        <p><strong>주소:</strong> <span th:text="${address}">주소</span></p>
+        <p><strong>전화번호:</strong> <span th:text="${number}">폰번호</span></p>
+        <p><strong>이메일:</strong> <span th:text="${email}">이메일</span></p>
+        <p><strong>생년월일:</strong> <span th:text="${birthDate}">생년월일</span></p>
+    </div>
+    
+    <!-- profile-info 밖으로 이동한 버튼 -->
+    <div style="text-align: center; margin-top: 20px;">
+        <button id="edit-profile" th:data-edit-url="@{/mypage/edit}">프로필 수정</button>
+    </div>
+</div>
+</body>
+</html>

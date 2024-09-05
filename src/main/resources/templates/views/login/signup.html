@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>로그인 페이지</title>
+    <link rel="stylesheet" href="/css/login/login.css">
+</head>
+<body>
+    <div class="outer-container">
+        <div class="blur-background"></div>
+        <div class="container">
+            <div class="image-container">
+                <div class="overlay">
+                    <h1>오늘 뭐하지<br> 고민 될 때</h1>
+                    <p>memmemmemmemmemmemme<br> mmem멤memmemmemmemm<br> emmemmemmemmeㅁmemmem<br> memmemmeㅁmemmemmeㅁme<br> mmemmemmemmㅔㅁmemmemm<br> emmem멤memmemmemmㅔm<br> memmemmemmemmemmem</p>
+                </div>
+            </div>
+            <div class="login-container">
+                <div class="login-box">
+                    <!-- <img src="/images/logo.png" alt="memmem 로고" class="logo"> -->
+	                <form action="/signup" role ="form" method="post" th:object="${signupDTO}">
+	                    <input type="text" th:field="*{name}" id="name-input"placeholder="이름을 입력하세요." required>
+	                    <input type="date" th:field="*{birthDate}" id="birth-input" maxlength="10" placeholder="생년월일을 입력하세요." required>
+	                    <input type="text" th:field="*{address}" id="address-input" placeholder="주소를 입력하세요." required>
+	                    <input type="text" th:field="*{number}" id="phone-input" oninput="formatInput(this)" maxlength="13" placeholder="전화번호를 입력하세요." required>
+	                    <input type="email" th:field="*{email}" id="email-input" placeholder="이메일을 입력하세요." required>
+	                    <input type="password" th:field="*{password}" id="password-input" maxlength="18" placeholder="비밀번호를 입력하세요." required>
+	                    <input type="text" th:field="*{nickName}" id="nickName-input" maxlength="21" placeholder="사용할 닉네임을 입력하세요." required>
+	                    <button type="submit">회원가입</button>
+	                    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+	                </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="/js/login/change-signup.js"></script>
+</body>
+</html>

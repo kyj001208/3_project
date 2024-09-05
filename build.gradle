@@ -21,6 +21,7 @@ configurations {
 
 repositories {
 	mavenCentral()
+	maven { url 'https://jitpack.io' }
 }
 
 ext {
@@ -28,6 +29,26 @@ ext {
 }
 
 dependencies {
+	implementation 'org.springframework.security:spring-security-oauth2-client:6.3.3'
+	implementation 'com.github.shin285:KOMORAN:3.3.9'
+    implementation 'org.springframework.boot:spring-boot-starter-amqp'
+    implementation 'org.webjars:sockjs-client:1.5.1'
+    implementation 'org.webjars:stomp-websocket:2.3.4'
+    implementation 'io.awspring.cloud:spring-cloud-aws-starter-s3:3.1.1'
+
+    implementation 'org.springframework.boot:spring-boot-starter-security'
+
+	implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity6'
+	
+	//웹크롤링
+    implementation 'org.jsoup:jsoup:1.18.1'
+	  	
+	//hidden
+	implementation 'org.springframework.boot:spring-boot-starter-webflux' // WebClient 사용 시
+	
+	//recaptcha 보안 이용
+	implementation 'org.springframework.boot:spring-boot-starter-validation'
+    	
 	implementation 'com.github.mwiede:jsch:0.2.18'
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
@@ -41,6 +62,9 @@ dependencies {
 	annotationProcessor 'org.projectlombok:lombok'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+	
+	testImplementation 'org.springframework.security:spring-security-test'
+
 }
 
 dependencyManagement {

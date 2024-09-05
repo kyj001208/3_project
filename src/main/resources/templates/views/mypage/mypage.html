@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	th:replace="~{views/commons/layout :: layout(~{::head} ,~{::main} ) }">
+<head>
+<meta charset="UTF-8">
+<title>나의 정보</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="/css/mypage/mypage.css">
+<link rel="stylesheet" href="/css/block/list.css">
+<script src="/js/block/list.js"></script>
+<script src="/js/mypage/mypage.js" defer></script>
+
+</head>
+<body>
+	<main
+		style="background-color: rgba(0, 0, 0, .25); min-height: calc(100vh);">
+		<div class="my-container">
+			<div class="left-column">
+				<h1 th:text="${name}">홍길동</h1>
+				<div class="profile-summary">
+					<div class="profile-pic"
+						style="background-image: url('/path/to/profile-pic.jpg');"></div>
+					<div class="profile-details">
+						<p class="nickname">
+							<b th:text="${nickName}">닉네임</b>
+						</p>
+						<p class="email">
+							<b th:text="${email}">이메일</b>
+						</p>
+					</div>
+				</div>
+				<div class="menu-item" data-section="profile">
+					<b>프로필</b>
+				</div>
+				<div class="menu-item" data-section="myGroup">
+					<b>내 모임</b>
+				</div>
+				<div class="gap"></div>
+				<a href="#" class="menu-itemm" id="openModal">차단 회원 목록</a>
+
+				<div id="myModal" class="modal">
+					<div class="modal-content">
+						<span class="close">&times;</span>
+						<h2>차단 목록</h2>
+						<div id="modal-body">
+							<!-- 차단 목록 내용이 여기에 들어갑니다 -->
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="right-column" id="content">
+				<!-- 기본 섹션 (예: 프로필) -->
+				<div th:replace="~{views/mypage/profile :: content}"></div>
+			</div>
+		</div>
+	</main>
+</body>
+</html>

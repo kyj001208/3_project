@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<meta charset="UTF-8">
+<link rel="stylesheet" href="/css/block/list.css">
+<script src="/js/block/list.js"></script>
+<head>
+<meta charset="UTF-8">
+<title>프로필</title>
+</head>
+<body>
+	<div th:fragment="content">
+		<h2>차단 목록</h2>
+		<form>
+			<button id="openModalBtn">차단 목록</button>
+
+		</form>
+		<div id="myModal" class="modal">
+			<div class="modal-content">
+				<div class="header">
+
+					<span class="close">&times;</span>
+				</div>
+				<div id="modal-body">
+					<!-- 차단목록 -->
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

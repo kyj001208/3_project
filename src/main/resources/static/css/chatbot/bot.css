@@ -1,0 +1,407 @@
+p {
+	font-size: 13px;
+	/* font-weight: bold; */
+	color: #323237;
+	font-weight: 400;
+	/*
+ 	font-style: normal;
+ 	*/
+}
+
+/* 날씨 정보 스타일 */
+.weather-info {
+    background-color: #f0f7ff !important;
+    border-radius: 10px;
+    padding: 15px !important;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.weather-info h3 {
+    margin-top: 0;
+    color: #0076FF;
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+
+.weather-details {
+    display: flex;
+    align-items: center;
+}
+
+.weather-icon {
+    font-size: 40px;
+    margin-right: 15px;
+}
+
+.weather-text p {
+    margin: 5px 0;
+    font-size: 14px;
+    color: #333;
+}
+/*/////////////////////////*/
+/*///////  스크롤 바 ////////*/
+/*/////////////////////////*/
+/* 스크롤 바 */
+#chat-content::-webkit-scrollbar {
+	width: 6px; /* 더 얇게 */
+	height: 6px;
+}
+
+#chat-content::-webkit-scrollbar-track {
+	background: rgba(0, 118, 255, 0.1); /* 약간의 배경색 추가 */
+}
+
+#chat-content::-webkit-scrollbar-thumb {
+	background: #0076FF;
+	border-radius: 3px;
+}
+
+#chat-content::-webkit-scrollbar-thumb:hover {
+	background: #0046FE;
+}
+/*/////////////////////////*/
+/*/////////////////////////*/
+/*/////////////////////////*/
+
+/*/////////////////////////*/
+/*/////// 챗봇 바디 /////////*/
+/* 챗봇 바디 */
+#bot-container {
+	position: fixed;
+	bottom: 30px; /* 조정 */
+	right: 30px; /* 조정 */
+	background: #ffffff; /* 더 밝은 배경 */
+	border: none; /* 테두리 제거 */
+	border-radius: 12px; /* 더 둥글게 */
+	box-shadow: 0 5px 30px rgba(0, 118, 255, 0.15); /* 그림자 개선 */
+	width: 380px; /* 약간 넓게 */
+	height: 550px; /* 약간 높게 */
+	display: flex;
+	flex-direction: column;
+	transform: translateY(100%);
+	opacity: 0;
+	transition: transform 0.3s ease-out, opacity 0.3s ease-out, box-shadow
+		0.3s ease;
+	z-index: 1001;
+}
+
+#bot-container.open {
+	transform: translateY(0);
+	opacity: 1;
+}
+
+#bot-container:hover {
+	box-shadow: 0 8px 40px rgba(0, 118, 255, 0.2); /* 호버 시 그림자 강화 */
+}
+
+#bot-top {
+	border-top-left-radius: 12px;
+	border-top-right-radius: 12px;
+	height: 50px; /* 높이 증가 */
+	background: linear-gradient(135deg, #3a95ff, #0076FF, #0046FE, #0035c0);
+	/* 대각선 그라데이션 */
+	display: flex; /* 추가 */
+	align-items: center; /* 추가 */
+	padding: 0 20px; /* 추가 */
+}
+
+#input-container {
+	display: flex;
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	background: #f8faff; /* 살짝 더 밝게 */
+	border-bottom-right-radius: 12px;
+	border-bottom-left-radius: 12px;
+	padding: 15px; /* 패딩 추가 */
+}
+
+#question {
+	flex: 1;
+	padding: 12px 15px;
+	border: 1px solid #e1e8ff;
+	border-radius: 8px 0 0 8px; /* 왼쪽만 둥글게 */
+	background: #ffffff;
+	font-size: 14px;
+	color: #2c3e50;
+	outline: none;
+	transition: all 0.3s ease;
+}
+
+#question:focus {
+	border-color: #0076FF;
+	box-shadow: 0 0 0 3px rgba(0, 118, 255, 0.1);
+}
+
+#send-button {
+	font-weight: 600; /* 약간 얇게 */
+	font-size: 14px; /* 크기 조정 */
+	background: #0076FF;
+	color: white;
+	padding: 12px 20px;
+	border: none;
+	border-radius: 0 8px 8px 0; /* 오른쪽만 둥글게 */
+	cursor: pointer;
+	transition: background-color 0.3s ease;
+}
+
+#send-button:hover {
+	background: #0046FE;
+}
+
+/*/////////////////////////*/
+/*/////////////////////////*/
+/*/////////////////////////*/
+#chat-content>div>div>div.part>p {
+	padding: 10px;
+	position: relative;
+	min-width: 50px;
+	word-wrap: break-word; /* 줄바꿈 허용 */
+	margin: 0px;
+	padding: 10px;
+}
+
+#chat-content>div>div>div.part.chatbot {
+	border-top-right-radius: 10px;
+	border-bottom-left-radius: 10px;
+	border-bottom-right-radius: 10px;
+	background: #f0f7ff;
+	word-wrap: break-word; /* 줄바꿈 허용 */
+	max-width: 170px;
+}
+
+#chat-content>div>div>div.part.guest {
+	border-top-left-radius: 10px;
+	border-bottom-right-radius: 10px;
+	border-bottom-left-radius: 10px;
+	background: #cce0ff;
+	word-wrap: break-word; /* 줄바꿈 허용 */
+	max-width: 170px;
+}
+
+/*/////////////////////////*/
+/*/////// 유저 메세지 ////////*/
+/*/////////////////////////*/
+.msg.user {
+	padding-right: 20px;
+	justify-content: flex-end;
+}
+/* 사용자 메시지 스타일 */
+.msg.user>.message>.part .guest {
+	position: relative;
+	min-width: 50px;
+	max-width: 60%;
+	word-wrap: break-word; /* 줄바꿈 허용 */
+	border-top-left-radius: 10px;
+	border-top-right-radius: 10px;
+	border-bottom-left-radius: 10px;
+}
+
+/*/////////////////////////*/
+/*/////////////////////////*/
+/*/////////////////////////*/
+
+/*/////////////////////////*/
+/*/////// 챗봇 메세지 ////////*/
+/*/////////////////////////*/
+.msg.bot {
+	justify-content: flex-start;
+}
+
+#chat-content>div>div.icon>img {
+	width: 57px;
+	height: 57px;
+	padding: 5px 10px;
+}
+
+/* 봇 메시지 스타일 */
+.msg.bot .message {
+	position: relative;
+	max-width: 60%;
+	word-wrap: break-word; /* 줄바꿈 허용 */
+}
+/*/////////////////////////*/
+/*/////////////////////////*/
+/*/////////////////////////*/
+#chat-icon {
+	margin-top: 20px; /* 챗봇 로고와 말풍선 사이 간격 */
+	position: fixed; /* 부모 요소를 기준으로 위치를 설정 */
+	bottom: 10%;
+	right: 60px;
+	cursor: pointer;
+	width: 70px; /* 이미지 크기 */
+	height: 70px; /* 이미지 크기 */
+	z-index: 12;
+}
+
+#close-button {
+	display: block; /* 요소를 화면에 표시 */
+	cursor: pointer;
+	font-size: 18px; /* X 표시 크기 */
+	background: none; /* 배경 제거 */
+	color: black; /* X 표시 색상 */
+	border: none;
+	border-radius: 4px;
+	position: absolute; /* 부모 요소를 기준으로 위치 조정 */
+	top: 10px; /* 상단에서 10px 위치 */
+	right: 10px; /* 오른쪽에서 10px 위치 */
+	z-index: 10; /* 다른 요소 위에 나타나도록 설정 */
+	width: 30px; /* 버튼 너비 */
+	height: 30px; /* 버튼 높이 */
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+#close-button::before {
+	content: "✖"; /* X 표시로 텍스트 사용 */
+	color: #000; /* X 표시 색상 */
+}
+
+#chat-content {
+	max-height: 395px;
+	overflow-y: auto; /* 수직 스크롤이 필요할 때만 나타나게 함 */
+	overflow-x: hidden; /* 수평 스크롤 숨기기 */
+}
+
+/* Flex 설정 */
+.flex {
+	display: flex;
+}
+
+.center {
+	justify-content: center;
+	align-items: center;
+}
+
+/* 메시지 스타일 */
+.msg {
+	font-size: 12px;
+	display: flex;
+	align-items: flex-start; /* 좌측 상단 정렬 */
+	margin: 15px 0;
+	word-wrap: break-word; /* 단어가 줄바꿈 되도록 설정 */
+}
+
+/* 메시지 시간 스타일 */
+.msg .time {
+	font-size: 0.8em;
+	color: #888;
+	/*
+	position: absolute;
+	bottom: -20px; 
+	right: 5px; 
+	margin: 0; 
+	*/
+	text-align: right; /* 시간을 말풍선 내에서 오른쪽 정렬 */
+	margin-top: 5px; /* 시간과 말풍선 내용 사이의 간격 */
+}
+
+/* 날짜 스타일 */
+.date {
+	font-size: 0.9em;
+	color: #AAA;
+	margin: 10px 0;
+}
+
+/* 버튼 아이콘 스타일 */
+#close-button>i {
+	font-size: 18px;
+}
+
+.button-container {
+	display: flex;
+	justify-content: center; /* 버튼을 가로 기준 가운데 정렬 */
+	padding: 10px; /* 필요에 따라 위쪽 여백 추가 */
+}
+
+.faq-button {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	outline: none;
+	cursor: pointer;
+	text-align: center;
+	text-decoration: none;
+	font-family: 'Arial', sans-serif;
+	font-size: 14px;
+	font-weight: 500;
+	letter-spacing: 0.5px;
+	padding: 0 15px;
+	border-radius: 25px;
+	color: #ffffff;
+	background-color: #3a95ff;
+	border: none;
+	box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+	transition: all 0.3s ease;
+	width: 110px;
+	height: 44px;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+.faq-button:hover {
+	background-color: #0076FF;
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+	transform: translateY(-2px);
+	text-decoration: none;
+}
+
+.faq-button:active {
+	background-color: #0046FE;
+	box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+	transform: translateY(1px);
+}
+
+.image-content>img {
+	width: 170px;
+}
+
+.button-con {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+	gap: 12px;
+	padding: 15px 0;
+}
+
+.notice-button {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	outline: none;
+	cursor: pointer;
+	text-align: center;
+	text-decoration: none;
+	font-family: 'Arial', sans-serif;
+	font-size: 14px;
+	font-weight: 500;
+	letter-spacing: 0.5px;
+	padding: 0 15px;
+	border-radius: 25px;
+	color: #ffffff;
+	background-color: #3a95ff;
+	border: none;
+	box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+	transition: all 0.3s ease;
+	width: 110px;
+	height: 44px;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+.notice-button:hover {
+	background-color: #0076FF;
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+	transform: translateY(-2px);
+}
+
+.notice-button:active {
+	background-color: #0046FE;
+	box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+	transform: translateY(1px);
+}
+

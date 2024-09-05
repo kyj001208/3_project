@@ -1,0 +1,88 @@
+body {
+	font-family: Arial, sans-serif;
+	background-color: #f8f9fa;
+	margin: 0;
+	padding: 0px;
+	
+}
+
+.review-con {
+	width: 100%;
+	padding-top:40px;
+	
+}
+.imgs{
+	
+	background-color: #ffffff;
+}
+#review-img{
+	
+	width: 100%;
+	height: 75vh;
+}
+
+.imgs-top{
+	border-top: 1px solid #e9e9e9;
+	background-color: #f3f3f3;
+	height:70px;
+	font-size: 20px;
+	text-align: center;
+	align-content: center;
+
+}
+
+.imgs-top > a{
+	padding: 1em;
+	font-size: 20px;
+	font-weight: 700;
+}
+
+.imgs-top > a:nth-child(2){
+	
+	text-decoration: none;
+	color: #000000;
+}
+
+
+
+/* /////////////////////////////아래 띄우는 곳///////////////////////////// */
+
+.review-bottom {
+    width: 80%;
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 40px 0; 
+    padding-bottom: 40px;
+}
+
+.imgs-bot {
+    display: flex;
+    flex-wrap: wrap; /* 여러 줄로 감싸서 네 개씩 정렬 */
+    justify-content: space-between; /* 공간을 균등하게 배분 */
+    gap: 25px; 
+}
+
+.re-list {
+    width: calc(25% - 25px); /* 4개씩 정렬하기 위해 너비를 설정 */
+    box-sizing: border-box; /* padding과 border를 포함하여 너비를 계산 */
+    border-radius: 1em;
+    padding-bottom: 10px;
+    border:1px solid #e9e9e9; 
+}
+
+.imgs-bot a {
+	display:inline-flex;
+    width: 100%;
+    height: 300px;
+    border-radius: 1em 1em 0 0;
+    /* 
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+     */
+    background: no-repeat center/cover;
+}
+
+.re-title {
+    text-align: center;
+}

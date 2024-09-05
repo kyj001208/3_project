@@ -1,0 +1,274 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f8d7da;
+    margin: 0;
+}
+
+.weather-container {
+    width: 90%;
+    max-width: 900px;
+    margin: 60px auto; /* 위아래 여백 20px 추가 */
+    background-color: white;
+    border-radius: 15px;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+    padding: 20px;
+    overflow: hidden; /* 컨테이너가 넘치는 내용을 숨깁니다. */
+}
+
+.current-weather {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.city {
+    font-size: 28px;
+    color: #333;
+}
+
+.weather-icon {
+    font-size: 56px;
+}
+
+.weather-details {
+    text-align: right;
+    display: flex;
+    flex-direction: column;
+}
+
+.weather-status, .humidity {
+    font-size: 18px;
+    margin: 5px 0;
+    color: #555;
+}
+
+/* 지역 스타일링 */
+.city-search-form {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 20px;
+    padding: 15px;
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.city-search-form label {
+    font-size: 16px;
+    font-weight: bold;
+    color: #333;
+}
+
+.city-search-form input[type="text"] {
+    flex-grow: 1;
+    padding: 10px 15px;
+    font-size: 16px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.city-search-form input[type="text"]:focus {
+    outline: none;
+    border-color: #ff5a5f;
+    box-shadow: 0 0 0 2px rgba(52, 152, 219, 0.2);
+}
+
+.city-search-form button {
+    background-color: white;
+    color: #ff5a5f;
+    padding: 10px 20px;
+    border-color: #ff5a5f;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    margin-right: 10px;
+}
+
+.city-search-form button:hover {
+    background-color: #FE5B5C;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    margin-right: 10px;
+}
+
+.temperature {
+    font-size: 56px;
+    font-weight: bold;
+    color: #e74c3c;
+}
+
+.weekly-forecast h3 {
+    font-size: 22px;
+    margin-bottom: 15px;
+    color: #333;
+}
+
+.city-selector {
+    margin-bottom: 20px;
+    display: flex;
+    height: 92px;
+    align-items: center;
+    gap: 10px;
+}
+
+.city-selector select {
+    padding: 8px 12px;
+    font-size: 16px;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+    background-color: #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.hourly-weather-container {
+    overflow-x: auto; /* 수평 스크롤을 허용합니다. */
+    white-space: nowrap; /* 항목들이 수평으로 나열됩니다. */
+    padding: 10px 0;
+    border-top: 2px solid #e0e0e0;
+    margin-bottom: 20px;
+    scroll-behavior: smooth; /* 스크롤을 부드럽게 만듭니다. */
+}
+
+.hourly-weather-item {
+    display: inline-block; /* 항목들이 수평으로 배치됩니다. */
+    width: 120px; /* 각 항목의 너비 설정 */
+    text-align: center;
+    margin-right: 15px; /* 항목 간격 설정 */
+    padding: 10px;
+    border-radius: 10px;
+    background-color: #f9f9f9;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease; /* 애니메이션 효과 */
+}
+
+.hourly-weather-item:hover {
+    transform: translateY(-5px); /* 호버 시 약간 위로 이동 */
+}
+
+.hour-temperature {
+    display: block;
+    font-size: 20px;
+    font-weight: bold;
+    color: #e74c3c;
+    margin-bottom: 5px;
+}
+
+.time {
+    display: block;
+    font-size: 16px;
+    color: #555;
+}
+
+/* 스크롤바 스타일링 (Webkit 브라우저에서만 적용) */
+.hourly-weather-container::-webkit-scrollbar {
+    height: 8px; /* 스크롤바의 높이 설정 */
+}
+
+.hourly-weather-container::-webkit-scrollbar-thumb {
+    background-color: #888; /* 스크롤바 색상 */
+    border-radius: 10px;
+}
+
+.hourly-weather-container::-webkit-scrollbar-thumb:hover {
+    background-color: #555; /* 스크롤바 호버 색상 */
+}
+
+.weekly-forecast {
+    margin-top: 20px;
+}
+
+.forecast-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 15px;
+}
+
+.forecast-item {
+    border: 1px solid #e0e0e0;
+    border-radius: 10px;
+    padding: 15px;
+    text-align: center;
+    background-color: #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.forecast-day-date {
+    margin-bottom: 10px;
+}
+
+.forecast-day {
+    font-weight: bold;
+    font-size: 18px;
+    color: #333;
+}
+
+.forecast-date {
+    font-size: 14px;
+    color: #666;
+}
+
+.forecast-weather {
+    display: flex;
+    justify-content: space-around;
+    margin: 10px 0;
+}
+
+.morning, .afternoon {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.forecast-weather img {
+    width: 30px; /* 원하는 너비 */
+    height: 30px; /* 원하는 높이 */
+    object-fit: contain; /* 이미지가 비율을 유지하며 크기 조정 */
+}
+
+.forecast-temperature {
+    font-size: 14px;
+}
+
+.rain-probability {
+    font-size: 14px;
+    color: #3498db;
+}
+
+/* 반응형 디자인을 위한 미디어 쿼리 */
+@media (max-width: 768px) {
+    .weather-container {
+        padding: 15px;
+    }
+
+    .city-selector select {
+        font-size: 14px;
+    }
+}
+
+@media (max-width: 480px) {
+    .weather-container {
+        padding: 10px;
+    }
+
+    .city {
+        font-size: 22px;
+    }
+
+    .temperature {
+        font-size: 48px;
+    }
+
+    .weather-icon {
+        font-size: 48px;
+    }
+
+    .hourly-weather-item {
+        width: 100px; /* 작은 화면에서 항목 너비 조정 */
+    }
+}

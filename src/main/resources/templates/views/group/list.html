@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{views/commons/layout :: layout(~{::head} ,~{::main} ) }">
+
+<head>
+	<meta charset="UTF-8">
+	<link rel="stylesheet" href="/css/group/list.css">
+	<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+	<script src="/js/group/list.js"></script>
+</head>
+
+<body>
+	<main>
+		<section class="group-banner">
+			<div class="banner-text">
+				<h2><img class="front" src="/images/1.png">모임</h2>
+				<h1>오늘 뭐하지 고민 될 때</h1>
+				<div class="banner-text-small">
+					나와 같은 관심사를 가진 친구들과<br>
+					매일 함께하고 싶다면 모임에서 만나요!
+				</div>
+			</div>
+		</section>
+
+		<!-- Category Section -->
+		<section class="category">
+			<form method="get" class="category-container">
+				<ul>
+					<li class="category-item">
+				        <a href="/group-list">전체</a>
+					</li>
+					<li class="category-item">
+						<a href="/group-list?category=CULTURE">
+							<img src="/images/culture.png" alt="문화">
+						문화</a>
+					</li>
+					<li class="category-item">
+						<a href="/group-list?category=ACTIVITY">
+							<img src="/images/activity.png" alt="액티비티">
+						액티비티</a>
+					</li>
+					<li class="category-item">
+						<a href="/group-list?category=FOOD">
+							<img src="/images/food.png" alt="푸드">
+						푸드</a>
+					</li>
+					<li class="category-item">
+						<a href="/group-list?category=TRAVEL">
+							<img src="/images/travel.png" alt="여행">
+						여행</a>
+					</li>
+					<li class="category-item">						
+						<a href="/group-list?category=SELF_DEVELOPMENT">
+							<img src="/images/seldev.png" alt="자기계발">
+						자기계발</a>
+					</li>
+					<li class="category-item">
+						<a href="/group-list?category=PARTY">
+							<img src="/images/party.png" alt="파티">
+						파티</a>
+					</li>
+					<li class="category-item">
+						<a href="/group-list?category=DATING">
+							<img src="/images/date.png" alt="연애">
+						연애</a>
+					</li>
+					<li class="category-item">
+						<a href="/group-list?category=GAMING">
+							<img src="/images/game.png" alt="게임">
+						게임</a>
+					</li>
+				</ul>
+				<!-- 추가 카테고리 아이템들 -->
+			</form>
+		</section>
+
+		<!-- Profile Section -->
+		<section class="groups">
+        <div class="groups-container">
+            <div class="group-cards" id="group-container">
+                <!-- 그룹 카드가 여기에 동적으로 추가됩니다 -->
+            </div>
+        </div>
+    </section>
+	</main>
+</body>
+
+</html>

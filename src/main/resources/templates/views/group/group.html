@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{views/commons/layout :: layout(~{::head} ,~{::main} ) }">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="_csrf" th:content="${_csrf.token}" />
+	<meta name="_csrf_header" th:content="${_csrf.headerName}" />
+	<link rel="stylesheet" href="/css/group/group.css">
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/gsap.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/ScrollTrigger.min.js"></script>
+	<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/quill@2.0.2/dist/quill.js"></script>
+	<link href="https://cdn.jsdelivr.net/npm/quill@2.0.2/dist/quill.snow.css" rel="stylesheet" />
+	<script src="/js/group/group.js"></script>
+
+</head>
+
+<body>
+	<main>
+		<div class="group-container">
+			<!-- Left Section: Header Image and Title Card -->
+			<div id="groupInfoSection">
+				<div class="left-section" th:each="group : ${groups}">
+					<!-- Header Image -->
+					<div class="header-image" th:style="|background-image: url(${group.mainImageUrl});|"></div>
+					<!-- Title Card -->
+					<div class="title-card">
+						<div class="small-title" th:text="${group.groupName}">인생샷 사진사</div>
+						<div class="main-title" th:text="${group.category}"></div>
+					</div>
+
+					<!-- Additional Information -->
+					<div class="info-box">
+						<h3>참여하시는 분들께</h3>
+						<p th:utext="${group.greeting}"></p>
+					</div>
+
+					<!-- Review Section -->
+					<div class="review-section">
+						<h4>참여자 후기</h4>
+						<p>"정말 멋진 경험이었어요! 많은 것을 배웠고, 새로운 친구들도 사귈 수 있었습니다." - 김영희</p>
+						<p>"매주 금요일을 기다리게 되는 모임입니다. 사진 찍는 기술도 많이 늘었어요!" - 박철수</p>
+					</div>
+				</div>
+
+				<!-- Right Section: Group Details and Actions -->
+				<div class="right-section" th:each="group : ${groups}">
+					<!-- Group Description -->
+					<div class="content-section">
+						<div class="section-title">그룹 설명</div>
+						<div class="group-description" th:utext="${group.description}"></div>
+					</div>
+
+					<!-- Members List -->
+					<div class="member-intro">
+						<h4>멤버소개</h4>
+						<h3 th:text="${group.creatorNickname} + ' 님이 만든 모임입니다.'">우리 반갑게 만나요</h3>
+						<div class="profile">
+							<img src="/images/profile1.jpg" alt="프로필 사진 1">
+						</div>
+
+						<h3>참여자 목록</h3>
+						<!-- Profile List -->
+						<div class="profile-list">
+							<img src="/images/profile1.jpg" alt="프로필 사진 1">
+							<img src="/images/profile1.jpg" alt="프로필 사진 2">
+							<img src="/images/profile1.jpg" alt="프로필 사진 3">
+							<img src="/images/profile1.jpg" alt="프로필 사진 4">
+							<div class="add-member">+</div> <!-- 추가 회원 버튼 -->
+						</div>
+
+						<!-- Announcements -->
+						<div class="content-section">
+							<div class="section-title">공지 사항</div>
+							<ul class="announcement-list">
+								<li>다음 모임은 9월 15일 저녁 7시에 한강공원에서 진행됩니다.</li>
+								<li>사진 콘테스트 개최! 우승자에게는 특별한 상품이 주어집니다.</li>
+							</ul>
+						</div>
+
+						<!-- 알림 메시지 표시 -->
+						<div th:if="${message}" class="alert alert-success" th:text="${message}"></div>
+						<div th:if="${errorMessage}" class="alert alert-danger" th:text="${errorMessage}"></div>
+
+
+						<div class="button-group">
+							<!-- 그룹 가입 버튼 -->
+							<form th:action="@{/join-group/{id}(id=${group.id})}" method="post" style="display:inline;">
+								<input type="hidden" name="_csrf" th:value="${_csrf.token}" /> <!-- CSRF 토큰 -->
+								<button type="submit" class="join-button" th:if="${not isMember}">그룹 가입하기</button>
+							</form>
+							<div th:if="${isMember}" class="joined-message">이미 그룹의 멤버입니다</div>
+							<a href="/create-group" class="create-group-button">나도 만들러 가기</a>
+
+							<!-- 그룹 수정 버튼 -->
+							<div th:if="${isCreator}">
+								<button class="edit-group-button"
+									th:onclick="'openEditGroupForm(' + ${group.id} + ')'">그룹
+									수정하기</button>
+							</div>
+							<!-- 그룹 삭제 버튼 (only for creators) -->
+							<div th:if="${isCreator}">
+								<button class="delete-button"
+									th:attr="data-group-id=${group.id}, data-csrf-token=${_csrf.token}">그룹 삭제하기</button>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</main>
+</body>
+
+</html>

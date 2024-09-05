@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{views/commons/layout :: layout(~{::head} ,~{::main} ) }">
+
+<head>
+<link rel="stylesheet" href="/css/review/review_main.css">
+</head>
+
+<body>
+	<main class="review-con">
+		<section class="review-top">
+				
+			<div class="imgs">
+			<img src="/images/review.jpg" id="review-img">
+			</div>	
+			<div class="imgs-top">
+				<a>자유 수다</a>
+				<a href="/mem/review-write">수다 등록</a>
+			</div>
+			
+		</section>
+		<section class="review-bottom">
+		
+			<div class="imgs-bot" >
+				<div class="re-list" th:each="dto:${list}">
+				 <a th:href="@{/mem/detail/{reId}(reId=${dto.reId})}" th:style="|background-image: url('${dto.imageUrl}');|">
+                     <!--/* <img th:src="${dto.imageUrl}" id="reimgs" alt="Review Image"> */-->
+                 </a>
+				<div class="re-title" th:text="${dto.title}">강아지와 함께 떠나는 여행모임</div>
+				
+				</div>
+				
+			</div>
+			
+		
+		
+		
+		</section>
+		
+	</main>
+</body>
+</html>

@@ -1,0 +1,14 @@
+<div class="container">
+	<div th:each="block : ${blockedUsers}">
+		<div>
+			<div th:text="${block.blockedNickName}">닉네임</div>
+			<div
+				th:text="${#dates.format(block.blockTime, 'yyyy-MM-dd HH:mm:ss')}">차단
+				날짜</div>
+			<form th:action="@{/unblockUser}" method="post">
+				<input type="hidden" name="blockedId" th:value="${block.id}" />
+				<button type="submit">차단 해제</button>
+			</form>
+		</div>
+	</div>
+</div>

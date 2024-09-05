@@ -1,0 +1,371 @@
+@charset "UTF-8";
+
+.group-banner {
+    height: 75vh; /* 배너 높이를 적절하게 설정 */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center; /* 콘텐츠를 가로로 중앙 정렬 */
+    text-align: center;
+    padding: 20px; /* 텍스트 주변에 여백 추가 */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* 약간의 그림자 추가로 깊이감 부여 */
+}
+
+.banner-text {
+    font-size: 40px; /* 제목 크기 설정 */
+    color: #333; /* 텍스트 색상 설정 */
+    max-width: 800px; /* 읽기 쉽게 너비 제한 */
+    margin: 0 auto; /* 배너 내에서 텍스트 중앙 정렬 */
+    padding: 10px 20px; /* 텍스트 컨테이너 내부 여백 추가 */
+}
+
+.banner-text-small {
+    font-size: 28px; /* 부제목 크기 설정 */
+    color: #383535; /* 부제목 색상 설정 */
+    line-height:32px;
+    font-weight:400;
+    line-height:32px;
+    margin-top: 10px; /* 제목과의 간격 설정 */
+}
+
+.banner-text h2 {
+	color: #87bfff;
+    font-weight: 700;
+    font-size: 28px;
+    justify-content: center;
+    display: flex;
+    margin-bottom: 0.5em;
+    padding-top: 0.2em;
+}
+.overlay {
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background-color: rgba(0, 0, 0, 0.2); /* 이미지 위에 오버레이 */
+	z-index: 1;
+}
+
+/************************* 헤더 *******************************************/
+.banner-header {
+	width: 100%;
+	padding: 5px 0;
+	position: fixed; /* 헤더가 배너 영역 내에서 고정되도록 설정 */
+	top: 0;
+	left: 0;
+	z-index: 10; /* 다른 요소들 위에 배치되도록 z-index 높임 */
+	background-color: rgba(248, 248, 248, 0.3); /* 반투명 배경색 */
+	backdrop-filter: blur(10px); /* 배경을 흐리게 처리 */
+}
+
+.banner-header .container {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+nav ul {
+	list-style: none;
+	display: flex;
+	gap: 20px;
+	padding: 0;
+	margin: 0;
+}
+
+nav a {
+	text-decoration: none;
+	color: #333;
+	position: relative; /* ::after를 위한 위치 기준 */
+	padding-bottom: 5px; /* 하단 줄이 들어갈 공간 확보 */
+}
+
+nav a::after {
+	content: ''; /* 줄을 추가할 내용 없음 */
+	position: absolute;
+	width: 0;
+	height: 2px;
+	background-color: #0046FE; /* 줄 색상 */
+	left: 0;
+	bottom: 0;
+	transition: width 0.3s ease; /* 부드러운 애니메이션 효과 */
+}
+
+nav a:hover::after {
+	width: 100%; /* hover 시 줄이 전체 너비로 확장 */
+}
+
+.signup-btn {
+	padding: 8px 16px;
+	border: 1px solid #333;
+	border-radius: 4px;
+	background-color: rgba(255, 255, 255, 0.8); /* 투명 배경 */
+}
+
+.banner-text {
+	position: relative;
+	z-index: 2;
+}
+
+.banner h1 {
+	font-size: 2.5em;
+	margin-bottom: 0.5em;
+}
+
+.banner h2 {
+	font-size: 1.8em;
+	font-weight: normal;
+}
+
+.banner h2 span.highlight {
+	font-weight: bold;
+}
+
+.front {
+    width: 24px;
+    height: 24px;
+    margin-top: 5px;
+    margin-right: 7px;
+}
+
+/***********************카테고리**************************/
+.category {
+	padding-top: 10px;
+	padding-bottom: 5px;
+	background-color: #f9f9f9;
+	text-align: center;
+	position: sticky;
+	top: 40px;
+	z-index: 11;
+	padding-top: 1rem;
+}
+
+.category-container {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	gap: 20px;
+	flex-wrap: wrap;
+}
+
+.category-item {
+	display: flex;
+	align-items: center;
+	margin-left: 65px;
+	text-align: center;
+}
+
+.category-item a {
+	text-decoration: none; /* 기본적으로 링크의 밑줄 제거 */
+	padding-bottom: 5px; /* 밑줄을 추가하기 위한 여백 설정 */
+	color: black; /* 기본 링크 색상 */
+}
+
+.active-category {
+	border-bottom: 2px solid #0046FE; /* 선택된 항목에 밑줄 추가 */
+	font-weight: bold; /* 선택된 항목의 폰트를 굵게 표시 */
+}
+
+ul {
+	
+	display: flex;
+	padding-right: 100px;
+}
+
+li {
+	cursor: pointer;
+}
+
+.category-item>button {
+	margin: 0 auto;
+	border: none;
+}
+
+.category-item img {
+	width: 24px;
+	height: 24px;
+	margin-right: 17px;
+}
+
+.category-item a {
+	display:flex;
+	align-items:center;
+	font-weight: 600;
+	font-size: 20px;
+	color: #333;
+	text-decoration: none;
+}
+
+/**************** 모임 ********************************************/
+
+.groups-container {
+	width: 90%;
+	max-width: 1600px;
+	margin-top: calc(-200px);
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+.groups {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	padding: 0;
+	min-height: 800px;
+	padding-bottom: 20px;
+}
+
+.groups h2 {
+	justify-content: center;
+	font-size: 1.5em;
+	margin-bottom: 0.5em;
+}
+
+.group-cards {
+	display: grid;
+	grid-template-columns: repeat(2, 1fr);
+	column-gap: 24px;
+	row-gap: 24px;
+	padding-top: 240px;
+}
+
+.group-card {
+    display: flex;
+    background-color: rgb(244, 244, 244);
+    border-radius: 10px;
+    border: 1px solid #f9f9f9;
+    overflow: hidden;
+    width: 100%;
+    min-width: 600px;
+    max-width: 600px;
+    box-sizing: border-box;
+    position: relative;
+}
+
+.group-img-container {
+	flex: 0 0 35%;
+	padding: 10px;
+	width: 100%;
+	background-size: cover;
+	background-position: center;
+	background-repeat: no-repeat;
+	height: 200px;
+	border-radius: 10px;
+	margin-right: 10px;
+}
+
+.group-link {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 10; /* 다른 요소들보다 위에 오도록 설정 */
+    pointer-events: auto; /* 링크 클릭 가능하게 설정 */
+}
+
+.member{
+	margin-top: 10px;
+	color: #999696;
+}
+
+.people{
+	width: 16px;
+	height: 16px;
+}
+
+.group-img-container img {
+	width: 200px;
+	height: 200px;
+	object-fit: cover;
+	border-radius: 5px;
+}
+
+.text-container {
+    flex: 1; /* 남은 공간을 모두 차지하도록 설정 */
+    min-width: 0; /* 필요한 경우 너비를 줄일 수 있도록 설정 */
+    padding: 10px; /* 내부 여백 추가 */
+}
+
+
+.text-container p,i, strong,span {
+    font-size: 18px;
+    white-space: nowrap; /* 한 줄로 제한 */
+    overflow: hidden; /* 넘치는 부분 숨기기 */
+    text-overflow: ellipsis; /* 넘치는 부분에 '...' 표시 */
+    max-width: 100%; /* 최대 너비를 100%로 설정 */
+    color: rgb(56, 53, 53);
+    display:inline-block; /* 블록 요소로 설정 */
+    margin: 0;
+    font-style: normal;
+}
+
+.text-container i {
+    margin: 9px 0;
+}
+
+.text-container .date {
+	margin-top: 0;
+	margin-bottom: 8px;
+}
+
+.text-container .categories {
+    display: inline-block; /* 요소를 인라인 블록으로 설정하여 컨텐츠에 맞게 크기 조정 */
+    font-size: 18px;
+    border: 1px solid #87bfff;
+    background-color: #87bfff;
+    border-radius: 30px;
+    color: #faf8f8;
+    padding: 5px 10px; /* 텍스트 주변에 여백을 추가하여 시각적 여유를 줌 */
+}
+
+.text-container h3 {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin: 0;
+    display: block;
+    max-width: 100%;
+    font-size: 24px;
+    padding-right: 10px; /* 오른쪽 여백 추가 */
+    box-sizing: border-box; /* 패딩을 너비에 포함 */
+    margin-top: 10px;
+    margin-bottom: 18px;
+}
+
+.text-container .location {
+	font-size: 20px;
+	color : #999696;
+	margin-bottom: 10px;
+}
+
+/* 오버레이 설정 */
+.group-card .overlay {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 300px;
+	height: 100%;
+	background-color: rgba(0, 0, 0, 0.6);
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	opacity: 0;
+	transition: opacity 0.3s ease-in;
+	color: #fff;
+	text-align: center;
+	border-radius: 10px;
+	padding: 20px;
+	box-sizing: border-box;
+	pointer-events: none; /* 오버레이가 클릭 이벤트를 방해하지 않도록 설정 */
+}
+
+.group-card:hover img {
+	transform: scale(1.05);
+	transition: transform 0.5s ease;
+}
+
+.group-card:hover .overlay {
+	opacity: 1;
+}
