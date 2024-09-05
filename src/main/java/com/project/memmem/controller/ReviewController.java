@@ -59,20 +59,12 @@ public class ReviewController {
 	}
 
 	// 메인페이지 저장된 값 뿌려주기, 언니와 나의 합작
-	@GetMapping("/mem/review")
-	public String review(@AuthenticationPrincipal MemmemUserDetails user,Model model) {
-
-		Long userId = user.getUserId();
-		List<ReviewEntity> reviews = service.getReviewsExcludingBlockedUsers(userId);
-		String imgHost = "your_image_host";
-		List<ReviewListDTO> reviewDTOs = reviews.stream().map(review -> ReviewEntity.toListDTO(review, imgHost))
-				.collect(Collectors.toList());
-
-		model.addAttribute("list", reviewDTOs);
-
-		service.reviewListProcess(model);
-		return "views/review/review_main";
-	}
+		@GetMapping("/mem/review")
+		public String review(@AuthenticationPrincipal MemmemUserDetails user, Model model) {
+		    Long userId = user.getUserId();
+		    service.reviewListProcess(model, userId);
+		    return "views/review/review_main";
+		}
 	
 	// 상세페이지 저장된 값 뿌려주기
 	@GetMapping("/mem/detail/{reId}")
@@ -92,12 +84,18 @@ public class ReviewController {
 
 	///////////////////////////////////////////////////스탑
 	
-	// 글 내용 저장 및 이미지 저장
-	@PostMapping("/mem/detail/{reId}")
-	public String reviewupdate(@PathVariable("reId") long reId, @AuthenticationPrincipal MemmemUserDetails user, ReviewUpDateDTO dto) {
+	@PutMapping("/mem/detail/{reId}")
+	public String reviewUpdate(@PathVariable("reId") long reId, @AuthenticationPrincipal MemmemUserDetails user,
+	            ReviewUpDateDTO dto, @RequestParam(value = "image", required = false) MultipartFile image) {
 
-		service.reviewUpdateProcess(reId,dto, user.getUserId());
-		return "redirect:/mem/review/"+reId;
+	    // 로그인한 사용자 ID
+	    long userId = user.getUserId();
+
+	    // 서비스 호출을 통해 리뷰 수정
+	    service.reviewUpdateProcess(reId, dto, userId, image);
+
+	    return "redirect:/mem/detail/" + reId;
 	}
+
 
 }

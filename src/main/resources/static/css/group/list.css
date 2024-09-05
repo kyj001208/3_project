@@ -1,5 +1,11 @@
 @charset "UTF-8";
 
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0px;
+}
+
 .group-banner {
     height: 75vh; /* 배너 높이를 적절하게 설정 */
     display: flex;
@@ -289,7 +295,7 @@ li {
 }
 
 
-.text-container p,i, strong,span {
+.text-container p,i {
     font-size: 18px;
     white-space: nowrap; /* 한 줄로 제한 */
     overflow: hidden; /* 넘치는 부분 숨기기 */

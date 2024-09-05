@@ -223,9 +223,8 @@ h1 {
 }
 
 .group-list a {
-	 display: inline-block;
+	display: inline-block;
 	text-decoration: none; /* 밑줄 제거 */
-	width: 120px;
 	color: #7f8c8d;
 	font-size: 14px;
 }

@@ -19,13 +19,13 @@ public interface ReviewService {
 
 	Map<String, String> s3TempUpload(MultipartFile file) throws IOException;
 
-	void reviewListProcess(Model model);
+	void reviewListProcess(Model model, Long userId);
 
 	void getReviewDetail(long reId, Model model);
 
 	void reviewDelete(long reId, long userId);
   
-	void reviewUpdateProcess(long reId, ReviewUpDateDTO dto, long userId);
+	void reviewUpdateProcess(long reId, ReviewUpDateDTO dto, long userId, MultipartFile image);
 
 	List<ReviewEntity> getReviewsExcludingBlockedUsers(Long userId);
 

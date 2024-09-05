@@ -54,4 +54,5 @@ public class GroupMemberShipEntity {
 	        ROLE_MEMBER   // 그룹 참여자
 	    }
 
+
 }

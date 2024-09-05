@@ -1,95 +1,79 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
-    th:replace="~{views/commons/layout :: layout(~{::head} ,~{::main} ) }">
+    th:replace="~{views/commons/layout :: layout(~{::head}, ~{::main}) }">
 <head>
-<title>Review Detail</title>
-<meta name="_csrf" th:content="${_csrf.token}" />
-<meta name="_csrf_header" th:content="${_csrf.headerName}" />
-<script src="/js/block/button.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-<link rel="stylesheet" href="/css/review/review_detail.css">
-<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-<link
-	href="https://cdn.jsdelivr.net/npm/quill@2.0.2/dist/quill.snow.css"
-	rel="stylesheet">
-<script src="https://cdn.jsdelivr.net/npm/quill@2.0.2/dist/quill.js"></script>
-<script src="/js/review/reviewdetail.js"></script>
+    <title>Review Detail</title>
+    <meta name="_csrf" th:content="${_csrf.token}" />
+    <meta name="_csrf_header" th:content="${_csrf.headerName}" />
+    <script src="/js/block/button.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <link rel="stylesheet" href="/css/review/review_detail.css">
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/quill@2.0.2/dist/quill.snow.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/quill@2.0.2/dist/quill.js"></script>
+    <script src="/js/review/reviewdetail.js"></script>
 </head>
 <body>
-	<main>
-		<div class="main-content">
-			<!-- 리뷰 상세 내용 -->
-			<div class="review-detail" th:if="${review != null}"
-				th:attr="data-review-id=${review.reId}">
-				<div class="detail_pro">
-					<p class="review-nickname">
-						작성자: <span
-							th:text="${review.user != null ? review.user.nickName : 'Anonymous'}"></span>
-					</p>
-					<p class="review-created-at">
-						작성 시간: <span th:text="${formattedTime}"></span>
-					</p>
-				</div>
-				<button type="button"
-					th:onclick="|confirmBlock('${currentUserId}', '${review.user.userId}', event)|">유저차단</button>
-				<h2 class="review-title" th:text="${review.title}"></h2>
-				<img th:src="${imageUrl}" alt="Review Image" id="detailimgs" />
-				<p class="review-content" th:utext="${review.content}"></p>
-			</div>
+    <main>
+        <div class="main-content">
+            <!-- 리뷰 상세 내용 -->
+            <div class="review-detail" th:if="${review != null}" th:attr="data-review-id=${review.reId}">
+                <div class="detail_pro">
+                    <p class="review-nickname">
+                        작성자: <span th:text="${review.user != null ? review.user.nickName : 'Anonymous'}"></span>
+                    </p>
+                    <p class="review-created-at">
+                        작성 시간: <span th:text="${formattedTime}"></span>
+                    </p>
+                </div>
+                <button type="button" th:onclick="|confirmBlock('${currentUserId}', '${review.user.userId}', event)|">유저차단</button>
+                <h2 class="review-title" th:text="${review.title}"></h2>
+                <img th:src="${imageUrl}" alt="Review Image" id="detailimgs" />
+                <p class="review-content" th:utext="${review.content}"></p>
+            </div>
 
+            <div class="detail_btns">
+                <a href="/mem/review" class="reviewmain" id="btn12">이전</a>
+                <button class="detailupdate" type="button" th:onclick="|showEditForm(${review.reId})|" id="btn12">수정</button>
+                <button class="detaildelete" type="button" th:onclick="|deletebtnClicked(${review.reId})|" id="btn12">삭제</button>
+            </div>
 
-			<div class="detail_btns">
-				<a href="/mem/review" class="reviewmain" id="btn12">이전</a>
-				<button class="detailupdate" type="button"
-					th:onclick="showEditForm()" id="btn12">수정</button>
-				<button class="detaildelete" type="button"
-					th:onclick="|deletebtnClicked(${review.reId})|" id="btn12">삭제</button>
-			</div>
+            <!-- 리뷰 수정 폼 (초기에는 숨김) -->
+            <div class="review-edit-form" style="display: none;">
+                <form id="editReviewForm" th:action="@{/mem/detail/{reId}(reId=${review.reId})}" method="post" enctype="multipart/form-data">
+                    <input type="hidden" th:if="${_csrf}" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+                    <p class="review-nickname">
+                        작성자: <span th:text="${review.user != null ? review.user.nickName : 'Anonymous'}"></span>
+                    </p>
 
-			<!-- 리뷰 수정 폼 (초기에는 숨김) -->
-			<div class="review-edit-form" style="display: none;">
-				<!-- <form id="editReviewForm" th:action="@{/reviews/{id}(id=${review.reId})}" method="post" enctype="multipart/form-data"> -->
-				<form id="editReviewForm"
-					th:action="@{/mem/detail/{reId}(reId=${review.reId})}"
-					method="post" enctype="multipart/form-data">
-					<input type="hidden" th:if="${_csrf}"
-						th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
-					<p class="review-nickname">
-						작성자: <span
-							th:text="${review.user != null ? review.user.nickName : 'Anonymous'}"></span>
-					</p>
+                    <p class="review-created-at">
+                        작성 시간: <span th:text="${formattedTime}"></span>
+                    </p>
 
-					<p class="review-created-at">
-						작성 시간: <span th:text="${formattedTime}"></span>
-					</p>
+                    <label for="editTitle">제목:</label>
+                    <input type="text" id="editTitle" name="title" th:value="${review.title}" required>
 
-					<label for="editTitle">제목:</label> <input type="text"
-						id="editTitle" name="title" th:value="${review.title}" required>
+                    <label for="file-upload" class="upload-button">
+                        <span id="plus-icon">+</span>
+                        <input type="file" accept="image/*" id="file-upload" name="image">
+                    </label>
+                    <img id="image-preview" class="image-preview" alt="미리보기 이미지" th:src="${imageUrl}" />
 
-					<label for="file-upload" class="upload-button"> <span
-						id="plus-icon">+</span> <input type="file" accept="image/*"
-						id="file-upload" name="image">
-					</label> <img id="image-preview" class="image-preview" alt="미리보기 이미지"
-						th:src="${imageUrl}" />
+                    <!-- 추가 필드: 이미지 URL 저장 -->
+                    <input type="hidden" id="mainImageBucketKey" name="bucketKey">
+                    <input type="hidden" id="mainImageOrgName" name="orgName">
 
-					<!-- 추가 필드: 이미지 URL 저장 -->
-					<input type="hidden" id="mainImageBucketKey" name="bucketKey">
-					<input type="hidden" id="mainImageOrgName" name="orgName">
+                    <label for="editContent"></label>
+                    <input type="hidden" id="quill-content-input" name="content">
+                    <div id="editContent" class="quill-editor" style="height: 200px;" th:utext="${review.content}"></div>
+                   
 
-
-					<label for="editContent">내용:</label>
-					<textarea id="editContent" name="content" rows="4" required
-						th:utext="${review.content}"></textarea>
-
-					<input type="hidden" name="_method" value="put" />
-					<button type="submit">저장</button>
-					<button type="button" onclick="cancelEdit()">취소</button>
-				</form>
-			</div>
-
-
-			<!-- 버튼들 -->
-		</div>
-	</main>
+                    <input type="hidden" name="_method" value="put" />
+                    <button type="submit">저장</button>
+                    <button type="button" onclick="cancelEdit()">취소</button>
+                </form>
+            </div>
+        </div>
+    </main>
 </body>
 </html>

@@ -153,3 +153,23 @@ textarea {
     font-weight: bold;
 }
 
+/* 추가된 스타일 */
+.image-preview-container {
+    width: 100%;
+    max-width: 100%; 
+    height: auto;
+    overflow: hidden; 
+    display: flex;
+    justify-content: center; 
+    align-items: center; 
+    margin-top: 10px;
+}
+
+.image-preview-container img {
+    max-width: 100%; 
+    height: auto; 
+    border-radius: 8px; 
+    display: block; 
+    object-fit: cover; 
+}
+
