@@ -9,7 +9,7 @@ public interface BlockService {
 
 	void blockUser(Long blockerId, Long blockedId);
 
-	List<UserEntity> getBlockedUsers(Long userId);
+	List<BlockDTO> getBlockedUsers(Long userId);
 	 
 	 
 
