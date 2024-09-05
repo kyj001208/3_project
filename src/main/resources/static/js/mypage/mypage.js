@@ -1,9 +1,9 @@
 document.addEventListener('DOMContentLoaded', () => {
   const content = document.getElementById('content');
   const menuItems = document.querySelectorAll('.menu-item');
-  const previewContent = document.getElementById('preview-content');
+  const sectionTitle = document.getElementById('sectionTitle');
 
-  async function loadContent(section) {
+  async function loadContent(section, title) {
     try {
       console.log(`Attempting to load content for section: ${section}`);
       const response = await fetch(`/mypage/${section}`);
@@ -14,6 +14,9 @@ document.addEventListener('DOMContentLoaded', () => {
       const html = await response.text();
       console.log(`Received HTML content for section ${section}: ${html}`);
       content.innerHTML = html;
+      
+      // 섹션 제목 업데이트
+      sectionTitle.textContent = title || '프로필';
 
       // 프로필 수정 버튼에 대한 이벤트 리스너 추가
       const editProfileBtn = document.getElementById('edit-profile');
@@ -31,8 +34,9 @@ document.addEventListener('DOMContentLoaded', () => {
   menuItems.forEach(item => {
     item.addEventListener('click', () => {
       const section = item.dataset.section;
+      const title = item.dataset.title;
       console.log(`Menu item clicked: ${section}`);
-      loadContent(section);
+      loadContent(section, title);
     });
   });
 

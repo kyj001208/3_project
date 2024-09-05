@@ -6,32 +6,31 @@
 </head>
 <body>
 <div th:fragment="content">
-    <h1>프로필 수정</h1>
     <form th:action="@{/mypage/update}" method="post" th:object="${user}">
         <div class="profile-info">
             <p>
-                <strong>이름:</strong>
-                <input type="text" th:field="*{name}" required>
+                <strong>이름:</strong><span>
+                <input type="text" th:field="*{name}" required></span>
             </p>
             <p>
-                <strong>닉네임:</strong>
-                <input type="text" th:field="*{nickName}" required>
+                <strong>닉네임:</strong><span>
+                <input type="text" th:field="*{nickName}" required></span>
             </p>
             <p>
-                <strong>주소:</strong>
-                <input type="text" th:field="*{address}" required>
+                <strong>주소:</strong><span>
+                <input type="text" th:field="*{address}" required></span>
             </p>
             <p>
-                <strong>전화번호:</strong>
-                <input type="tel" th:field="*{number}" required>
+                <strong>전화번호:</strong><span>
+                <input type="tel" th:field="*{number}" required></span>
             </p>
             <p>
                 <strong>이메일:</strong>
                 <span th:text="*{email}">이메일</span>
             </p>
             <p>
-                <strong>생년월일:</strong>
-                <input type="date" th:field="*{birthDate}" required>
+                <strong>생년월일:</strong><span>
+                <input type="date" th:field="*{birthDate}" required></span>
             </p>
             <!--  
             <p>

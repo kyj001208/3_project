@@ -19,6 +19,7 @@ public class MyGroupListDTO {
     private String groupName;
     private String description;
     private String category;
+    private String categoryImageUrl; // 카테고리 이미지 URL 추가
     private String mainImageUrl;
     private boolean isCreator;
     private String userRole; // "CREATOR" 또는 "MEMBER"
@@ -31,6 +32,7 @@ public class MyGroupListDTO {
                 .groupName(group.getGroupName())
                 .description(group.getDescription())
                 .category(group.getCategory().toString())
+                .categoryImageUrl(group.getCategory().getImageUrl()) // 카테고리 이미지 URL 설정
                 //.mainImageUrl(group.getMainImageUrl(baseUrl))
                 .isCreator(false)
                 .userRole("MEMBER")
@@ -44,6 +46,7 @@ public class MyGroupListDTO {
                 .groupName(group.getGroupName())
                 .description(group.getDescription())
                 .category(group.getCategory().toString())
+                .categoryImageUrl(group.getCategory().getImageUrl()) // 카테고리 이미지 URL 설정
                 //.mainImageUrl(group.getMainImageUrl(baseUrl))
                 .isCreator(true)
                 .userRole("CREATOR")
