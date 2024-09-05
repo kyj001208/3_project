@@ -62,9 +62,28 @@ public class LocationServiceProcess {
 		return locationCoordinates.containsKey(normalizeLocation(location));
 	}
 	// 위치에 대한 좌표를 반환하는 메소드. 기본 좌표(서울)로 대체 가능
-	public LocationCoordinate getCoordinateForLocation(String location) {
-		return locationCoordinates.getOrDefault(normalizeLocation(location), new LocationCoordinate(60, 127));
-	}
+    public LocationCoordinate getCoordinateForLocation(String location) {
+    	// 위치 문자열에 쉼표가 포함되어 있는지 확인 (위도, 경도 형식인지 여부 확인)
+        if (location.contains(",")) {
+        	// 쉼표를 기준으로 문자열을 분리하여 배열로 저장
+            String[] coords = location.split(",");
+            
+            // 분리된 배열이 정확히 2개의 값(위도와 경도)으로 나뉘었는지 확인
+            if (coords.length == 2) {
+                try {
+                    double lat = Double.parseDouble(coords[0]);
+                    double lon = Double.parseDouble(coords[1]);
+                    // 변환된 위도와 경도를 소수점 반올림하여 LocationCoordinate 객체 생성 후 반환
+                    return new LocationCoordinate((int)Math.round(lat), (int)Math.round(lon));
+                } catch (NumberFormatException e) {
+                    // 파싱 실패 시 기본 좌표 반환
+                }
+            }
+        }
+        // 쉼표가 없는 경우 또는 좌표 변환 실패 시, location 문자열을 표준화하여 미리 저장된 좌표에서 찾음
+        // 만약 해당 위치가 없으면 기본 좌표 (60, 127) 반환
+        return locationCoordinates.getOrDefault(normalizeLocation(location), new LocationCoordinate(60, 127));
+    }
 	// 위치 이름을 정규화하는 메소드. 별칭이 있는 경우 정규화
 	public String normalizeLocation(String location) {
 		return locationAliases.getOrDefault(location, location);
