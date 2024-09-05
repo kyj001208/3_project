@@ -16,7 +16,7 @@
 				<div class="banner-text">
 					<h1>같은 취향, 같은 공간, 소모임에서 만나요.</h1>
 					<h2>
-						만남을 찾는 <span>분들의 선택</span>, <span class="highlight">MEMEM</span>
+						만남을 찾는 분들의 선택, <a class="highlight">MEMEM</a> 
 					</h2>
 				</div>
 			</div>
@@ -33,7 +33,7 @@
 					<p>모임으로 계속해서 친하게 지내요</p>
 				</div>
 				<div class="group-cards">
-					<div th:each="group : ${groups}" class="group-card">
+					<div th:each="group, iterStat : ${groups}" th:if="${iterStat.index < 4}" class="group-card">
 	                    <div class="group-img-container" th:style="|background-image: url(${group.mainImageUrl});|">
 	                        <a th:href="@{/group-detail/{id}(id=${group.id})}" class="group-link"></a>
 	                    </div>
@@ -51,7 +51,7 @@
 	                </div>
 					<!-- 다른 프로필 카드 추가 -->
 				</div>
-				<a class="link" href="/group-list"><span >더보기</span></a>
+				<a class="link" href="/group-list"><span class="tags">더보기</span></a>
 			</div>
 		</section>
 		</div>
@@ -65,7 +65,7 @@
 		        </div>
 		        <div class="review-cards">
 		            <!-- 리뷰 카드들을 반복문으로 렌더링 -->
-		            <div th:each="review : ${review}" class="review-card">
+		            <div th:each="review, iterStat : ${review}" th:if="${iterStat.index < 4}" class="review-card">
 		                <a th:href="@{/mem/detail/{reId}(reId=${review.reId})}">
 		                    <img th:src="${review.imageUrl}" alt="Review Image">
 		                </a>
@@ -75,7 +75,7 @@
 		            </div>
 		            <!-- 리뷰 카드들 끝 -->
 		        </div>
-		        <a class="link" href="/mem/review"><span>더보기</span></a>
+		        <a class="link" href="/mem/review"><span class="tags">더보기</span></a>
 		    </div>
 		</section>
 		
@@ -83,45 +83,24 @@
 		<section class="premium-picks">
 			<div class="picks-container">
 				<div class="picks-container-text">
-					<h2>
-						<img class="front" src="/images/3.png">최고의 모임
-					</h2>
-					<p>
-						무슨 모임 가입하지 고민될 때 <br>최고의 모임으로 오세요!
-					</p>
+					<h2><img class="front" src="/images/3.png">최고의 모임</h2>
+					<p>무슨 모임 가입하지 고민될 때 <br>최고의 모임으로 오세요!</p>
 				</div>
 				<div class="pick-cards">
-					<div class="pick-card">
-						<a href="/place/detail/3"> <img src="/images/puppy.jpg"
-							alt="Pick">
+					<div th:each="group, iterStat : ${groups}" th:if="${iterStat.index < 3}" class="pick-card">
+						<a th:href="@{/group-detail/{id}(id=${group.id})}">
+							<i th:style="|background-image: url(${group.mainImageUrl});|"></i> 
 						</a>
 						<div class="pick-overlay">
-							<h3>모임 이름 3</h3>
-							<p>모임 설명</p>
+							<h3 th:text="${group.groupName}">Group Name</h3>
+							<p th:utext="${group.greeting}">모임 설명</p>
 						</div>
 					</div>
-					<div class="pick-card">
-						<a href="/place/detail/3"> <img src="/images/puppy.jpg"
-							alt="Pick">
-						</a>
-						<div class="pick-overlay">
-							<h3>모임 이름 3</h3>
-							<p>모임 설명</p>
-						</div>
-					</div>
-					<div class="pick-card">
-						<a href="/place/detail/3"> <img src="/images/puppy.jpg"
-							alt="Pick">
-						</a>
-						<div class="pick-overlay">
-							<h3>모임 이름 3</h3>
-							<p>모임 설명</p>
-						</div>
-					</div>
-					<!-- 다른 픽 카드 추가 -->
 				</div>
+				<a class="link" href="/group-list"><span class="tags">더보기</span></a>
 			</div>
 		</section>
+		
 	</main>
 </body>
 
