@@ -5,6 +5,8 @@ let isInScenario = false; // 시나리오 모드 플래그
 let weatherScenarioStep = 0;// 날씨 시나리오 단계 추적
 let selectedLocation = '';// 선택된 위치
 let currentCategory = ''; // 추가: 현재 선택된 카테고리 저장
+let userLocation = null;
+
 // WebSocket 지원 여부를 출력
 function isWebSocketSupported() {
 	return 'WebSocket' in window;
@@ -139,27 +141,27 @@ function sendQuickReply(message) {
 function connect() {
 	// WebSocket 클라이언트를 생성하고, '/bookBot' 엔드포인트로 연결
 	client = Stomp.over(new SockJS('/bookBot'));
-	
+
 	// WebSocket 서버에 연결 시도
 	client.connect({}, (frame) => {
 		console.log("Connected to WebSocket server with frame:", frame);
-		
+
 		// 고유한 세션 키를 생성 (현재 시간의 타임스탬프를 사용)
 		key = new Date().getTime();
-		
+
 		// 특정 주제(/topic/bot/{key})에 대해 구독 설정
 		client.subscribe(`/topic/bot/${key}`, (response) => {
 			console.log("응답완료!!!");
-			
+
 			// 서버로부터 받은 메시지를 JSON 객체로 변환
 			var msgObj = JSON.parse(response.body);
 			console.log("Received message from server:", msgObj);
- 			
- 			// 현재 시간을 가져와서 지정된 형식으로 포맷
+
+			// 현재 시간을 가져와서 지정된 형식으로 포맷
 			var now = new Date();
 			var time = formatTime(now);
-			
- 			// 서버에서 받은 응답이 날씨 정보와 관련된 경우
+
+			// 서버에서 받은 응답이 날씨 정보와 관련된 경우
 			if (msgObj.answer.startsWith("weather_info:")) {
 				// 날씨 정보 처리
 				var weatherInfo = JSON.parse(msgObj.answer.substring("weather_info:".length));
@@ -317,7 +319,7 @@ function showQuickReplyButtons() {
                 <p>어떤 정보가 더 필요하신가요?</p>
                 <div class="button-con">
                     <button class="notice-button" onclick="startScenario('소모임 추천해주세요!')">소모임 추천</button>
-                    <button class="notice-button" onclick="sendQuickReply('소모임 참가하고 싶어요')">소모임 참가</button>
+                    <button class="notice-button" onclick="sendQuickReply('소모임 생성하고 싶어요')">소모임 생성</button>
                     <button class="notice-button" onclick="sendQuickReply('오늘의 날씨 알려주세요')">날씨 정보</button>
                     <button class="notice-button" onclick="sendQuickReply('소모임 후기 보고 싶어요')">후기 보기</button>
                 </div>
@@ -405,6 +407,29 @@ function createWeatherInfo(message, time) {
 	}
 	return createBotMessage(message, time);
 }
+
+// Geolocation API를 사용
+function requestUserLocation() {
+	// Geolocation API를 사용할 수 있는지 확인 (브라우저가 위치 정보를 지원하는지 확인)
+	if ("geolocation" in navigator) {
+		// 사용자의 현재 위치를 비동기로 요청
+		navigator.geolocation.getCurrentPosition(function(position) {
+			// 위치 정보를 성공적으로 가져왔을 때 호출되는 콜백 함수
+			userLocation = {
+				// 사용자의 위치 정보를 객체로 저장 (위도와 경도)
+				latitude: position.coords.latitude,
+				longitude: position.coords.longitude
+			};
+			console.log("User location:", userLocation);
+		}, function(error) {
+			console.error("Error getting location:", error);
+		});
+	} else {
+		console.log("Geolocation is not supported by this browser.");
+	}
+}
+
+
 // WebSocket 연결 종료
 function disconnect() {
 	if (client) {
@@ -487,21 +512,20 @@ function btnBotClicked() {
 
 // 메시지 전송 버튼 클릭 이벤트 핸들러
 function btnMsgSendClicked() {
+	// WebSocket 클라이언트가 초기화되었는지 확인
 	if (!client) {
 		console.error("WebSocket client is not initialized.");
 		return;
 	}
-	// 사용자 입력에서 질문을 가져와 공백을 제거
+	// 사용자가 입력한 질문을 가져오고 공백을 제거한 후 저장
 	var question = document.getElementById("question").value.trim();
 	if (question.length < 2) {
 		alert("질문은 최소 2글자 이상으로 부탁드립니다.");
 		return;
 	}
-	// 현재 시간을 가져와서 지정된 형식으로 포맷
 	var now = new Date();
 	var time = formatTime(now);
-	
-	// 사용자 메시지를 HTML 태그로 구성하여 UI에 표시
+
 	var tag = `<div class="msg user flex">
         <div class="message">
             <div class="part guest">
@@ -513,19 +537,24 @@ function btnMsgSendClicked() {
 
 	showDateIfNew();
 	showMessage(tag);
-	
-	// 날씨 관련 시나리오의 첫 단계가 진행 중일 경우, 위치를 저장하고 다음 단계로 넘어감
+
 	if (weatherScenarioStep === 1) {
-		selectedLocation = question;// 사용자가 입력한 위치를 저장
-		weatherScenarioStep = 2;
+		if (question.toLowerCase() === "현재 내 위치" && userLocation) {
+			// 사용자 위치가 있을 경우, 위도와 경도를 선택된 위치로 설정
+			selectedLocation = `${userLocation.latitude},${userLocation.longitude}`;
+			question = "현재 위치"; // 서버로 보낼 질문을 "현재 위치"로 수정
+		} else {
+			selectedLocation = question;
+		}
+		weatherScenarioStep = 2; // 날씨 시나리오 단계 진행
 	}
-	// 서버로 보낼 데이터를 구성
+	// 서버로 보낼 데이터 객체 생성
 	var data = {
-		key: key,// 사용자 또는 세션을 식별하는 키
-		content: question, // 사용자가 입력한 질문
+		key: key,
+		content: question,
 		inScenario: isInScenario || weatherScenarioStep > 0, // 시나리오 진행 여부
-		weatherStep: weatherScenarioStep, // 날씨 시나리오 단계
-		selectedLocation: selectedLocation // 선택된 위치 (날씨 시나리오와 관련)
+		weatherStep: weatherScenarioStep, 
+		selectedLocation: selectedLocation
 	};
 	client.send(`/message/bot/question`, {}, JSON.stringify(data));
 	clearQuestion();
@@ -541,6 +570,7 @@ function clearQuestion() {
 document.addEventListener('DOMContentLoaded', (event) => {
 	btnCloseClicked();
 	loadBotState();
+	requestUserLocation();
 
 	document.getElementById("chat-icon").addEventListener('click', btnBotClicked);
 	document.getElementById("close-button").addEventListener('click', btnCloseClicked);

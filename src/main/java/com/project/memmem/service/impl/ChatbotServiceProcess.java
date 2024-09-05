@@ -121,10 +121,11 @@ public class ChatbotServiceProcess {
 			return AnswerDTO.builder().answer(weatherInfo.get("error")).nnpNo(0).build();
 		}
 		// 날씨 정보가 정상적으로 반환된 경우, 기온과 습도를 가져옵니다.
+		String locationName = weatherInfo.get("location");
 		String temperature = weatherInfo.get("temperature");
 		String humidity = weatherInfo.get("humidity");
 		// 위치와 함께 기온과 습도를 포함한 답변 문자열을 생성합니다.
-		String answer = String.format("%s의 현재 기온은 %s°C이고, 습도는 %s%%입니다.", location, temperature, humidity);
+		 String answer = String.format("%s의 현재 기온은 %s°C이고, 습도는 %s%%입니다.", locationName, temperature, humidity);
 		// 생성된 답변을 포함한 AnswerDTO 객체를 반환합니다.
 		return AnswerDTO.builder().answer(answer).nnpNo(0).build();
 	}

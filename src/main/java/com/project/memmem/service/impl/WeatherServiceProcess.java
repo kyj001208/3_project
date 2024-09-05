@@ -35,12 +35,16 @@ public class WeatherServiceProcess {
 	// 현재 날씨 정보를 가져오는 메서드
 	public Map<String, String> getCurrentWeather(String location) {
 		Map<String, String> weatherInfo = new HashMap<>();
-		weatherInfo.put("location", location);
-
-		if (!locationService.isValidLocation(location)) {
-			weatherInfo.put("error", "죄송합니다. 해당 지역의 날씨 정보를 찾을 수 없습니다.");
-			return weatherInfo;
-		}
+		
+        if (isCoordinates(location)) {
+            weatherInfo.put("location", "현재 위치");
+        } else {
+            weatherInfo.put("location", location);
+        }
+        if (!locationService.isValidLocation(location) && !isCoordinates(location)) {
+            weatherInfo.put("error", "죄송합니다. 해당 지역의 날씨 정보를 찾을 수 없습니다.");
+            return weatherInfo;
+        }
 		// 현재 날짜와 시간을 구합니다.
 		LocalDateTime now = LocalDateTime.now();
 		String date = now.format(DateTimeFormatter.ofPattern("yyyyMMdd"));
@@ -85,4 +89,8 @@ public class WeatherServiceProcess {
 
 		return weatherInfo;
 	}
+	
+	 private boolean isCoordinates(String location) {
+	        return location.matches("^[-+]?([1-8]?\\d(\\.\\d+)?|90(\\.0+)?),\\s*[-+]?(180(\\.0+)?|((1[0-7]\\d)|([1-9]?\\d))(\\.\\d+)?)$");
+	    }
 }
