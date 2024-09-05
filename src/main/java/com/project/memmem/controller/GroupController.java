@@ -41,16 +41,26 @@ public class GroupController {
 
 	@GetMapping("/group-detail/{id}")
 	public String groupDetail(@PathVariable("id") Long groupId, Model model,
-			@AuthenticationPrincipal MemmemUserDetails userDetails) {
-		List<GroupListDTO> groups = groupService.getGroupsByGroupId(groupId);
-		boolean isMember = groupService.isUserMemberOfGroup(userDetails.getUserId(), groupId);
-		boolean isCreator = groupService.isUserCreatorOfGroup(userDetails.getUserId(), groupId);
-		model.addAttribute("groups", groups);
-		model.addAttribute("isCreator", isCreator);
-		model.addAttribute("isMember", isMember);
+	                          @AuthenticationPrincipal MemmemUserDetails userDetails) {
 
-		return "views/group/group";
+	    // 그룹 목록과 회원 정보를 가져옴
+	    List<GroupListDTO> groups = groupService.getGroupsByGroupId(groupId);
+	    boolean isMember = groupService.isUserMemberOfGroup(userDetails.getUserId(), groupId);
+	    boolean isCreator = groupService.isUserCreatorOfGroup(userDetails.getUserId(), groupId);
+
+	    // 변경된 메서드 이름으로 호출
+	    Map<String, String> initials = groupService.getInitialsForUserAndCreator(groupId, userDetails.getUserId());
+
+	    // 모델에 데이터를 추가
+	    model.addAttribute("groups", groups);
+	    model.addAttribute("isCreator", isCreator);
+	    model.addAttribute("isMember", isMember);
+	    model.addAttribute("userInitial", initials.get("userInitial")); // 참가자 이니셜 추가
+	    model.addAttribute("creatorInitial", initials.get("creatorInitial")); // 그룹장 이니셜 추가
+
+	    return "views/group/group";
 	}
+
 
 	@PostMapping("/groupSave")
 	public String groupSave(@AuthenticationPrincipal MemmemUserDetails userDetails, GroupSaveDTO dto) {
@@ -109,8 +119,8 @@ public class GroupController {
 	@DeleteMapping("/delete/{id}")
 	public String deleteGroup(@PathVariable("id") Long id) {
 
-	    groupService.deleteGroup(id);
-	    return "views/group/group";  // 삭제 후 홈으로 리디렉션
+		groupService.deleteGroup(id);
+		return "views/group/group"; // 삭제 후 홈으로 리디렉션
 	}
 
 }

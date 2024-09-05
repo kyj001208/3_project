@@ -3,8 +3,10 @@ package com.project.memmem.service.impl.group;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
@@ -181,9 +183,12 @@ public class GroupServiceProcess implements GroupService {
         GroupEntity group = groupRepository.findById(groupId)
                 .orElseThrow(() -> new IllegalArgumentException("Invalid group ID"));
 
-        GroupMemberShipEntity membership = groupMemberShipRepository.findByUserUserIdAndGroup_Id(userId, groupId);
-        return membership != null && membership.getRole() == GroupMemberShipEntity.Role.ROLE_CREATOR;
+        Optional<GroupMemberShipEntity> membership = groupMemberShipRepository.findByUserUserIdAndGroup_Id(userId, groupId);
+        
+        // Optional을 사용하여 객체가 존재하는지 확인하고, 존재할 경우 getRole()을 호출
+        return membership.isPresent() && membership.get().getRole() == GroupMemberShipEntity.Role.ROLE_CREATOR;
     }
+
 
     /**
      * 그룹 ID로 그룹 엔티티를 조회하는 메서드
@@ -296,5 +301,45 @@ public class GroupServiceProcess implements GroupService {
         // 그룹 삭제
         groupRepository.delete(group);
     }
+
+    @Override
+    public Map<String, String> getInitialsForUserAndCreator(Long groupId, long userId) {
+        // 결과를 담을 Map 초기화
+        Map<String, String> initials = new HashMap<>();
+
+        // 그룹 조회
+        GroupEntity group = groupRepository.findById(groupId)
+                .orElseThrow(() -> new IllegalArgumentException("Invalid group ID: " + groupId));
+
+        // 그룹장의 이니셜 가져오기
+        UserEntity creator = group.getCreator(); 
+        if (creator != null && creator.getNickName() != null && !creator.getNickName().isEmpty()) {
+            initials.put("creatorInitial", creator.getNickName().substring(0, 1));
+        } else {
+            initials.put("creatorInitial", "");
+        }
+
+        // 그룹 참가자(멤버) 조회 및 이니셜 가져오기
+        Optional<GroupMemberShipEntity> membershipOpt = groupMemberShipRepository.findByUserUserIdAndGroup_Id(userId, groupId);
+
+        if (membershipOpt.isPresent()) {
+            GroupMemberShipEntity membership = membershipOpt.get();
+            UserEntity user = membership.getUser();
+            if (user != null && user.getNickName() != null && !user.getNickName().isEmpty()) {
+                initials.put("userInitial", user.getNickName().substring(0, 1));
+            } else {
+                initials.put("userInitial", "");
+            }
+        } else {
+            // 사용자가 그룹의 멤버가 아닌 경우
+            initials.put("userInitial", ""); // 또는 적절한 기본값 설정
+            // 로그 또는 사용자에게 친절한 메시지를 제공할 수 있습니다.
+            System.out.println("User is not a member of the group. userId: " + userId + ", groupId: " + groupId);
+        }
+
+        return initials;
+    }
+
+
 
 }

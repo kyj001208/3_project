@@ -65,9 +65,9 @@ body {
 
 .group-description {
 	display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
 	font-size: 16px;
 	color: #495057; /* 중간 밝기의 회색 */
 	margin-bottom: 20px;
@@ -115,31 +115,40 @@ body {
 
 .profile-list {
 	display: flex;
-	justify-content: center;
-	gap: 10px;
-	margin-bottom: 20px;
-}
-
-.profile-list img {
-	width: 50px;
-	height: 50px;
-	border-radius: 50%;
-	object-fit: cover;
-	border: 2px solid #dee2e6; /* 부드러운 회색 테두리 */
-}
-
-.profile-list .add-member {
-	display: flex;
-	justify-content: center;
 	align-items: center;
+	gap: 10px; /* 아이템 간의 간격을 조정합니다 */
+}
+
+.profile-initial {
 	width: 50px;
 	height: 50px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
 	border-radius: 50%;
-	background-color: #ffffff;
-	border: 2px dashed #dee2e6;
-	cursor: pointer;
+	border: 1px dashed #ccc;
+	font-size: 20px;
+	font-weight: bold;
+	color: #fff; /* 텍스트 색상은 흰색으로 설정하여 배경색과 대비되도록 함 */
+	text-align: center;
+}
+
+.add-member {
+	width: 50px;
+	height: 50px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	border: 2px dashed #ccc;
+	border-radius: 50%;
 	font-size: 24px;
-	color: #007bff;
+	color: #777;
+	cursor: pointer;
+	transition: background-color 0.3s ease;
+}
+
+.add-member:hover {
+	background-color: #f0f0f0; /* 마우스 호버 시 배경 색상 변경 */
 }
 
 .announcement-list, .photo-list {
@@ -248,35 +257,33 @@ body {
 }
 /* 버튼 그룹 컨테이너 스타일 */
 .button-group {
-    display: flex;
-    align-items: center; /* 모든 버튼을 수평 중앙에 정렬 */
-    justify-content: center;
-    gap: 15px; /* 버튼 사이 간격 조절 */
+	display: flex;
+	align-items: center; /* 모든 버튼을 수평 중앙에 정렬 */
+	justify-content: center;
+	gap: 15px; /* 버튼 사이 간격 조절 */
 }
 
 .joined-message {
-    display: inline-block; 
-    text-align: center;
-    font-size: 14px;
-    color: #fff;
-    background-color: #6c757d; 
-    margin-top:20px;
-    padding: 10px 20px;
-    border-radius: 5px;
-    cursor: default;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+	display: inline-block;
+	text-align: center;
+	font-size: 14px;
+	color: #fff;
+	background-color: #6c757d;
+	margin-top: 20px;
+	padding: 10px 20px;
+	border-radius: 5px;
+	cursor: default;
+	box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 /* 버튼 호버 스타일 */
-.create-group-button:hover,
-.edit-group-button:hover,
-.delete-button:hover {
-  background-color: #0056b3;
-  transform: translateY(-2px);
+.create-group-button:hover, .edit-group-button:hover, .delete-button:hover
+	{
+	background-color: #0056b3;
+	transform: translateY(-2px);
 }
 
 /* 버튼 클릭 스타일 */
-.create-group-button:active,
-.edit-group-button:active,
-.delete-button:active {
-  transform: translateY(1px);
+.create-group-button:active, .edit-group-button:active, .delete-button:active
+	{
+	transform: translateY(1px);
 }
