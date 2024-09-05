@@ -1,12 +1,14 @@
 body {
     font-family: Arial, sans-serif;
-    background-color: #f8d7da;
+    background-color: rgba(0, 0, 0, .15); 
+    min-height: calc(100vh);
     margin: 0;
 }
 
 .weather-container {
     width: 90%;
     max-width: 900px;
+    height:100%;
     margin: 60px auto; /* 위아래 여백 20px 추가 */
     background-color: white;
     border-radius: 15px;
