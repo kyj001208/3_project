@@ -35,6 +35,8 @@ public interface GroupService {
 
 	void deleteGroup(Long id);
 
+	Map<String, String> getInitialsForUserAndCreator(Long groupId, long userId);
+
 
 
 }

@@ -25,8 +25,8 @@
 					<div class="header-image" th:style="|background-image: url(${group.mainImageUrl});|"></div>
 					<!-- Title Card -->
 					<div class="title-card">
-						<div class="small-title" th:text="${group.groupName}">인생샷 사진사</div>
-						<div class="main-title" th:text="${group.category}"></div>
+						<div class="main-title" th:text="${group.groupName}"></div>
+						<div class="small-title" th:text="${group.category.koName}"></div>
 					</div>
 
 					<!-- Additional Information -->
@@ -56,18 +56,19 @@
 						<h4>멤버소개</h4>
 						<h3 th:text="${group.creatorNickname} + ' 님이 만든 모임입니다.'">우리 반갑게 만나요</h3>
 						<div class="profile">
-							<img src="/images/profile1.jpg" alt="프로필 사진 1">
+							<div class="profile-initial" th:text="${creatorInitial}"></div>
 						</div>
 
 						<h3>참여자 목록</h3>
 						<!-- Profile List -->
 						<div class="profile-list">
-							<img src="/images/profile1.jpg" alt="프로필 사진 1">
-							<img src="/images/profile1.jpg" alt="프로필 사진 2">
-							<img src="/images/profile1.jpg" alt="프로필 사진 3">
-							<img src="/images/profile1.jpg" alt="프로필 사진 4">
-							<div class="add-member">+</div> <!-- 추가 회원 버튼 -->
+							<!-- 프로필 이니셜: 초기값이 빈 문자열이 아닌 경우에만 표시 -->
+							<div th:each="initial : ${userInitial}" th:if="${initial != ''}" class="profile-initial"
+								th:text="${initial}"></div>
+							<!-- 추가 회원 버튼 -->
+							<div class="add-member">+</div>
 						</div>
+
 
 						<!-- Announcements -->
 						<div class="content-section">

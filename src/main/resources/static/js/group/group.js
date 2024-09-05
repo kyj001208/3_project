@@ -1,6 +1,18 @@
+// 랜덤 색상을 생성하는 함수
+function getRandomColor() {
+    const letters = '0123456789ABCDEF';
+    let color = '#';
+    for (let i = 0; i < 6; i++) {
+        color += letters[Math.floor(Math.random() * 16)];
+    }
+    return color;
+}
+
 document.addEventListener('DOMContentLoaded', function() {
     // GSAP ScrollTrigger 플러그인 등록
-    gsap.registerPlugin(ScrollTrigger);
+    if (typeof gsap !== 'undefined' && gsap.registerPlugin) {
+        gsap.registerPlugin(ScrollTrigger);
+    }
 
     // small-title 텍스트가 위에서 아래로 빠르게 떨어지는 느낌
     gsap.from(".small-title", {
@@ -21,8 +33,8 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     // CSRF 토큰과 헤더 이름 가져오기
-    const csrfToken = document.querySelector('meta[name="_csrf"]').getAttribute('content');
-    const csrfHeader = document.querySelector('meta[name="_csrf_header"]').getAttribute('content');
+    const csrfToken = document.querySelector('meta[name="_csrf"]')?.getAttribute('content');
+    const csrfHeader = document.querySelector('meta[name="_csrf_header"]')?.getAttribute('content');
 
     // Delete 버튼에 이벤트 리스너 추가
     const deleteButtons = document.querySelectorAll('.delete-button');
@@ -37,6 +49,12 @@ document.addEventListener('DOMContentLoaded', function() {
                 console.error('그룹 ID 또는 CSRF 토큰이 설정되지 않았습니다.');
             }
         });
+    });
+
+    // 페이지 로드 시 각 프로필 이니셜에 랜덤 배경색을 적용
+    const profileInitials = document.querySelectorAll('.profile-initial');
+    profileInitials.forEach(function(profile) {
+        profile.style.backgroundColor = getRandomColor();
     });
 });
 
@@ -65,7 +83,7 @@ function deleteGroup(id, csrfToken, csrfHeader) {
         });
     }
 }
+
 function openEditGroupForm(groupId) {
     window.location.href = `/edit-group/${groupId}`;
 }
-
