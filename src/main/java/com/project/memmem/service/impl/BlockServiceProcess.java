@@ -7,6 +7,7 @@ import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.ui.Model;
 
 import com.project.memmem.domain.dto.block.BlockDTO;
 import com.project.memmem.domain.entity.BlockListEntity;
@@ -15,6 +16,7 @@ import com.project.memmem.domain.repository.BlockRepository;
 import com.project.memmem.domain.repository.UserEntityRepository;
 import com.project.memmem.service.BlockService;
 
+import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 
 @Service
@@ -40,28 +42,42 @@ public class BlockServiceProcess implements BlockService {
 		}
 	}
 
-	@Override
-	public List<BlockDTO> getBlockedUsers(Long userId) {
-	    UserEntity user = userRepository.findById(userId)
-	            .orElseThrow(() -> new RuntimeException("User not found"));
-	    List<BlockListEntity> blockedEntities = blockRepository.findByBlocker(user);
+	/*
+	 * @Override public List<BlockDTO> getBlockedUsers(Long userId) { UserEntity
+	 * user = userRepository.findById(userId).orElseThrow(() -> new
+	 * RuntimeException("유저를 찾을수 없습니다.")); List<BlockListEntity> blockedEntities =
+	 * blockRepository.findByBlocker(user);
+	 * 
+	 * return blockedEntities.stream() .map(block -> BlockDTO.builder()
+	 * .id(block.getId()) .blockerNickName(block.getBlocker().getNickName())
+	 * .blockedNickName(block.getBlocked().getNickName())
+	 * .blockTime(block.getBlockTime()) .build()) .collect(Collectors.toList());
+	 * 
+	 * 
+	 * }
+	 */
+	
+	@Transactional
+	public BlockListEntity getBlockedUsers(long id) {
+		return blockRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Review not found"));
+	}
+	
+	public void getBlockedUsers(Model model, long id) {
+		BlockListEntity user = getBlockedUsers(id);
+		model.addAttribute("user",user);
+		
+		String dateFormatter = formatTime(user.getBlockTime());
+		model.addAttribute("formattedTime", dateFormatter);
+		
+	}
 
-	    return blockedEntities.stream()
-	            .map(block -> BlockDTO.builder()
-	                    .id(block.getId())
-	                    .blockerNickName(block.getBlocker().getNickName())
-	                    .blockedNickName(block.getBlocked().getNickName())
-	                    .blockTime(block.getBlockTime())
-	                    .build())
-	            .collect(Collectors.toList());
-	    
-	    
-	}
+
 	public String formatTime(LocalDateTime blockTime) {
-		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
-		return blockTime.format(formatter);
+		DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+		return blockTime.format(dateFormatter);
+
 	}
+
 	
-	
-	
+
 }
