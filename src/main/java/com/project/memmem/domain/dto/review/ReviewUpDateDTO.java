@@ -16,6 +16,8 @@ public class ReviewUpDateDTO {
 	private String content;
 	
 	private LocalDateTime createdAt;
+	
+	private String imageUrl;
 
 	public ReviewEntity toReviewEntity() {
 		

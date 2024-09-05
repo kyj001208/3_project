@@ -75,10 +75,9 @@ public class ReviewServiceProcess implements ReviewService {
 	// 저장된 db값 메인화면에 뿌려주는것
 	@Override
 	public void reviewListProcess(Model model, Long userId) {
-	    List<ReviewEntity> reviews = getReviewsExcludingBlockedUsers(userId);
-	    model.addAttribute("list", reviews.stream()
-	            .map(review -> ReviewEntity.toListDTO(review, imgHost))
-	            .collect(Collectors.toList()));
+		List<ReviewEntity> reviews = getReviewsExcludingBlockedUsers(userId);
+		model.addAttribute("list",
+				reviews.stream().map(review -> ReviewEntity.toListDTO(review, imgHost)).collect(Collectors.toList()));
 	}
 
 	// 상세 페이지 값 뿌려주기
@@ -122,48 +121,57 @@ public class ReviewServiceProcess implements ReviewService {
 		reviewRepository.deleteById(reId);
 
 	}
-
+	
+	
+	//업데이트 메서드
 	@Transactional
 	@Override
 	public void reviewUpdateProcess(long reId, ReviewUpDateDTO dto, long userId, MultipartFile image) {
-		System.out.println("ReviewUpdateDTO: " + dto);
+	    ReviewEntity reviewEntity = reviewRepository.findById(reId)
+	            .orElseThrow(() -> new IllegalArgumentException("리뷰가 존재하지 않습니다."));
 
-		// 리뷰를 DB에서 조회
-		ReviewEntity reviewEntity = reviewRepository.findById(reId)
-				.orElseThrow(() -> new IllegalArgumentException("Invalid review ID"));
+	    Long reviewOwnerId = reviewEntity.getUser().getUserId();
+	    System.out.println("Current User ID: " + userId);
+	    System.out.println("Review Owner ID: " + reviewOwnerId);
 
-		// 작성자가 맞는지 확인
-		if (reviewEntity.getUser().getUserId() != userId) {
-			throw new ResponseStatusException(HttpStatus.FORBIDDEN, "수정 권한이 없습니다.");
-		}
+	    if (reviewEntity.getUser().getUserId() != userId) {
+	        throw new ResponseStatusException(HttpStatus.FORBIDDEN, "수정 권한이 없습니다.");
+	    }
 
-		// DTO로 엔티티 업데이트
-		reviewEntity.update(dto);
+	    // DTO로 엔티티 업데이트 (이미지 제외)
+	    reviewEntity.updateWithoutImage(dto);  // 이미지 관련 필드 제외
 
-		// 새로운 이미지가 제공된 경우
-		if (image != null && !image.isEmpty()) {
-			try {
-				// S3에 이미지 업로드
-				Map<String, String> uploadResult = fileUploadUtil.s3TempUpload(image);
-				String bucketKey = uploadResult.get("bucketKey");
+	    // 새로운 이미지가 제공된 경우
+	    if (image != null && !image.isEmpty()) {
+	        try {
+	            // S3에 이미지 업로드 (temp에 업로드됨)
+	            Map<String, String> uploadResult = fileUploadUtil.s3TempUpload(image);
+	            String tempBucketKey = uploadResult.get("bucketKey");
 
-				// S3에서 최종 이미지 URL을 가져옴
-				String finalImageUrl = fileUploadUtil.s3TempToImage(bucketKey);
+	            // tempBucketKey를 upload 경로로 변환 (temp -> upload 또는 images)
+	            String finalImageKey = fileUploadUtil.s3TempToImage(tempBucketKey); // upload 경로로 변환된 bucketKey 반환
 
-				if (finalImageUrl != null) {
-					// ReviewEntity의 mainImageBucketKey 업데이트
-					reviewEntity.setMainImageBucketKey(bucketKey);
+	            if (finalImageKey != null) {
+	                // ReviewEntity의 mainImageBucketKey에 upload 경로의 키를 저장
+	                reviewEntity.setMainImageBucketKey(finalImageKey); // 변환된 upload 경로의 bucketKey 설정
+	                System.out.println("Image updated successfully");
+	            }
+	        } catch (IOException e) {
+	            System.err.println("Image upload failed: " + e.getMessage());
+	        }
+	    } else {
+	        // 이미지가 제공되지 않은 경우 기존 이미지 유지
+	        System.out.println("No new image provided, keeping the existing image.");
+	    }
 
-					System.out.println("Image updated successfully");
-				}
-			} catch (IOException e) {
-				System.err.println("Image upload failed: " + e.getMessage());
-			}
-		}
-
-		// 업데이트된 리뷰 정보를 저장
-		reviewRepository.save(reviewEntity);
-		System.out.println("Review saved to database");
+	    // 업데이트된 리뷰 정보를 저장
+	    reviewRepository.save(reviewEntity);
+	    System.out.println("Review saved to database");
 	}
+
+	
+	
+	
+
 
 }

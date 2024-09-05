@@ -85,12 +85,14 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     // 수정 폼을 열 때 퀼 에디터에 기존 내용 로드
-    window.showEditForm = function() {
+    window.showEditForm = function(reId) {
         document.querySelector('.review-detail').style.display = 'none';
         document.querySelector('.review-edit-form').style.display = 'block';
         document.querySelectorAll('.btn12').forEach(function(button) {
             button.style.display = 'none';
         });
+        
+        document.querySelector('#reviewId').value = reId;
 
         // 기존 내용은 이미 HTML에서 불러오므로, 퀼 에디터에 직접 설정할 필요 없음
     }
