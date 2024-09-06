@@ -93,6 +93,19 @@ public class GroupController {
 		return "views/group/create-group";
 	}
 
+	
+	@PostMapping("/leave-group/{id}")
+	public String leaveGroup(@PathVariable("id") Long groupId, @AuthenticationPrincipal MemmemUserDetails userDetails,
+	                         RedirectAttributes redirectAttributes) {
+	    try {
+	        groupService.leaveGroup(userDetails.getUserId(), groupId);
+	        redirectAttributes.addFlashAttribute("message", "그룹에서 성공적으로 탈퇴하였습니다!");
+	    } catch (IllegalStateException e) {
+	        redirectAttributes.addFlashAttribute("errorMessage", "그룹 탈퇴 중 문제가 발생했습니다.");
+	    }
+	    return "redirect:/group-detail/" + groupId;
+	}
+	
 	// 그룹 수정 페이지 표시
 	@GetMapping("/edit-group/{id}")
 	public String showEditGroupForm(@PathVariable("id") Long id, Model model) {
@@ -113,7 +126,7 @@ public class GroupController {
 		// 서비스 호출을 통해 그룹 정보 업데이트
 		groupService.updateProcess(id, dto, groupImage);
 
-		return "redirect:/";
+		return "redirect:/group-detail/" + id;
 	}
 
 	@DeleteMapping("/delete/{id}")
