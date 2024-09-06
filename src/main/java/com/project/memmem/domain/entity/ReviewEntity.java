@@ -63,6 +63,7 @@ public class ReviewEntity {
                 .imageUrl(reviewEntity.getImageUrl(imgHost))
                 .title(reviewEntity.getTitle())
                 .content(reviewEntity.getContent())
+                .createdAt(reviewEntity.getCreatedAt())
                 .build();
     }
 

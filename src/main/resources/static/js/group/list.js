@@ -107,7 +107,7 @@ function createGroupCard(group) {
                 <i class="intro">${group.greeting}</i>
                 <div class="member">
                     <img class="people" src="/images/group.png" alt="Members">
-                   2/30
+                   2
                 </div>
             </div>
         </div>

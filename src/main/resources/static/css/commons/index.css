@@ -4,6 +4,7 @@ body {
     margin: 0;
     padding: 0px;
 }
+
 .image-container {
 	max-width: 1200px;
 	min-width: 800px;
@@ -94,6 +95,7 @@ body {
     display: flex;
     margin-bottom: 0.5em;
     padding-top: 0.2em;
+    white-space: nowrap;
 }
 
 .groups-container-text p {
@@ -101,6 +103,7 @@ body {
     font-size: 44px;
     margin-bottom: 40px;
     color: #777;
+    white-space: nowrap;
 }
 
 .group-cards {
@@ -145,13 +148,17 @@ body {
 }
 
 .member{
+	font-size: 14px;
+	display:flex;
+	align-items: center;
 	margin-top: 10px;
 	color: #999696;
 }
 
 .people{
-	width: 16px;
-	height: 16px;
+	margin-right: 5px;
+	width: 20px;
+	height: 20px;
 }
 
 .group-img-container img {
@@ -367,6 +374,7 @@ body {
     font-size: 44px;
     margin-bottom: 40px;
     color: #777;
+    white-space: nowrap;
 }
 .picks-container {
 	width: 90%;
@@ -379,8 +387,7 @@ body {
 }
 
 .premium-picks h2 {
-	font-weight: 700;
-    font-size: 24px;
+	white-space: nowrap;
     justify-content: center;
     display: flex;
     padding-top: 0.2em;
@@ -451,8 +458,16 @@ body {
 	font-size: 1.2em;
 }
 
-.pick-card p {
+.pick-card p,i {
 	margin: 5px 0 0;
 	font-size: 0.9em;
 	color: white;
+	white-space: nowrap; /* 한 줄로 제한 */
+    overflow: hidden; /* 넘치는 부분 숨기기 */
+    text-overflow: ellipsis; /* 넘치는 부분에 '...' 표시 */
+    max-width: 100%; /* 최대 너비를 100%로 설정 */
+    display:inline-block; /* 블록 요소로 설정 */
+    font-style: normal;
 }
+
+
