@@ -17,13 +17,14 @@
             <form id="create-review-form" action="/reviews" method="post" >
                <input type="hidden" th:if="${_csrf}" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
                 <div class="post-form">
-                <div class="post_name" sec:authentication="principal.nickName"></div>
+                <div>닉네임:<span class="post_name" sec:authentication="principal.nickName"></span></div>
                 <div class="input-section">
                         <div class="image-upload">
                             <label for="file-upload" class="upload-button">
-                                <span id="plus-icon">+</span>
+                              	<span id="plus-icon">+</span> 
                                 <input type="file" accept="image/*" id="file-upload">
                             </label>
+                            
                             <img id="image-preview" class="image-preview" alt="미리보기 이미지" style="display: none;">
                         </div>
                     </div>
@@ -38,12 +39,12 @@
                     
                 </div>
                 <div class="write_btns">
-                    <a href="/mem/review" class="returnA">이전으로 돌아가기</a>
+                    <a href="/mem/review" class="returnA">이전으로 </a>
                     
                     <input type="hidden" id="mainImageBucketKey" name="mainImageBucketKey"> <!-- 이미지 URL을 여기에 설정 -->
              		<input type="hidden" name="mainImageOrgName" id="mainImageOrgName">
                     
-                    <button type="submit" class="submit-button">제출하기</button>
+                    <button type="submit" class="submit-button">작성완료</button>
                 </div>
                 
             </form>
