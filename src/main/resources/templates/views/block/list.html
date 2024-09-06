@@ -1,18 +1,24 @@
-<div class="blockContainer">
+<div class="block-container">
 	<div th:each="block : ${blockedUsers}" class="block-item">
 		<div>
 			<div class="line">
-				차단한 유저 :
-				<div th:text="${block.blockedNickName}">차단된 사용자 닉네임</div>
+				<div class="profile-initial" th:text="${#strings.substring(block.blockedNickName,0,1)}"></div>
+				<div class="block-user">
+					차단 사용자 닉네임 : 
+					<div class="block-profile" th:text="${block.blockedNickName}">차단된
+						사용자 닉네임</div>
+				</div>
 			</div>
 			<div class="line">
-				차단 일자 :
-				<div th:text="${block.blockTime.toLocalDate()}">차단 날짜</div>
+				<div class="block-user2">
+					차단 일자 : 
+					<div class="block-profile" th:text="${block.blockTime.toLocalDate()}">차단 날짜</div>
+				</div>
 			</div>
 			<form th:action="@{/unblockUser/{id}(id=${block.id})}" method="post">
-                <input type="hidden" name="_method" value="delete">
-                <button type="submit">차단해제</button>
-				</form>
+				<input type="hidden" name="_method" value="delete">
+				<button type="submit">차단해제</button>
+			</form>
 		</div>
 	</div>
 </div>
