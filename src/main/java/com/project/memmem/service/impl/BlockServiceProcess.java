@@ -42,42 +42,43 @@ public class BlockServiceProcess implements BlockService {
 		}
 	}
 
+	@Override
+	public List<BlockDTO> getBlockedUsers(Long userId) {
+		UserEntity user = userRepository.findById(userId).orElseThrow(() -> new RuntimeException("유저를 찾을수 없습니다."));
+		List<BlockListEntity> blockedEntities = blockRepository.findByBlocker(user);
+
+		return blockedEntities.stream()
+				.map(block -> BlockDTO.builder().id(block.getId()).blockerNickName(block.getBlocker().getNickName())
+						.blockedNickName(block.getBlocked().getNickName()).blockTime(block.getBlockTime()).build())
+				.collect(Collectors.toList());
+
+	}
+
+	@Override
+	public void unblockProcess(long id) {
+		blockRepository.delete(blockRepository.findById(id).orElseThrow());
+		
+	}
+
+
 	/*
-	 * @Override public List<BlockDTO> getBlockedUsers(Long userId) { UserEntity
-	 * user = userRepository.findById(userId).orElseThrow(() -> new
-	 * RuntimeException("유저를 찾을수 없습니다.")); List<BlockListEntity> blockedEntities =
-	 * blockRepository.findByBlocker(user);
+	 * @Transactional public BlockListEntity getBlockedUsers(long id) { return
+	 * blockRepository.findById(id).orElseThrow(() -> new
+	 * EntityNotFoundException("Review not found")); }
 	 * 
-	 * return blockedEntities.stream() .map(block -> BlockDTO.builder()
-	 * .id(block.getId()) .blockerNickName(block.getBlocker().getNickName())
-	 * .blockedNickName(block.getBlocked().getNickName())
-	 * .blockTime(block.getBlockTime()) .build()) .collect(Collectors.toList());
+	 * public void getBlockedUsers(Model model, long id) { BlockListEntity user =
+	 * getBlockedUsers(id); model.addAttribute("user", user);
 	 * 
+	 * String dateFormatter = formatTime(user.getBlockTime());
+	 * model.addAttribute("formattedTime", dateFormatter);
+	 * 
+	 * }
+	 * 
+	 * public String formatTime(LocalDateTime blockTime) { DateTimeFormatter
+	 * dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd"); return
+	 * blockTime.format(dateFormatter);
 	 * 
 	 * }
 	 */
-	
-	@Transactional
-	public BlockListEntity getBlockedUsers(long id) {
-		return blockRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Review not found"));
-	}
-	
-	public void getBlockedUsers(Model model, long id) {
-		BlockListEntity user = getBlockedUsers(id);
-		model.addAttribute("user",user);
-		
-		String dateFormatter = formatTime(user.getBlockTime());
-		model.addAttribute("formattedTime", dateFormatter);
-		
-	}
-
-
-	public String formatTime(LocalDateTime blockTime) {
-		DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-		return blockTime.format(dateFormatter);
-
-	}
-
-	
 
 }

@@ -11,9 +11,9 @@ public interface BlockService {
 
 	void blockUser(Long blockerId, Long blockedId);
 
-	void getBlockedUsers(Model model, long userId);
+	List<BlockDTO> getBlockedUsers(Long userId);
 
-	/* List<BlockDTO> getBlockedUsers(Long userId); */
+	void unblockProcess(long id);
 	
 	
 	 
