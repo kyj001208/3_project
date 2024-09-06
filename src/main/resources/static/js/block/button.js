@@ -38,9 +38,11 @@ function confirmBlock(currentUserId, targetUserId, event) {
                     icon: data.message === "차단 완료!" ? "success" : "error",
                 }).then(() => {
                     if (data.message === "차단 완료!") {
-                        location.reload();
+                        window.location.href = '/mem/review';
+                
                     }
-                });
+                })
+                
             })
             .catch(error => {
                 Swal.fire({
