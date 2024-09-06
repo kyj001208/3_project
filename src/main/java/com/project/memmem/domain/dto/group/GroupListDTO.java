@@ -3,6 +3,7 @@ package com.project.memmem.domain.dto.group;
 import java.util.List;
 
 import com.project.memmem.domain.entity.Category;
+import com.project.memmem.domain.entity.UserEntity;
 
 import lombok.Builder;
 import lombok.Getter;

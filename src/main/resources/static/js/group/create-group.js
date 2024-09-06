@@ -29,22 +29,36 @@ function selectLocalImage() {
 		}
 	};
 }
-
 // DOMContentLoaded 이벤트 리스너
 document.addEventListener('DOMContentLoaded', function() {
-	// Quill 에디터 초기화
+	// Quill 에디터 초기화 - 그룹 인삿말 에디터
 	quillGreeting = new Quill('#group-greeting-editor', {
 		theme: 'snow',
 		modules: {
-			toolbar: [['bold', 'italic', 'underline']]
+			toolbar: [
+				['bold', 'italic', 'underline'],        // 텍스트 스타일링
+				[{ 'color': [] }, { 'background': [] }], // 글자 색상 및 배경색
+				[{ 'size': ['small', false, 'large', 'huge'] }],  // 글자 크기
+				[{ 'list': 'ordered'}, { 'list': 'bullet' }],    // 목록
+				[{ 'align': [] }],                         // 정렬
+				['link']                          // 이미지 및 링크
+			]
 		}
 	});
 
+	// Quill 에디터 초기화 - 그룹 설명 에디터
 	quillDescription = new Quill('#group-description-editor', {
 		theme: 'snow',
 		modules: {
 			toolbar: {
-				container: [['bold', 'italic', 'underline'], ['image']], // 툴바 옵션 설정
+				container: [
+					['bold', 'italic', 'underline'],        // 텍스트 스타일링
+					[{ 'color': [] }, { 'background': [] }], // 글자 색상 및 배경색
+					[{ 'size': ['small', false, 'large', 'huge'] }],  // 글자 크기
+					[{ 'list': 'ordered'}, { 'list': 'bullet' }],    // 목록
+					[{ 'align': [] }],                         // 정렬
+					['image', 'link']                          // 이미지 및 링크
+				],
 				handlers: {
 					'image': selectLocalImage  // 이미지 핸들러 함수로 selectLocalImage 지정
 				}

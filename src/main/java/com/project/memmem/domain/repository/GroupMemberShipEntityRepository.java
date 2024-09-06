@@ -26,4 +26,6 @@ public interface GroupMemberShipEntityRepository extends JpaRepository<GroupMemb
 	@Query("SELECT COUNT(gm) FROM GroupMemberShipEntity gm WHERE gm.group = :group")
 	int countByGroup(@Param("group")GroupEntity group);
 
+	List<GroupMemberShipEntity> findByGroupId(Long groupId);
+
 }
