@@ -5,13 +5,15 @@
 </head>
 <body>
     <div th:fragment="content">
-        <h1>내 모임</h1>
         <div class="group-list">
             <div>
                 <h2>내가 가입한 모임</h2>
                 <ul th:if="${not #lists.isEmpty(joinedGroups)}">
                     <li th:each="group : ${joinedGroups}">
-                        <a th:href="@{/group-detail/{id}(id=${group.groupId})}" th:text="${group.groupName}"></a>
+                    	<div>
+                    	<img th:src="${group.categoryImageUrl}" th:alt="${group.category}" class="category-icon"> 
+                    	<a th:href="@{/group-detail/{id}(id=${group.groupId})}" th:text="${group.groupName}"></a>
+                    	</div>
                     </li>
                 </ul>
                 <p th:if="${#lists.isEmpty(joinedGroups)}">가입한 모임이 없습니다.</p>
@@ -20,7 +22,10 @@
                 <h2>내가 만든 모임</h2>
                 <ul th:if="${not #lists.isEmpty(createdGroups)}">
                     <li th:each="group : ${createdGroups}">
-                        <a th:href="@{/group-detail/{id}(id=${group.groupId})}" th:text="${group.groupName}"></a>
+                        <div>
+                    	<img th:src="${group.categoryImageUrl}" th:alt="${group.category}" class="category-icon"> 
+                    	<a th:href="@{/group-detail/{id}(id=${group.groupId})}" th:text="${group.groupName}"></a>
+                    	</div>
                     </li>
                 </ul>
                 <p th:if="${#lists.isEmpty(createdGroups)}">만든 모임이 없습니다.</p>
