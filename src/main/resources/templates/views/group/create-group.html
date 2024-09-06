@@ -37,7 +37,7 @@
 				    </div>
 				    <div class="help-text">그룹의 카테고리를 선택하세요.</div>
 				    <!-- 기존 선택된 카테고리 값을 hidden input에 저장 -->
-				    <input type="hidden" name="category" id="selected-category" th:value="${group.category.name()}">
+					<input type="hidden" name="category" id="selected-category" th:value="${group?.category?.name ?: ''}">
 				</div>
 
 				<div class="form-group">

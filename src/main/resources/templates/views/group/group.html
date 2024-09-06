@@ -70,14 +70,29 @@
 						</div>
 
 
-						<!-- Announcements -->
 						<div class="content-section">
 							<div class="section-title">공지 사항</div>
 							<ul class="announcement-list">
-								<li>다음 모임은 9월 15일 저녁 7시에 한강공원에서 진행됩니다.</li>
-								<li>사진 콘테스트 개최! 우승자에게는 특별한 상품이 주어집니다.</li>
+								<!-- 공지사항 목록을 출력 -->
+								<li class="announcement" th:each="notice : ${notices}">
+									<span th:text="${notice.notice}"></span>
+									<!-- 삭제 버튼 추가 -->
+									<button class="delete-notice-btn" th:attr="data-notice-id=${notice.id}"
+										th:if="${isCreator}">삭제</button>
+								</li>
+
+								<!-- 그룹장만 공지사항을 추가할 수 있는 항목 -->
+								<li th:if="${isCreator}">
+									<div class="announcement-input-container">
+										<textarea id="announcement-text" placeholder="공지사항을 입력하세요"></textarea>
+										<button id="create-announcement-btn" th:attr="data-group-id=${group.id}">공지사항
+											추가</button>
+									</div>
+								</li>
 							</ul>
 						</div>
+
+
 
 						<!-- 알림 메시지 표시 -->
 						<div th:if="${message}" class="alert alert-success" th:text="${message}"></div>
