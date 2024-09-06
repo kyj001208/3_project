@@ -174,4 +174,13 @@ public class GroupEntity {
                 .createdAt(formattedDate)
                 .build();
 	}
+
+	public GroupListDTO toRecommendListDTO() {
+	    return GroupListDTO.builder()
+	            .groupName(this.groupName)
+	            .greeting(this.greeting)
+	            .build();
+	}
+	
+	
 }

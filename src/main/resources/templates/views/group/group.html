@@ -36,10 +36,26 @@
 					</div>
 
 					<!-- Review Section -->
-					<div class="review-section">
-						<h4>참여자 후기</h4>
-						<p>"정말 멋진 경험이었어요! 많은 것을 배웠고, 새로운 친구들도 사귈 수 있었습니다." - 김영희</p>
-						<p>"매주 금요일을 기다리게 되는 모임입니다. 사진 찍는 기술도 많이 늘었어요!" - 박철수</p>
+					<div class="content-section">
+						<div class="section-title">공지 사항</div>
+						<ul class="announcement-list">
+							<!-- 공지사항 목록을 출력 -->
+							<li class="announcement" th:each="notice : ${notices}">
+								<span th:text="${notice.notice}"></span>
+								<!-- 삭제 버튼 추가 -->
+								<button class="delete-notice-btn" th:attr="data-notice-id=${notice.id}"
+									th:if="${isCreator}">삭제</button>
+							</li>
+
+							<!-- 그룹장만 공지사항을 추가할 수 있는 항목 -->
+							<li th:if="${isCreator}">
+								<div class="announcement-input-container">
+									<textarea id="announcement-text" placeholder="공지사항을 입력하세요"></textarea>
+									<button id="create-announcement-btn" th:attr="data-group-id=${group.id}">공지사항
+										추가</button>
+								</div>
+							</li>
+						</ul>
 					</div>
 				</div>
 
@@ -56,82 +72,53 @@
 						<h4>멤버소개</h4>
 						<h3 th:text="${group.creatorNickname} + ' 님이 만든 모임입니다.'">우리 반갑게 만나요</h3>
 						<div class="profile">
+							<!-- 그룹장 프로필 -->
 							<div class="profile-initial" th:text="${creatorInitial}"></div>
 						</div>
 
 						<h3>참여자 목록</h3>
-						<!-- Profile List -->
+						<!-- 멤버 목록에서 그룹장은 제외하고 나머지 멤버만 표시 -->
 						<div class="profile-list">
-							<!-- 프로필 이니셜: 초기값이 빈 문자열이 아닌 경우에만 표시 -->
-							<div th:each="initial : ${userInitial}" th:if="${initial != ''}" class="profile-initial"
-								th:text="${initial}"></div>
-							<!-- 추가 회원 버튼 -->
+							<div th:each="initial : ${userInitials}" class="profile-initial" th:text="${initial}"></div>
 							<div class="add-member">+</div>
 						</div>
+					</div>
+
+					<!-- 알림 메시지 표시 -->
+					<div th:if="${message}" class="alert alert-success" th:text="${message}"></div>
+					<div th:if="${errorMessage}" class="alert alert-danger" th:text="${errorMessage}"></div>
 
 
-						<div class="content-section">
-							<div class="section-title">공지 사항</div>
-							<ul class="announcement-list">
-								<!-- 공지사항 목록을 출력 -->
-								<li class="announcement" th:each="notice : ${notices}">
-									<span th:text="${notice.notice}"></span>
-									<!-- 삭제 버튼 추가 -->
-									<button class="delete-notice-btn" th:attr="data-notice-id=${notice.id}"
-										th:if="${isCreator}">삭제</button>
-								</li>
+					<div class="button-group">
+						<!-- 그룹 가입 버튼 -->
+						<form th:action="@{/join-group/{id}(id=${group.id})}" method="post" style="display:inline;">
+							<input type="hidden" name="_csrf" th:value="${_csrf.token}" /> <!-- CSRF 토큰 -->
+							<button type="submit" class="join-button" th:if="${not isMember}">그룹 가입하기</button>
+						</form>
+						<div th:if="${isMember}" class="joined-message">이미 그룹의 멤버입니다</div>
+						<a href="/create-group" class="create-group-button">나도 만들러 가기</a>
 
-								<!-- 그룹장만 공지사항을 추가할 수 있는 항목 -->
-								<li th:if="${isCreator}">
-									<div class="announcement-input-container">
-										<textarea id="announcement-text" placeholder="공지사항을 입력하세요"></textarea>
-										<button id="create-announcement-btn" th:attr="data-group-id=${group.id}">공지사항
-											추가</button>
-									</div>
-								</li>
-							</ul>
+						<div th:if="${isCreator}">
+							<button class="edit-group-button" th:attr="data-group-id=${group.id}">그룹 수정하기</button>
+						</div>
+						<!-- 그룹 삭제 버튼 (only for creators) -->
+						<div th:if="${isCreator}">
+							<button class="delete-button"
+								th:attr="data-group-id=${group.id}, data-csrf-token=${_csrf.token}">그룹 삭제하기</button>
 						</div>
 
-
-
-						<!-- 알림 메시지 표시 -->
-						<div th:if="${message}" class="alert alert-success" th:text="${message}"></div>
-						<div th:if="${errorMessage}" class="alert alert-danger" th:text="${errorMessage}"></div>
-
-
-						<div class="button-group">
-							<!-- 그룹 가입 버튼 -->
-							<form th:action="@{/join-group/{id}(id=${group.id})}" method="post" style="display:inline;">
+						<!-- 그룹 탈퇴 버튼 (only for members, excluding the group creator) -->
+						<div th:if="${isMember} and ${!isCreator}">
+							<form th:action="@{/leave-group/{id}(id=${group.id})}" method="post"
+								style="display:inline;">
 								<input type="hidden" name="_csrf" th:value="${_csrf.token}" /> <!-- CSRF 토큰 -->
-								<button type="submit" class="join-button" th:if="${not isMember}">그룹 가입하기</button>
+								<button type="submit" class="leave-button">그룹 탈퇴하기</button>
 							</form>
-							<div th:if="${isMember}" class="joined-message">이미 그룹의 멤버입니다</div>
-							<a href="/create-group" class="create-group-button">나도 만들러 가기</a>
-
-							<!-- 그룹 수정 버튼 -->
-							<div th:if="${isCreator}">
-								<button class="edit-group-button"
-									th:onclick="'openEditGroupForm(' + ${group.id} + ')'">그룹
-									수정하기</button>
-							</div>
-							<!-- 그룹 삭제 버튼 (only for creators) -->
-							<div th:if="${isCreator}">
-								<button class="delete-button"
-									th:attr="data-group-id=${group.id}, data-csrf-token=${_csrf.token}">그룹 삭제하기</button>
-							</div>
-
-							<!-- 그룹 탈퇴 버튼 (only for members) -->
-							<div th:if="${isMember}">
-								<form th:action="@{/leave-group/{id}(id=${group.id})}" method="post"
-									style="display:inline;">
-									<input type="hidden" name="_csrf" th:value="${_csrf.token}" /> <!-- CSRF 토큰 -->
-									<button type="submit" class="leave-button">그룹 탈퇴하기</button>
-								</form>
-							</div>
 						</div>
 					</div>
 				</div>
 			</div>
+		</div>
 		</div>
 	</main>
 </body>

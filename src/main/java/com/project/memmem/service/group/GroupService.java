@@ -38,7 +38,7 @@ public interface GroupService {
 
 	void deleteGroup(Long id);
 
-	Map<String, String> getInitialsForUserAndCreator(Long groupId, long userId);
+	Map<String, Object> getInitialsForUserAndCreator(Long groupId, long userId);
 
 	void leaveGroup(long userId, Long groupId);
 

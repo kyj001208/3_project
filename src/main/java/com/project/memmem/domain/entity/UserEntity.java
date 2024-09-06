@@ -74,4 +74,5 @@ public class UserEntity {
 	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
 	private Set<GroupMemberShipEntity> groupMemberShip = new HashSet<>(); // 그룹 멤버십 관계
 
+
 }
