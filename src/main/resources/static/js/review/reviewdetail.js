@@ -84,8 +84,21 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
-    // 수정 폼을 열 때 퀼 에디터에 기존 내용 로드
-    window.showEditForm = function(reId) {
+    // 수정 폼을 열 때 호출되는 함수
+    window.showEditForm = function(reId, authorUserId) {
+        
+        const currentUserId = parseInt(document.getElementById('currentUserId').value, 10);
+    	authorUserId = parseInt(authorUserId, 10);
+
+        if (currentUserId !== authorUserId) {
+            Swal.fire({
+                title: "수정 권한이 없습니다!",
+                text: "본인 글만 수정할 수 있습니다.",
+                icon: "warning"
+            });
+            return;
+        }
+
         document.querySelector('.review-detail').style.display = 'none';
         document.querySelector('.review-edit-form').style.display = 'block';
         document.querySelectorAll('.btn12').forEach(function(button) {
@@ -93,9 +106,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
         
         document.querySelector('#reviewId').value = reId;
-
-        // 기존 내용은 이미 HTML에서 불러오므로, 퀼 에디터에 직접 설정할 필요 없음
-    }
+    };
 
     // 수정 폼에서 저장 버튼 클릭 시
     document.querySelector('#editReviewForm').addEventListener('submit', function(e) {

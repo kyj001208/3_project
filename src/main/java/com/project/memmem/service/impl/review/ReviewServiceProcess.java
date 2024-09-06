@@ -25,6 +25,7 @@ import com.project.memmem.domain.repository.BlockRepository;
 import com.project.memmem.domain.repository.ImageEntityRepository;
 import com.project.memmem.domain.repository.ReviewRepository;
 import com.project.memmem.domain.repository.UserEntityRepository;
+import com.project.memmem.security.MemmemUserDetails;
 import com.project.memmem.service.review.ReviewService;
 import com.project.memmem.util.FileUploadUtils;
 
@@ -87,7 +88,7 @@ public class ReviewServiceProcess implements ReviewService {
 	}
 
 	// 상세 페이지에 필요한 데이터를 가져오는 서비스 메서드
-	public void getReviewDetail(long reId, Model model) {
+	public void getReviewDetail(long reId, Model model, MemmemUserDetails user) {
 		ReviewEntity review = getReviewById(reId);
 		model.addAttribute("review", review);
 
@@ -99,6 +100,17 @@ public class ReviewServiceProcess implements ReviewService {
 		String imageUrl = review.getImageUrl(imgHost);
 		System.out.println("Image URL: " + imageUrl); // 로그로 출력
 		model.addAttribute("imageUrl", imageUrl);
+		
+		 // 작성자의 userId 추가
+	    long authorUserId = review.getUser().getUserId();
+	    model.addAttribute("authorUserId", authorUserId);
+	    System.out.println("authorUserId>>>>>>>>>>>" + authorUserId);
+	    
+	    // 현재 로그인한 사용자 ID 추가
+	    Long currentUserId = user != null ? user.getUserId() : null;
+	    model.addAttribute("currentUserId", currentUserId);
+	    
+	    System.out.println("currentUserId>>>>>>>>>>>" + currentUserId);
 	}
 
 	// 시간 포맷터

@@ -16,27 +16,40 @@
 <body>
     <main>
         <div class="main-content">
+            <div class="detail_btns">
+            	
+            	<!-- 현재 로그인한 사용자 ID를 추가 -->
+                <input type="hidden" id="currentUserId" th:value="${currentUserId}">
+                <input type="hidden" id="authorUserId" th:value="${authorUserId}">
+            
+                <input type="hidden" id="reviewId" th:attr="data-review-id=${review.reId}">
+                <a href="/mem/review" class="reviewmain" id="btn12">이전</a>
+                
+                <button class="detailupdate" type="button" th:onclick="|showEditForm(${review.reId}, ${authorUserId})|" id="btn12">수정</button>
+                <button class="detaildelete" type="button" th:onclick="|deletebtnClicked(${review.reId})|" id="btn12">삭제</button>
+                
+            </div>
+        
             <!-- 리뷰 상세 내용 -->
             <div class="review-detail" th:if="${review != null}" th:attr="data-review-id=${review.reId}">
                 <div class="detail_pro">
                     <p class="review-nickname">
                         작성자: <span th:text="${review.user != null ? review.user.nickName : 'Anonymous'}"></span>
                     </p>
-                    <p class="review-created-at">
+                    
+                     <button type="button" th:onclick="|confirmBlock('${currentUserId}', '${review.user.userId}', event)|" id="blockbtn">유저차단</button>
+                    
+                   
+                </div>
+                <div class="review-time">
+                	<p class="review-created-at">
                         작성 시간: <span th:text="${formattedTime}"></span>
                     </p>
                 </div>
-                <button type="button" th:onclick="|confirmBlock('${currentUserId}', '${review.user.userId}', event)|">유저차단</button>
+                
                 <h2 class="review-title" th:text="${review.title}"></h2>
                 <img th:src="${imageUrl}" alt="Review Image" id="detailimgs" />
-                <p class="review-content" th:utext="${review.content}"></p>
-            </div>
-
-            <div class="detail_btns">
-            	<input type="hidden" id="reviewId" th:attr="data-review-id=${review.reId}">
-                <a href="/mem/review" class="reviewmain" id="btn12">이전</a>
-                <button class="detailupdate" type="button" th:onclick="|showEditForm(${review.reId})|" id="btn12">수정</button>
-                <button class="detaildelete" type="button" th:onclick="|deletebtnClicked(${review.reId})|" id="btn12">삭제</button>
+               <div class="content-review"> <p class="review-content" th:utext="${review.content}"></p></div>
             </div>
 
             <!-- 리뷰 수정 폼 (초기에는 숨김) -->
@@ -68,7 +81,6 @@
                     <input type="hidden" id="quill-content-input" name="content">
                     <div id="editContent" class="quill-editor" style="height: 200px;" th:utext="${review.content}"></div>
                    
-
                     <input type="hidden" name="_method" value="put" />
                     <button type="submit">저장</button>
                     <button type="button" onclick="cancelEdit()">취소</button>

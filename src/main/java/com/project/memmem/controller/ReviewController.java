@@ -68,8 +68,8 @@ public class ReviewController {
 	
 	// 상세페이지 저장된 값 뿌려주기
 	@GetMapping("/mem/detail/{reId}")
-	public String reviewDetail(@PathVariable("reId") long reId, Model model) {
-		service.getReviewDetail(reId, model);
+	public String reviewDetail(@PathVariable("reId") long reId, Model model, @AuthenticationPrincipal MemmemUserDetails user) {
+		service.getReviewDetail(reId, model, user);
 		return "views/review/review_detail";
 	}
 
@@ -85,14 +85,7 @@ public class ReviewController {
 	
 	///////////////////////////////////////////////////스탑
 	
-	
-	
-	
-	
-	
-	
-	
-	
+
 	//업데이트 하는 컨트롤러
 	@PutMapping("/mem/detail/{reId}")
 	public String reviewUpdate(@PathVariable("reId") long reId, @AuthenticationPrincipal MemmemUserDetails user,
