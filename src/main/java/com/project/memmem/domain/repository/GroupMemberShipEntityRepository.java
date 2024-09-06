@@ -4,6 +4,8 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
 import com.project.memmem.domain.entity.GroupEntity;
 import com.project.memmem.domain.entity.GroupMemberShipEntity;
@@ -20,5 +22,8 @@ public interface GroupMemberShipEntityRepository extends JpaRepository<GroupMemb
 	Optional<GroupMemberShipEntity> findByUserUserIdAndGroup_Id(Long userId, Long groupId);
 
 	List<GroupMemberShipEntity> findByUserAndRole(UserEntity user, GroupMemberShipEntity.Role role);
+	
+	@Query("SELECT COUNT(gm) FROM GroupMemberShipEntity gm WHERE gm.group = :group")
+	int countByGroup(@Param("group")GroupEntity group);
 
 }

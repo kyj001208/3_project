@@ -200,13 +200,17 @@ li {
 }
 
 .member{
+	font-size: 14px;
+	display:flex;
+	align-items: center;
 	margin-top: 10px;
 	color: #999696;
 }
 
 .people{
-	width: 16px;
-	height: 16px;
+	margin-right: 5px;
+	width: 20px;
+	height: 20px;
 }
 
 .group-img-container img {

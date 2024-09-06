@@ -112,6 +112,7 @@ public class GroupEntity {
                 .greeting(this.greeting)
                 .categoryKoName(this.category.getKoName()) // Category의 한국어 이름 설정
                 .creatorUserId(this.creator.getUserId())
+                .memberCount(0)
                 .mainImageUrl(getMainImageUrl(baseUrl)) // 메인 이미지 URL 설정 (getMainImageUrl 메서드 사용)
                 .createdAt(formattedDate)
                 .build();
@@ -153,4 +154,20 @@ public class GroupEntity {
             this.images.add(newImage);
         }
     }
+
+	public GroupDTO toGroupDTO(String baseUrl, int memberCount) {
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("YY/MM/dd");
+        String formattedDate = this.createdAt.format(formatter); // GroupEntity의 생성 날짜를 지정된 형식으로 포맷
+
+        return GroupDTO.builder()
+        		.id(this.id)
+                .groupName(this.groupName)
+                .greeting(this.greeting)
+                .categoryKoName(this.category.getKoName()) // Category의 한국어 이름 설정
+                .creatorUserId(this.creator.getUserId())
+                .memberCount(memberCount)
+                .mainImageUrl(getMainImageUrl(baseUrl)) // 메인 이미지 URL 설정 (getMainImageUrl 메서드 사용)
+                .createdAt(formattedDate)
+                .build();
+	}
 }

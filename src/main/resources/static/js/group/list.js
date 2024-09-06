@@ -106,8 +106,8 @@ function createGroupCard(group) {
                 <h3>${group.groupName}</h3>
                 <i class="intro">${group.greeting}</i>
                 <div class="member">
-                    <img class="people" src="/images/group.png" alt="Members">
-                   2
+                	<img class="people" src="/images/group.png" alt="Members">
+                    <span>${group.memberCount}</span>
                 </div>
             </div>
         </div>
