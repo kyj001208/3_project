@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>로그인 페이지</title>
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/xeicon@2.3.3/xeicon.min.css">
     <link rel="stylesheet" href="/css/login/login.css">
     <script src="https://www.google.com/recaptcha/api.js?render=6LedOzYqAAAAAIkfmP_W-qCzUgUag3__KaDaOKdU"></script>
 	<script src="/js/mypage/recaptcha.js" defer></script>
@@ -14,8 +15,10 @@
         <div class="container">
             <div class="image-container">
                 <div class="overlay">
-                    <h1>오늘 뭐하지<br> 고민 될 때</h1>
-                    <p>memmemmemmemmemmemme<br> mmem멤memmemmemmemm<br> emmemmemmemmeㅁmemmem<br> memmemmeㅁmemmemmeㅁme<br> mmemmemmemmㅔㅁmemmemm<br> emmem멤memmemmemmㅔm<br> memmemmemmemmemmem</p>
+                    <h1>오늘 뭐하지<br> 
+                    	고민 될 때</h1>
+                    <h2>만남을 찾는 분들의 선택<br>
+                    	MEMMEM</h2>
                 </div>
             </div>
             <div class="login-container">
@@ -27,14 +30,11 @@
                             <input type="email" name="email" id="email" placeholder="   이메일을 입력하세요." required>
                             <input type="password" name="password" id="password" placeholder="   비밀번호를 입력하세요." required>
                         </div>
-                        <label class="remember-me">
-                            <input type="checkbox" name="remember"> 아이디 저장
-                        </label>
                         <p th:if="${loginErrorMsg}" class="error" th:text="${loginErrorMsg}"></p>
-                        <button type="submit">로그인</button>
-                        <a href="/oauth2/authorization/google" class="btn btn-success active" role="button">구글</a>
-                        <a href="/oauth2/authorization/naver" class="btn btn-secondary active" role="button">네이버</a>
-                        <a href="/oauth2/authorization/kakao" class="btn btn-secondary active" role="button">카카오</a>
+                        <button class="login-button" type="submit">로그인</button>
+                        <a href="/oauth2/authorization/google" class="btn btn-success active" role="button"><img class="social-login-button" alt="google-login" src="/images/security/google-login.png"></a>
+                        <a href="/oauth2/authorization/naver" class="btn btn-secondary active" role="button"><img class="social-login-button" alt="naver-login" src="/images/security/naver-login.png"></a>
+                        <a href="/oauth2/authorization/kakao" class="btn btn-secondary active" role="button"><img class="social-login-button" alt="kakao-login" src="/images/security/kakao-login.png"></a>
                         <input type="hidden" th:if="${_csrf}" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
                     </form>
                         <div class="links">
