@@ -21,12 +21,13 @@
             	<!-- 현재 로그인한 사용자 ID를 추가 -->
                 <input type="hidden" id="currentUserId" th:value="${currentUserId}">
                 <input type="hidden" id="authorUserId" th:value="${authorUserId}">
-            
                 <input type="hidden" id="reviewId" th:attr="data-review-id=${review.reId}">
-                <a href="/mem/review" class="reviewmain" id="btn12">이전</a>
                 
-                <button class="detailupdate" type="button" th:onclick="|showEditForm(${review.reId}, ${authorUserId})|" id="btn12">수정</button>
-                <button class="detaildelete" type="button" th:onclick="|deletebtnClicked(${review.reId})|" id="btn12">삭제</button>
+                
+                <a href="/mem/review" class="reviewmain" id="btn-back">이전</a>
+                
+                <button class="detailupdate" type="button" th:onclick="|showEditForm(${review.reId}, ${authorUserId})|" id="btn-edit">수정</button>
+                <button class="detaildelete" type="button" th:onclick="|deletebtnClicked(${review.reId})|" id="btn-delete">삭제</button>
                 
             </div>
         
@@ -54,23 +55,35 @@
 
             <!-- 리뷰 수정 폼 (초기에는 숨김) -->
             <div class="review-edit-form" style="display: none;">
+            	
                 <form id="editReviewForm" th:action="@{/mem/detail/{reId}(reId=${review.reId})}" method="post" enctype="multipart/form-data">
+                   <div class="secret-btn">
+            		<button type="submit" class="submitbtn">저장</button>
+                	<button type="button" onclick="cancelEdit()" class="cancelbtn">취소</button>
+            	</div>
+                   
+                   
                     <input type="hidden" th:if="${_csrf}" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
-                    <p class="review-nickname">
+                    <div class="secret_pro">
+                    <p class="secret-nickname">
                         작성자: <span th:text="${review.user != null ? review.user.nickName : 'Anonymous'}"></span>
                     </p>
+                    </div>
 
-                    <p class="review-created-at">
+                    <p class="secret-created-at">
                         작성 시간: <span th:text="${formattedTime}"></span>
                     </p>
-
+					
+					<div class="secret-title">
                     <label for="editTitle">제목:</label>
                     <input type="text" id="editTitle" name="title" th:value="${review.title}" required>
-
+					
+					
                     <label for="file-upload" class="upload-button">
                         <span id="plus-icon">+</span>
                         <input type="file" accept="image/*" id="file-upload" name="image">
                     </label>
+                    </div>
                     <img id="image-preview" class="image-preview" alt="미리보기 이미지" th:src="${imageUrl}" />
 
                     <!-- 추가 필드: 이미지 URL 저장 -->
@@ -82,8 +95,7 @@
                     <div id="editContent" class="quill-editor" style="height: 200px;" th:utext="${review.content}"></div>
                    
                     <input type="hidden" name="_method" value="put" />
-                    <button type="submit">저장</button>
-                    <button type="button" onclick="cancelEdit()">취소</button>
+                    
                 </form>
             </div>
         </div>

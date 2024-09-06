@@ -12,7 +12,7 @@ import com.project.memmem.domain.entity.UserEntity;
 
 public interface ReviewRepository extends JpaRepository<ReviewEntity, Long> {
 
-	@Query("SELECT r FROM ReviewEntity r WHERE r.user NOT IN :blockedUsers")
+	@Query("SELECT r FROM ReviewEntity r WHERE r.user NOT IN :blockedUsers ORDER BY r.createdAt DESC")
 	List<ReviewEntity> findAllExcludingBlockedUsers(@Param("blockedUsers") List<UserEntity> blockedUsers);
 
 	Collection<ReviewEntity> findAllByOrderByCreatedAtDesc();

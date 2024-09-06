@@ -79,7 +79,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 [{ 'header': '1' }, { 'header': '2' }],
                 ['bold', 'italic', 'underline'],
                 [{ 'list': 'ordered' }, { 'list': 'bullet' }],
-                ['link', 'image']
             ]
         }
     });
@@ -99,30 +98,35 @@ document.addEventListener('DOMContentLoaded', function() {
             return;
         }
 
-        document.querySelector('.review-detail').style.display = 'none';
-        document.querySelector('.review-edit-form').style.display = 'block';
-        document.querySelectorAll('.btn12').forEach(function(button) {
-            button.style.display = 'none';
-        });
-        
-        document.querySelector('#reviewId').value = reId;
-    };
+		document.querySelector('.review-detail').style.display = 'none';
+		document.querySelector('.review-edit-form').style.display = 'block';
+		// 수정, 삭제 버튼 등 모든 버튼 숨기기
+		document.querySelectorAll('.detail_btns').forEach(function(button) {
+			button.style.display = 'none';
+		});
+
+		document.querySelector('#reviewId').value = reId;
+	};
 
     // 수정 폼에서 저장 버튼 클릭 시
-    document.querySelector('#editReviewForm').addEventListener('submit', function(e) {
-        e.preventDefault();
+	document.querySelector('#editReviewForm').addEventListener('submit', function(e) {
+    e.preventDefault();
 
-        // 퀼 에디터의 내용을 hidden input에 저장
-        var updatedContent = quill.root.innerHTML;
-        document.querySelector('#quill-content-input').value = updatedContent;
+    // 퀼 에디터의 내용을 hidden input에 저장
+    var updatedContent = quill.root.innerHTML;
+    document.querySelector('#quill-content-input').value = updatedContent;
 
-        // 폼을 직접 제출
-        this.submit();
+    // 폼을 직접 제출
+    this.submit();
+});
     });
 
     // 취소 버튼 클릭 시 수정 폼 숨기기
     window.cancelEdit = function() {
         document.querySelector('.review-detail').style.display = 'block';
+        document.querySelectorAll('.detail_btns').forEach(function(button) {
+			button.style.display = 'flex';
+		});
         document.querySelector('.review-edit-form').style.display = 'none';
         document.querySelectorAll('.btn12').forEach(function(button) {
             button.style.display = 'inline-block';
@@ -174,4 +178,4 @@ document.addEventListener('DOMContentLoaded', function() {
             alert('삭제 실패: ' + error.message);
         });
     };
-});
+
