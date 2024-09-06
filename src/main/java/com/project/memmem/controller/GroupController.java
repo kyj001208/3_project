@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -23,11 +24,13 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.project.memmem.domain.dto.group.NoticeSaveDTO;
 import com.project.memmem.domain.dto.group.GroupListDTO;
 import com.project.memmem.domain.dto.group.GroupSaveDTO;
 import com.project.memmem.domain.dto.group.GroupUpdateDTO;
 import com.project.memmem.domain.entity.Category;
 import com.project.memmem.domain.entity.GroupEntity;
+import com.project.memmem.domain.entity.NoticeEntity;
 import com.project.memmem.security.MemmemUserDetails;
 import com.project.memmem.service.group.GroupService;
 
@@ -41,26 +44,26 @@ public class GroupController {
 
 	@GetMapping("/group-detail/{id}")
 	public String groupDetail(@PathVariable("id") Long groupId, Model model,
-	                          @AuthenticationPrincipal MemmemUserDetails userDetails) {
+			@AuthenticationPrincipal MemmemUserDetails userDetails) {
 
-	    // 그룹 목록과 회원 정보를 가져옴
-	    List<GroupListDTO> groups = groupService.getGroupsByGroupId(groupId);
-	    boolean isMember = groupService.isUserMemberOfGroup(userDetails.getUserId(), groupId);
-	    boolean isCreator = groupService.isUserCreatorOfGroup(userDetails.getUserId(), groupId);
+		// 그룹 목록과 회원 정보를 가져옴
+		List<GroupListDTO> groups = groupService.getGroupsByGroupId(groupId);
+		boolean isMember = groupService.isUserMemberOfGroup(userDetails.getUserId(), groupId);
+		boolean isCreator = groupService.isUserCreatorOfGroup(userDetails.getUserId(), groupId);
 
-	    // 변경된 메서드 이름으로 호출
-	    Map<String, String> initials = groupService.getInitialsForUserAndCreator(groupId, userDetails.getUserId());
+		List<NoticeEntity> notices = groupService.getNoticesByGroupId(groupId);
+		// 변경된 메서드 이름으로 호출
+		Map<String, String> initials = groupService.getInitialsForUserAndCreator(groupId, userDetails.getUserId());
 
-	    // 모델에 데이터를 추가
-	    model.addAttribute("groups", groups);
-	    model.addAttribute("isCreator", isCreator);
-	    model.addAttribute("isMember", isMember);
-	    model.addAttribute("userInitial", initials.get("userInitial")); // 참가자 이니셜 추가
-	    model.addAttribute("creatorInitial", initials.get("creatorInitial")); // 그룹장 이니셜 추가
-
-	    return "views/group/group";
+		// 모델에 데이터를 추가
+		model.addAttribute("groups", groups);
+		model.addAttribute("isCreator", isCreator);
+		model.addAttribute("isMember", isMember);
+		model.addAttribute("userInitial", initials.get("userInitial")); // 참가자 이니셜 추가
+		model.addAttribute("creatorInitial", initials.get("creatorInitial")); // 그룹장 이니셜 추가
+		model.addAttribute("notices", notices);
+		return "views/group/group";
 	}
-
 
 	@PostMapping("/groupSave")
 	public String groupSave(@AuthenticationPrincipal MemmemUserDetails userDetails, GroupSaveDTO dto) {
@@ -93,19 +96,18 @@ public class GroupController {
 		return "views/group/create-group";
 	}
 
-	
 	@PostMapping("/leave-group/{id}")
 	public String leaveGroup(@PathVariable("id") Long groupId, @AuthenticationPrincipal MemmemUserDetails userDetails,
-	                         RedirectAttributes redirectAttributes) {
-	    try {
-	        groupService.leaveGroup(userDetails.getUserId(), groupId);
-	        redirectAttributes.addFlashAttribute("message", "그룹에서 성공적으로 탈퇴하였습니다!");
-	    } catch (IllegalStateException e) {
-	        redirectAttributes.addFlashAttribute("errorMessage", "그룹 탈퇴 중 문제가 발생했습니다.");
-	    }
-	    return "redirect:/group-detail/" + groupId;
+			RedirectAttributes redirectAttributes) {
+		try {
+			groupService.leaveGroup(userDetails.getUserId(), groupId);
+			redirectAttributes.addFlashAttribute("message", "그룹에서 성공적으로 탈퇴하였습니다!");
+		} catch (IllegalStateException e) {
+			redirectAttributes.addFlashAttribute("errorMessage", "그룹 탈퇴 중 문제가 발생했습니다.");
+		}
+		return "redirect:/group-detail/" + groupId;
 	}
-	
+
 	// 그룹 수정 페이지 표시
 	@GetMapping("/edit-group/{id}")
 	public String showEditGroupForm(@PathVariable("id") Long id, Model model) {
@@ -136,4 +138,44 @@ public class GroupController {
 		return "views/group/group"; // 삭제 후 홈으로 리디렉션
 	}
 
+	@PostMapping("/group/{groupId}/notice")
+	public ResponseEntity<Map<String, Object>> createAnnouncement(@PathVariable("groupId") Long groupId,
+	        @RequestBody NoticeSaveDTO NoticeDTO, @AuthenticationPrincipal MemmemUserDetails userDetails) {
+
+	    boolean isCreator = groupService.isUserCreatorOfGroup(userDetails.getUserId(), groupId);
+
+	    if (!isCreator) {
+	        return ResponseEntity.status(HttpStatus.FORBIDDEN).body(Map.of("message", "공지사항을 등록할 권한이 없습니다."));
+	    }
+
+	    try {
+	        // 공지사항 생성 후, 생성된 공지사항 엔티티를 반환받음
+	        NoticeEntity newNotice = groupService.addNoticeProcess(groupId, userDetails.getUserId(), NoticeDTO);
+	        // 공지사항 ID를 포함한 성공 응답을 JSON 형식으로 반환
+	        return ResponseEntity.ok(Map.of("message", "공지 사항이 성공적으로 추가되었습니다.", "noticeId", newNotice.getId()));
+	    } catch (Exception e) {
+	        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(Map.of("message", "공지 사항 추가 실패"));
+	    }
+	}
+
+	
+	@DeleteMapping("/group/{groupId}/notice/{noticeId}")
+	public ResponseEntity<Void> deleteNotice(@PathVariable("groupId") Long groupId, @PathVariable("noticeId") Long noticeId, 
+	                                         @AuthenticationPrincipal MemmemUserDetails userDetails) {
+	    boolean isCreator = groupService.isUserCreatorOfGroup(userDetails.getUserId(), groupId);
+
+	    if (!isCreator) {
+	        return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
+	    }
+
+	    try {
+	        groupService.deleteNotice(groupId, noticeId);
+	        return ResponseEntity.ok().build();
+	    } catch (Exception e) {
+	        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+	    }
+	}
+
+	
+	
 }
