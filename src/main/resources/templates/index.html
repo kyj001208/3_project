@@ -45,7 +45,7 @@
 	                            <i class="intro" th:utext="${group.greeting}">Greeting</i>
 	                        <div class="member">
 	                            <img class="people" src="/images/group.png" alt="Members">
-	                            2
+	                            <span th:text="${group.memberCount}">멤버수</span>
 	                        </div>
 	                    </div>
 	                </div>
@@ -81,24 +81,24 @@
 		
 		<!-- Premium Picks Section -->
 		<section class="premium-picks">
-			<div class="picks-container">
-				<div class="picks-container-text">
-					<h2><img class="front" src="/images/3.png">최고의 모임</h2>
-					<p>무슨 모임 가입하지 고민될 때 <br>최고의 모임으로 오세요!</p>
-				</div>
-				<div class="pick-cards">
-					<div th:each="group, iterStat : ${groups}" th:if="${iterStat.index < 3}" class="pick-card">
-						<a th:href="@{/group-detail/{id}(id=${group.id})}">
-							<i th:style="|background-image: url(${group.mainImageUrl});|"></i> 
-						</a>
-						<div class="pick-overlay">
-							<h3 th:text="${group.groupName}">Group Name</h3>
-							<i th:utext="${group.greeting}">모임 설명</i>
-						</div>
-					</div>
-				</div>
-				<a class="link" href="/group-list"><span class="tags">더보기</span></a>
-			</div>
+		    <div class="picks-container">
+		        <div class="picks-container-text">
+		            <h2><img class="front" src="/images/3.png">최고의 모임</h2>
+		            <p>무슨 모임 가입하지 고민될 때 <br>최고의 모임으로 오세요!</p>
+		        </div>
+		        <div class="pick-cards">
+		            <div th:each="group : ${premiumPicks}" class="pick-card">
+		                <a th:href="@{/group-detail/{id}(id=${group.id})}">
+		                    <i th:style="|background-image: url(${group.mainImageUrl});|"></i> 
+		                </a>
+		                <div class="pick-overlay">
+		                    <h3 th:text="${group.groupName}">Group Name</h3>
+		                    <i th:utext="${group.greeting}">모임 설명</i>
+		                </div>
+		            </div>
+		        </div>
+		        <a class="link" href="/group-list"><span class="tags">더보기</span></a>
+		    </div>
 		</section>
 		
 	</main>

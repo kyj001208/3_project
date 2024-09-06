@@ -5,6 +5,8 @@ import java.util.List;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
 import com.project.memmem.domain.entity.Category;
 import com.project.memmem.domain.entity.GroupEntity;
@@ -20,8 +22,12 @@ public interface GroupEntityRepository extends JpaRepository<GroupEntity, Long>{
 
 	List<GroupEntity> findAllByOrderByCreatedAtDesc();
 
-	Page<GroupEntity> findAllByOrderByCreatedAtDesc(Pageable pageable);
+	// 멤버 수가 많은 순으로 정렬하고, 멤버 수가 같을 경우 최신 생성일 기준으로 정렬
+    @Query("SELECT g FROM GroupEntity g LEFT JOIN GroupMemberShipEntity m ON g = m.group GROUP BY g ORDER BY COUNT(m) DESC, g.createdAt DESC")
+    Page<GroupEntity> findAllByOrderByMemberCountDescAndCreatedAtDesc(Pageable pageable);
 
-	Page<GroupEntity> findByCategoryOrderByCreatedAtDesc(Category category, Pageable pageable);
+    // 카테고리별로 멤버 수가 많은 순으로 정렬하고, 멤버 수가 같을 경우 최신 생성일 기준으로 정렬
+    @Query("SELECT g FROM GroupEntity g LEFT JOIN GroupMemberShipEntity m ON g = m.group WHERE g.category = :category GROUP BY g ORDER BY COUNT(m) DESC, g.createdAt DESC")
+    Page<GroupEntity> findByCategoryOrderByMemberCountDescAndCreatedAtDesc(@Param("category") Category category, Pageable pageable);
 
 }

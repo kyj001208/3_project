@@ -19,6 +19,7 @@ public class IndexController {
     public String group(Model model) {
 		indexservice.groupsList(model);
 		indexservice.reviewList(model);
+		indexservice.premiumPicks(model);
         return "index";
     }
 }

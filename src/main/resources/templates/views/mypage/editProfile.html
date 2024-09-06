@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>프로필 수정</title>
+    <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 </head>
 <body>
 <div th:fragment="content">
@@ -18,11 +19,13 @@
             </p>
             <p>
                 <strong>주소:</strong><span>
-                <input type="text" th:field="*{address}" required></span>
+                <input type="text" id="address" th:field="*{address}" required readonly>&nbsp;&nbsp;
+                <input type="button" id="addressSearchBtn" value="주소 검색">
+                </span>
             </p>
             <p>
                 <strong>전화번호:</strong><span>
-                <input type="tel" th:field="*{number}" required></span>
+                <input type="tel" th:field="*{number}" required pattern="[0-9]*" inputmode="numeric"></span>
             </p>
             <p>
                 <strong>이메일:</strong>

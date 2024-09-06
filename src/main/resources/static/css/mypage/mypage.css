@@ -134,26 +134,19 @@ h1 {
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
 }
 
-.profile-pic {
-    width: 80px;
-    height: 80px;
-    border-radius: 50%;
-    background-color: #ffffff; /* 기본 배경 색상 */
-    background-size: cover;
-    background-position: center;
-    margin-right: 15px;
-}
-
-/* 이미지가 등록되지 않은 경우 스타일 */
-.profile-pic::before {
-    content: '프로필 사진 없음';
-    color: #7f8c8d;
-    font-size: 14px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 100%;
-    text-align: center;
+.profile-initial {
+width: 50px;
+height: 50px;
+display: flex;
+align-items: center;
+justify-content: center;
+border-radius: 50%;
+border: 1px dashed #ccc;
+font-size: 20px;
+font-weight: bold;
+color: #fff; /* 텍스트 색상은 흰색으로 설정하여 배경색과 대비되도록 함 */
+text-align: center;
+margin-right: 25px;
 }
 
 .profile-details p {
@@ -204,8 +197,21 @@ h1 {
     border-radius: 5px; /* 모서리 둥글게 설정 */
     border: 1px solid #ddd; /* 연한 회색 테두리 설정 */
     font-size:16px;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    padding: 2px;
 }
 
+.profile-info input[type="text"]:focus {
+    outline: none;
+    border-color:  #0046FE;
+    box-shadow: 0 0 0 2px rgba(52, 152, 219, 0.2);
+}
+
+.profile-info input[type="tel"]:focus {
+    outline: none;
+    border-color:  #0046FE;
+    box-shadow: 0 0 0 2px rgba(52, 152, 219, 0.2);
+}
     
 /*프로필 모임 목록*/
 .group-list {

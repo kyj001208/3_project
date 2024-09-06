@@ -17,10 +17,12 @@ body {
 
 .write-top {
     background-color: #ffffff;
-    max-width: 800px;
+    max-width: 1200px;
     width: 100%;
     padding:20px;
     box-sizing: border-box;
+    border-radius: 1em;
+    box-shadow: 2px 2px 2px 2px #e9e9e9;
 }
 
 .page-title {
@@ -80,9 +82,9 @@ body {
 #plus-icon {
     font-size: 50px;
     color: #85A5DB;
-    position: absolute;
-    z-index: 20; /* 플러스 아이콘이 이미지 위에 나오도록 설정 */
-}
+  /* position: absolute; */
+  /*   z-index: 20; 플러스 아이콘이 이미지 위에 나오도록 설정 */
+} 
 
 #file-upload {
     display: none;

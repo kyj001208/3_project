@@ -1,6 +1,7 @@
 package com.project.memmem.domain.repository;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -19,5 +20,7 @@ public interface BlockRepository extends JpaRepository<BlockListEntity, Long> {
 	List<UserEntity> findBlockedUsersByBlocker(@Param("user") UserEntity user);
 
 	List<BlockListEntity> findByBlocker(UserEntity blocker);
+
+	Optional<UserEntity> findByBlockerAndBlocked(UserEntity blocker, UserEntity blocked);
 
 }

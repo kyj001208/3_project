@@ -136,6 +136,7 @@ public class GroupEntity {
 	}
 
 	// 이미지 업데이트 메서드
+
 	public void updateImages(List<String> imageUrls, ImageEntityRepository imageRepository) {
 		// 기존 이미지 삭제
 		if (!this.images.isEmpty()) {
@@ -156,4 +157,21 @@ public class GroupEntity {
 		notice.setGroup(this); // 공지사항과 그룹을 연결
 	}
 
+   
+
+	public GroupDTO toGroupDTO(String baseUrl, int memberCount) {
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("YY/MM/dd");
+        String formattedDate = this.createdAt.format(formatter); // GroupEntity의 생성 날짜를 지정된 형식으로 포맷
+
+        return GroupDTO.builder()
+        		.id(this.id)
+                .groupName(this.groupName)
+                .greeting(this.greeting)
+                .categoryKoName(this.category.getKoName()) // Category의 한국어 이름 설정
+                .creatorUserId(this.creator.getUserId())
+                .memberCount(memberCount)
+                .mainImageUrl(getMainImageUrl(baseUrl)) // 메인 이미지 URL 설정 (getMainImageUrl 메서드 사용)
+                .createdAt(formattedDate)
+                .build();
+	}
 }

@@ -9,4 +9,6 @@ public interface IndexService {
 
 	void reviewList(Model model);
 
+	void premiumPicks(Model model);
+
 }
