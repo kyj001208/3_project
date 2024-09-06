@@ -1,7 +1,5 @@
 package com.project.memmem.domain.dto.group;
 
-import com.project.memmem.domain.entity.Category;
-
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -22,4 +20,5 @@ public class GroupDTO {
     private String categoryKoName;
     private Long creatorUserId;
     private String mainImageUrl;
+    private int memberCount;
 }
