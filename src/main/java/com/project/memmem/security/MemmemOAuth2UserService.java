@@ -1,6 +1,7 @@
 package com.project.memmem.security;
 
 import java.util.Map;
+import java.util.Optional;
 import java.util.Random;
 
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -19,29 +20,31 @@ import lombok.RequiredArgsConstructor;
 @Service
 @RequiredArgsConstructor
 public class MemmemOAuth2UserService extends DefaultOAuth2UserService {
-	
-	private final PasswordEncoder passwordEncoder;
-	private final UserEntityRepository userRepository;
-	private String nickName;
-	
-	// 소셜 로그인 시 사용자의 정보를 로드하는 메서드
+
+    private final PasswordEncoder passwordEncoder;
+    private final UserEntityRepository userRepository;
+
+    private static final Random RANDOM = new Random(); // Random 객체를 재사용합니다.
+
+    // 소셜 로그인 시 사용자의 정보를 로드하는 메서드
     @Override
     public OAuth2User loadUser(OAuth2UserRequest userRequest) throws OAuth2AuthenticationException {
-    	// OAuth2 인증 서버에서 사용자 정보를 가져옴
+        // OAuth2 인증 서버에서 사용자 정보를 가져옴
         OAuth2User oAuth2User = super.loadUser(userRequest);
         String registrationId = userRequest.getClientRegistration().getRegistrationId();
         return processSocialLogin(oAuth2User, registrationId);
     }
-    
+
     // 소셜 로그인 처리 메서드: 사용자가 이미 존재하는지 확인하고, 없으면 새로 생성
     private OAuth2User processSocialLogin(OAuth2User oAuth2User, String registrationId) {
         String email = extractEmail(oAuth2User, registrationId);
         String name = extractName(oAuth2User, registrationId);
 
         UserEntity user = userRepository.findByEmail(email);
-		if (user == null) {
-		    user = createSocialUser(email, name, nickName);
-		}
+        if (user == null) {
+            String nickName = generateUniqueNickName(name); // 닉네임 생성
+            user = createSocialUser(email, name, nickName);
+        }
 
         return new MemmemUserDetails(user);
     }
@@ -60,14 +63,12 @@ public class MemmemOAuth2UserService extends DefaultOAuth2UserService {
 
         return userRepository.save(entity);
     }
-    
-    private static final Random RANDOM = new Random(); // Random 객체를 재사용합니다.
 
-    private String generateUniqueNickName(String baseName, UserEntityRepository userRepository) {
-
-    	do {
+    private String generateUniqueNickName(String baseName) {
+        String nickName;
+        do {
             nickName = baseName + generateRandomNumber(); // 랜덤 숫자를 생성하여 닉네임을 만듭니다.
-        } while (!isUniqueNickName(nickName, userRepository)); // 중복되지 않을 때까지 반복합니다.
+        } while (!isUniqueNickName(nickName)); // 중복되지 않을 때까지 반복합니다.
         return nickName;
     }
 
@@ -75,11 +76,11 @@ public class MemmemOAuth2UserService extends DefaultOAuth2UserService {
         return RANDOM.nextInt(9000) + 1000; // 1000부터 9999까지의 랜덤 숫자 생성
     }
 
-    private boolean isUniqueNickName(String nickName, UserEntityRepository userRepository) {
-        return userRepository.findByNickName(nickName).isEmpty(); // 닉네임의 유니크 여부를 확인합니다.
+    private boolean isUniqueNickName(String nickName) {
+        return userRepository.findByNickName(nickName).isEmpty(); // Optional<UserEntity>를 사용하여 유니크 여부를 확인합니다.
     }
-    
-	// 소셜 로그인 플랫폼에 따라 이메일 정보를 추출하는 메서드
+
+    // 소셜 로그인 플랫폼에 따라 이메일 정보를 추출하는 메서드
     private String extractEmail(OAuth2User oAuth2User, String registrationId) {
         if ("google".equals(registrationId)) {
             return oAuth2User.getAttribute("email");
@@ -93,7 +94,7 @@ public class MemmemOAuth2UserService extends DefaultOAuth2UserService {
         throw new OAuth2AuthenticationException("Unsupported registration ID");
     }
 
- // 소셜 로그인 플랫폼에 따라 사용자 이름을 추출하는 메서드	    
+    // 소셜 로그인 플랫폼에 따라 사용자 이름을 추출하는 메서드
     private String extractName(OAuth2User oAuth2User, String registrationId) {
         if ("google".equals(registrationId)) {
             return oAuth2User.getAttribute("name");

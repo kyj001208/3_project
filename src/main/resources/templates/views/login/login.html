@@ -29,6 +29,9 @@
                         </label>
                         <p th:if="${loginErrorMsg}" class="error" th:text="${loginErrorMsg}"></p>
                         <button type="submit">로그인</button>
+                        <a href="/oauth2/authorization/google" class="btn btn-success active" role="button">구글</a>
+                        <a href="/oauth2/authorization/naver" class="btn btn-secondary active" role="button">네이버</a>
+                        <a href="/oauth2/authorization/kakao" class="btn btn-secondary active" role="button">카카오</a>
                         <input type="hidden" th:if="${_csrf}" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
                     </form>
                         <div class="links">
