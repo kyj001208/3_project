@@ -25,7 +25,7 @@
             </p>
             <p>
                 <strong>전화번호:</strong><span>
-                <input type="tel" th:field="*{number}" required pattern="[0-9]*" inputmode="numeric"></span>
+                <input type="text" th:field="*{number}" id="phone-input" oninput="formatPhoneNumber(this)" maxlength="13" required></span>
             </p>
             <p>
                 <strong>이메일:</strong>
