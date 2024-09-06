@@ -222,6 +222,7 @@ h1 {
     color: #2c3e50;
     font-size: 18px;
     margin-top: 20px;
+    width: 160px; /* 원하는 고정 너비 설정 */
 }
 
 .group-list ul {
