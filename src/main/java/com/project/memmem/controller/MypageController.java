@@ -64,6 +64,10 @@ public class MypageController {
         model.addAttribute("number", userEntity.getNumber());
         model.addAttribute("address", userEntity.getAddress());
         model.addAttribute("birthDate", userEntity.getBirthDate());
+        
+        // 이름의 첫 글자를 추가
+        String nameInitial = userEntity.getName().substring(0, 1);
+        model.addAttribute("nameInitial", nameInitial);
     }
 
 	
