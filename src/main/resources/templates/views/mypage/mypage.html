@@ -13,6 +13,7 @@
 <script src="/js/mypage/mypage.js" defer></script>
 <script src="https://www.google.com/recaptcha/api.js?render=6LedOzYqAAAAAIkfmP_W-qCzUgUag3__KaDaOKdU"></script>
 <script src="/js/mypage/recaptcha.js" defer></script>
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 
 </head>
 <body>
@@ -22,8 +23,7 @@
 			<div class="left-column">
 				<h1 id="sectionTitle">프로필</h1>
 				<div class="profile-summary">
-					<div class="profile-pic"
-						style="background-image: url('/path/to/profile-pic.jpg');"></div>
+					<div class="profile-initial" th:text="${nameInitial}"></div>
 					<div class="profile-details">
 						<p class="nickname">
 							<b th:text="${nickName}">닉네임</b>
