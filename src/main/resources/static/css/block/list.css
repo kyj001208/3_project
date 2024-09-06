@@ -50,6 +50,7 @@
 	flex-direction: column;
 	box-sizing: border-box;
 	overflow-x: hidden;
+	width: 800px;
 }
 
 /*/////////////////스크롤바////////////////////*/
