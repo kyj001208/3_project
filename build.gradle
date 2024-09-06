@@ -76,3 +76,7 @@ dependencyManagement {
 tasks.named('test') {
 	useJUnitPlatform()
 }
+
+tasks.withType(JavaExec) {
+    systemProperty 'user.dir', project.rootDir.absolutePath
+}
