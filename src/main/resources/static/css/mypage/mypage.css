@@ -36,11 +36,14 @@ main {
 }
 
 .left-column h1 {
-    margin-left: 20px; /* 왼쪽 여백을 20px로 설정 */
+    margin-left: 15px; /* 왼쪽 여백을 20px로 설정 */
+    font-weight: bold;
 }
 
 .right-column {
     width: 75%;
+    margin-top: 73px;
+    height: 480px;
     padding: 40px;
 }
 
@@ -73,6 +76,7 @@ h1 {
     background-color: #fff;
     border-radius: 8px;
     border: 1px solid #ccc;
+    height:326px;
     padding: 30px;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
 }
@@ -96,8 +100,8 @@ h1 {
 }
 
 #edit-profile {
-    background-color: #3498db;
-    color: white;
+    background-color: #85A5DB;
+    color: #fff;
     border: none;
     padding: 12px 25px;
     border-radius: 10px;
@@ -108,7 +112,7 @@ h1 {
 }
 
 #edit-profile:hover {
-    background-color: #2980b9;
+    background-color: #0046FE;
 }
 
 @media (max-width: 768px) {
@@ -178,52 +182,66 @@ h1 {
         transition: background-color 0.3s;
     }
     .btn-primary {
-        background-color: #3498db;
-        color: white;
+        background-color: #85A5DB;
+    	color: #fff;
     }
     .btn-primary:hover {
-        background-color: #2980b9;
+        background-color: #0046FE;
     }
     .btn-secondary {
-        background-color: #e84117;
-        color: #34495e;
+        background-color: #85A5DB;
+   		color: #fff;
         text-decoration: none;
         margin-left: 10px;
     }
     .btn-secondary:hover {
-        background-color: #bdc3c7;
+        background-color: #0046FE;
     }
-    
+/*프로필 수정 목록*/
+.profile-info input[type="text"],
+.profile-info input[type="tel"],
+.profile-info input[type="date"] {
+    border-radius: 5px; /* 모서리 둥글게 설정 */
+    border: 1px solid #ddd; /* 연한 회색 테두리 설정 */
+    font-size:16px;
+}
+
     
 /*프로필 모임 목록*/
 .group-list {
     background-color: #fff;
     border-radius: 8px;
     border: 1px solid #ccc;
+    height:326px;
     padding: 30px;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+    overflow-y: auto; /* 내용이 넘칠 경우 수직 스크롤 활성화 */
 }
+
 .group-list h2 {
     color: #2c3e50;
     font-size: 18px;
     margin-top: 20px;
-    margin-bottom: 10px;
-    border-bottom: 1px solid #eee;
-    padding-bottom: 5px;
+    width: 160px; /* 원하는 고정 너비 설정 */
 }
 
 .group-list ul {
 	list-style-type: none;
 	padding: 0;
 }
-
+.group-list div {
+    display: flex; /* 자식 요소들을 한 줄로 배치 */
+    margin-left: 30px;
+    margin-bottom: 10px;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 5px;
+}
 .group-list li {
 	margin-bottom: 15px;
-	padding-bottom: 10px;
 }
 
 .group-list a {
-	display: inline-block;
+	display: block;
 	text-decoration: none; /* 밑줄 제거 */
 	color: #7f8c8d;
 	font-size: 14px;
@@ -236,4 +254,10 @@ h1 {
 .recaptcha{
 	margin-top: 20px;
 	margin-left: 20px;
+}
+
+.category-icon {
+	width: 16px;
+	height: 16px;
+	margin-right: 4px;
 }

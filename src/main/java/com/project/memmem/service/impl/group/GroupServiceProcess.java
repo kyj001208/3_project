@@ -340,6 +340,21 @@ public class GroupServiceProcess implements GroupService {
         return initials;
     }
 
+    @Override
+    @Transactional
+    public void leaveGroup(long userId, Long groupId) {
+        // 그룹 멤버십 엔티티 조회
+        GroupMemberShipEntity membership = groupMemberShipRepository.findByUserUserIdAndGroup_Id(userId, groupId)
+                .orElseThrow(() -> new IllegalArgumentException("User is not a member of the group."));
+
+        // 생성자는 탈퇴할 수 없도록 예외 처리
+        if (membership.getRole() == GroupMemberShipEntity.Role.ROLE_CREATOR) {
+            throw new IllegalStateException("The group creator cannot leave the group.");
+        }
+
+        // 그룹 멤버십 엔티티 삭제 (탈퇴 처리)
+        groupMemberShipRepository.delete(membership);
+    }
 
 
 }

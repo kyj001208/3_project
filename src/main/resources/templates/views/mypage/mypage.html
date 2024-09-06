@@ -6,7 +6,7 @@
 <title>나의 정보</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="_csrf" th:content="${_csrf.token}"/>
-    <meta name="_csrf_header" th:content="${_csrf.headerName}"/>
+<meta name="_csrf_header" th:content="${_csrf.headerName}"/>
 <link rel="stylesheet" href="/css/mypage/mypage.css">
 <link rel="stylesheet" href="/css/block/list.css">
 <script src="/js/block/list.js"></script>
@@ -17,10 +17,10 @@
 </head>
 <body>
 	<main
-		style="background-color: rgba(0, 0, 0, .25); min-height: calc(100vh);">
+		style="background-color: rgba(0, 0, 0, .15); min-height: calc(100vh);">
 		<div class="my-container">
 			<div class="left-column">
-				<h1 th:text="${name}">홍길동</h1>
+				<h1 id="sectionTitle">프로필</h1>
 				<div class="profile-summary">
 					<div class="profile-pic"
 						style="background-image: url('/path/to/profile-pic.jpg');"></div>
@@ -33,10 +33,10 @@
 						</p>
 					</div>
 				</div>
-				<div class="menu-item" data-section="profile">
+				<div class="menu-item" data-section="profile" data-title="프로필">
 					<b>프로필</b>
 				</div>
-				<div class="menu-item" data-section="myGroup">
+				<div class="menu-item" data-section="myGroup" data-title="내 모임">
 					<b>내 모임</b>
 				</div>
 				<div class="gap"></div>
@@ -56,7 +56,7 @@
 					<input type="hidden" th:if="${_csrf}"
 						th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
 					<!-- 폼 필드들 -->
-					<div id="recaptchaStatus"></div>
+					<!-- <div id="recaptchaStatus"></div> -->
 					<!-- reCAPTCHA 상태 표시 -->
 				</form>
 				</div>

@@ -12,6 +12,7 @@ import com.project.memmem.domain.dto.img.ImageSaveDTO;
 import com.project.memmem.domain.dto.review.ReviewSaveDTO;
 import com.project.memmem.domain.dto.review.ReviewUpDateDTO;
 import com.project.memmem.domain.entity.ReviewEntity;
+import com.project.memmem.security.MemmemUserDetails;
 
 public interface ReviewService {
 
@@ -21,7 +22,7 @@ public interface ReviewService {
 
 	void reviewListProcess(Model model, Long userId);
 
-	void getReviewDetail(long reId, Model model);
+	void getReviewDetail(long reId, Model model, MemmemUserDetails user);
 
 	void reviewDelete(long reId, long userId);
   

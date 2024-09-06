@@ -20,4 +20,5 @@ public class ReviewListDTO {
 	private LocalDateTime createdAt;
 
 	private  String nickName;
+	
 }

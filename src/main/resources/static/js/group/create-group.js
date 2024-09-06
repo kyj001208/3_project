@@ -2,7 +2,6 @@
 let quillGreeting;
 let quillDescription;
 
-// 전역 스코프에 selectCategory 함수를 정의
 function selectCategory(button) {
 	document.querySelectorAll('.category-button').forEach(btn => {
 		btn.classList.remove('active');
@@ -11,6 +10,8 @@ function selectCategory(button) {
 	button.classList.add('active');
 	document.getElementById('selected-category').value = button.getAttribute('data-value');
 }
+
+
 
 // selectLocalImage 함수 정의
 function selectLocalImage() {
@@ -70,6 +71,15 @@ document.addEventListener('DOMContentLoaded', function() {
 		document.getElementById('edit-group-form').onsubmit = function(e) {
 			handleFormSubmit(e);
 		};
+		 // 페이지 로드 시 선택된 카테고리를 active 상태로 설정
+        const selectedCategory = document.getElementById('selected-category').value;
+        if (selectedCategory) {
+            document.querySelectorAll('.category-button').forEach(button => {
+                if (button.getAttribute('data-value') === selectedCategory) {
+                    button.classList.add('active');
+                }
+            });
+        }
 	}
 
 	// 폼 제출 핸들러

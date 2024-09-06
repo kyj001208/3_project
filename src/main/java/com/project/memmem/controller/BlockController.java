@@ -27,13 +27,20 @@ public class BlockController {
 
 	// 사용자 차단 목록을 표시할 페이지
 
+	/*
+	 * @GetMapping("/block") public String getBlockedUsers(@AuthenticationPrincipal
+	 * MemmemUserDetails user, Model model) { long userId = user.getUserId();
+	 * List<BlockDTO> blockedUsers = blockService.getBlockedUsers(userId);
+	 * model.addAttribute("blockedUsers", blockedUsers); return "/views/block/list";
+	 * }
+	 */
 	@GetMapping("/block")
     public String getBlockedUsers(@AuthenticationPrincipal MemmemUserDetails user, Model model) {
         long userId = user.getUserId();
-        List<BlockDTO> blockedUsers = blockService.getBlockedUsers(userId);
-        model.addAttribute("blockedUsers", blockedUsers);
+        blockService.getBlockedUsers(model, userId);
         return "/views/block/list";
     }
+	
 
 	
 	@PostMapping("/blockUser")

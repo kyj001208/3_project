@@ -172,7 +172,7 @@ public class ChatbotServiceProcess {
 		if (scenario.getDept() == 1) { // 카테고리 선택 직후 단계
 			answer = "어떤 활동을 좋아하시나요?";
 		} else if (scenario.getDept() == 2) { // 사용자가 활동을 선택한 후
-			answer = scenario.getContent() + " 안내해드릴게요!";
+			answer = scenario.getContent() + " 소모임 안내해드릴게요!";
 		} else {
 			answer = scenario.getContent();
 		}

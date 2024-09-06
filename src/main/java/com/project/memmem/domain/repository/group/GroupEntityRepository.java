@@ -18,4 +18,10 @@ public interface GroupEntityRepository extends JpaRepository<GroupEntity, Long>{
 	
 	List<GroupEntity> findByCreator(UserEntity creator);
 
+	List<GroupEntity> findAllByOrderByCreatedAtDesc();
+
+	Page<GroupEntity> findAllByOrderByCreatedAtDesc(Pageable pageable);
+
+	Page<GroupEntity> findByCategoryOrderByCreatedAtDesc(Category category, Pageable pageable);
+
 }

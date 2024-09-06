@@ -69,12 +69,11 @@ function showWelcomeMessage() {
             <img src="/images/chatbot_icon.png">
         </div>
         <div class="message">
-            <div class="bot-name">멤멤</div>
+            <div class="bot-name">음멤</div>
             <div class="part chatbot">
                 <p>
-                    안녕하세요. <br> 
-                    안내봇입니다.<br>
-                    무엇을 도와드릴까요?
+                    음멤~<br> 
+                    어떤 도움이 필요하신가요?<br>
                 </p>
             </div>
         </div>
@@ -246,12 +245,11 @@ function connect() {
             </div>
             <div class="message">
                 <div class="part chatbot">
-                    <p>이 카테고리의 소모임 목록을 보시겠습니까?</p>
+                    <p>해당 소모임 목록을 보시겠습니까?</p>
                     <div class="button-container">
                         <button class="faq-button" onclick="location.href='${msgObj.categoryUrl}';">소모임 목록 보기</button>
                     </div>
                 </div>
-                <div class="time">${time}</div>
             </div>
         </div>`;
 				showMessage(categoryButtonHTML);
@@ -269,7 +267,7 @@ function connect() {
                                 <button class="faq-button" onclick="location.href='/create-group';">그룹 생성</button>
                             </div>
                         </div>
-                        <div class="time">${time}</div>
+   
                     </div>
                 </div>`;
 				showMessage(buttonHTML);
@@ -286,7 +284,6 @@ function connect() {
                                 <button class="faq-button" onclick="location.href='/mem/review';">후기 보기</button>
                             </div>
                         </div>
-                        <div class="time">${time}</div>
                     </div>
                 </div>`;
 				showMessage(buttonHTML);
@@ -336,7 +333,7 @@ function createBotMessage(message, time) {
             <img src="/images/chatbot_icon.png">
         </div>
         <div class="message">
-            <div class="bot-name">멤멤</div>
+            <div class="bot-name">음멤</div>
             <div class="part chatbot">
                 <p>${message}</p>
             </div>
@@ -390,7 +387,7 @@ function createWeatherInfo(message, time) {
                 <img src="/images/chatbot_icon.png">
             </div>
             <div class="message">
-                <div class="bot-name">멤멤</div>
+                <div class="bot-name">음멤</div>
                 <div class="part chatbot weather-info">
                     <h3>${location} 날씨 정보</h3>
                     <div class="weather-details">

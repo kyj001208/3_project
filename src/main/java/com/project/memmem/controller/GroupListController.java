@@ -5,7 +5,6 @@ import java.util.List;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -22,8 +21,7 @@ public class GroupListController {
 	private final GroupListService service;
 	
 	@GetMapping("/group-list")
-	public String groupList(@RequestParam(value = "category", required = false) Category category, Model model) {
-	    service.groupsList(category, model);
+	public String groupList() {
 	    return "views/group/list";
 	}
 	
@@ -35,6 +33,5 @@ public class GroupListController {
 	    Page<GroupDTO> groupPage = service.getGroupsPage(page, size, category);
 	    return ResponseEntity.ok(groupPage.getContent());
 	}
-
 	
 }
