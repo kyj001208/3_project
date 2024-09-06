@@ -30,6 +30,15 @@ function validateForm() {
         return false;
     }
 
+    var pwConfirmInput = document.getElementById("password-confirm-input");
+    if (pwInput.value !== pwConfirmInput.value) {
+        document.getElementById('error-message').style.display = 'inline'; // 오류 메시지 표시
+        pwConfirmInput.focus();
+        return false;
+    } else {
+        document.getElementById('error-message').style.display = 'none'; // 오류 메시지 숨기기
+    }
+
     var nameInput = document.getElementById("name-input");
     var namePattern = /^[가-힣]{2,5}$/;
     if (!namePattern.test(nameInput.value)) {
