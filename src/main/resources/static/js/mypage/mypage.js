@@ -66,6 +66,20 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 });
 
+function formatPhoneNumber(input) {
+	// 숫자만 남기고 다른 문자는 제거
+	var value = input.value.replace(/[^0-9]/g, '');
+
+	// 전화번호 패턴에 맞춰 하이픈 추가
+	if (value.length < 4) {
+		input.value = value;
+	} else if (value.length < 8) {
+		input.value = value.substr(0, 3) + '-' + value.substr(3);
+	} else {
+		input.value = value.substr(0, 3) + '-' + value.substr(3, 4) + '-' + value.substr(7);
+	}
+}
+
 // Daum 우편번호 검색 함수
 function execDaumPostcode() {
     new daum.Postcode({
