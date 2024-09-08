@@ -1,17 +1,13 @@
 package com.project.memmem.controller;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.project.memmem.domain.dto.SignupDTO;
 import com.project.memmem.service.impl.UserService;
@@ -33,27 +29,22 @@ public class SignupController {
     }
 
     @PostMapping
-    public @ResponseBody Map<String, String> signup(
-            SignupDTO dto,
-            BindingResult bindingResult,
-            @RequestHeader(value = "X-Requested-With", required = false) String requestedWith) {
+    public String signup(SignupDTO dto, BindingResult bindingResult, RedirectAttributes redirectAttributes) {
 
-        Map<String, String> response = new HashMap<>();
-        
         if (bindingResult.hasErrors()) {
-            response.put("status", "error");
-            response.put("message", "Validation errors");
-            return response;
+            redirectAttributes.addFlashAttribute("status", "error");
+            redirectAttributes.addFlashAttribute("message", "Validation errors");
+            return "redirect:/signup"; // Validation errors 발생 시 회원가입 페이지로 리디렉션
         }
 
         try {
             userService.saveUser(dto, pe);
-            response.put("status", "success");
-            return response;
+            redirectAttributes.addFlashAttribute("status", "success");
+            return "redirect:/login"; // 회원가입 성공 시 로그인 페이지로 리디렉션
         } catch (IllegalStateException e) {
-            response.put("status", "error");
-            response.put("message", e.getMessage());
-            return response;
+            redirectAttributes.addFlashAttribute("status", "error");
+            redirectAttributes.addFlashAttribute("message", e.getMessage());
+            return "redirect:/signup"; // 오류 발생 시 회원가입 페이지로 리디렉션
         }
     }
 }
