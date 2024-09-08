@@ -8,7 +8,27 @@ html, body {
     align-items: center;
     background-color: #f0f0f0;
 }
-
+#combined_address{
+	margin-right :10px;
+	display: inline-block;
+	max-width: 228px;
+}
+#combined_address-btn{
+	display: inline-block;
+	width: 80px;
+    padding: 5px;
+    padding-top: 9px;
+    padding-bottom: 10px;
+    margin-top: 12px;
+    margin-bottom: 8px;
+    background-color: #4c8bf5;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+		
+}
 .outer-container {
     position: relative;
     width: 100vw;
