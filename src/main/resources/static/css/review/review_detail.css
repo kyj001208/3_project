@@ -1,6 +1,6 @@
 body {
 	font-family: Arial, sans-serif;
-	background-color: #fff;
+	background-color: #f8f9fa;
 	margin: 0;
 	padding: 0;
 }
@@ -12,6 +12,7 @@ body {
 	box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 	max-width: 900px;
 	margin: 100px auto;
+	background-color: #fff;
 }
 
 .review-detail {
@@ -19,7 +20,9 @@ body {
 }
 
 .detail_pro {
+	padding-top:10px;
 	display: flex;
+	padding-bottom: 10px;
 }
 
 .review-time>p {
@@ -70,7 +73,11 @@ body {
 	margin: 20px auto;
 	border-radius: 8px;
 }
+
+
 /* /////////////////////////////////버튼 태그랑 a태그//////////// */
+
+
 .detail_btns {
     display: flex;
     justify-content: space-between; /* 왼쪽과 오른쪽으로 요소를 배치 */
@@ -78,6 +85,7 @@ body {
     padding-bottom: 10px;
     border-bottom: 1px solid #f3f3f3;
     cursor: pointer;
+    gap:20px;
 }
 
 .reviewmain {
@@ -88,6 +96,13 @@ body {
 
 #btn-back {
     margin-right: auto; /* '이전' 버튼을 왼쪽으로 이동 */
+    border: #a9d6e5;
+    background-color:#a9d6e5;
+    font-size: 16px;
+    color:#fff;
+    cursor: pointer;
+    padding: 5px 15px;
+    border-radius: 10px;
 }
 
 .action-buttons {
@@ -96,10 +111,13 @@ body {
 }
 
 #btn-edit, #btn-delete {
-    border: none;
-    background: none;
+    border: #a9d6e5;
+    background-color:#a9d6e5;
     font-size: 16px;
+    color:#fff;
     cursor: pointer;
+    padding: 5px 15px;
+    border-radius: 10px;
 }
 
 
@@ -112,7 +130,19 @@ body {
 	cursor: pointer;
 }
 
+#blockbtn:hover{
+	
+	background-color:#a9d6e5;
+}
+
 /* ////////////////////숨겨진 태그 css//////////////////////// */
+
+.secret_pro{
+	padding-top:10px;
+	display: flex;
+	padding-bottom: 10px;
+}
+
 
 .secret-nickname, .secret-created-at{
 	padding-top:10px;
@@ -126,14 +156,15 @@ body {
 }
 
 .secret-title{
-	padding-top: 10px;
-	height: 47px;
-	font-size: 20px;
+	padding-top: 15px;
+	font-size: 16px;
+	padding-bottom: 10px;
 }
 
 #editTitle{
 	
 	font-size: 20px;
+	border: 1px solid #e9e9e9;
 }
 
 .image-upload {
@@ -142,10 +173,7 @@ body {
 	cursor: pointer;
 }
 
-#plus-icon {
-	font-size: 24px;
-	color: #555;
-}
+
 
 #file-upload {
 	display: none;
@@ -155,12 +183,13 @@ body {
 .upload-button {
 	display: inline-block;
 	cursor: pointer;
-	border: 1px solid #ccc;
-	padding: 5px;
-	background: #f9f9f9;
-	height: 30px;
-	width: 30px;
+	border: 1px solid #a9d6e5;
+	padding: 3px;
+	background: #a9d6e5;
 	text-align: center;
+	border-radius: 10px;
+	color: #fff;
+	
 }
 
 .upload-button input[type="file"] {
@@ -177,14 +206,42 @@ body {
 .secret-btn{
 	
 	border-bottom: 1px solid #e9e9e9;
+	padding-bottom: 10px;
 }
 
 .submitbtn , .cancelbtn{
 	
-	border:none;
-	background: none;
-	cursor: pointer;
-	font-size: 16px;
-	padding-bottom: 10px;
+	border: #a9d6e5;
+    background-color:#a9d6e5;
+    font-size: 16px;
+    color:#fff;
+    cursor: pointer;
+    padding: 5px 15px;
+    border-radius: 10px;
 	
+	
+}
+
+
+/* /////////////////////////////////프로필/////////////// */
+
+
+.profile {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.profile-initial {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 24px;
+    font-weight: bold;
+    text-transform: uppercase;
+    margin-right: 20px;
 }
