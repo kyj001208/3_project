@@ -12,6 +12,7 @@
     <link href="https://cdn.jsdelivr.net/npm/quill@2.0.2/dist/quill.snow.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/quill@2.0.2/dist/quill.js"></script>
     <script src="/js/review/reviewdetail.js"></script>
+    <script src="/js/review/reviewprofile.js"></script>
 </head>
 <body>
     <main>
@@ -34,9 +35,13 @@
             <!-- 리뷰 상세 내용 -->
             <div class="review-detail" th:if="${review != null}" th:attr="data-review-id=${review.reId}">
                 <div class="detail_pro">
-                    <p class="review-nickname">
-                        작성자: <span th:text="${review.user != null ? review.user.nickName : 'Anonymous'}"></span>
-                    </p>
+                	<div class="profile">
+       					 <div class="profile-initial" th:text="${review.user != null ? review.user.nickName.substring(0, 1) : 'A'}"></div>
+   					 </div>
+                	
+                    <div class="review-nickname">
+                        <span th:text="${review.user != null ? review.user.nickName : 'Anonymous'}"></span>
+                    </div>
                     
                      <button type="button" th:onclick="|confirmBlock('${currentUserId}', '${review.user.userId}', event)|" id="blockbtn">유저차단</button>
                     
@@ -60,14 +65,18 @@
                    <div class="secret-btn">
             		<button type="submit" class="submitbtn">저장</button>
                 	<button type="button" onclick="cancelEdit()" class="cancelbtn">취소</button>
-            	</div>
+            		</div>
                    
                    
                     <input type="hidden" th:if="${_csrf}" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+                    
                     <div class="secret_pro">
-                    <p class="secret-nickname">
-                        작성자: <span th:text="${review.user != null ? review.user.nickName : 'Anonymous'}"></span>
-                    </p>
+                    	<div class="profile">
+       					 	<div class="profile-initial" th:text="${review.user != null ? review.user.nickName.substring(0, 1) : 'A'}"></div>
+   						 </div>
+                    <div class="secret-nickname">
+                        <span th:text="${review.user != null ? review.user.nickName : 'Anonymous'}"></span>
+                    </div>
                     </div>
 
                     <p class="secret-created-at">
@@ -80,8 +89,7 @@
 					
 					
                     <label for="file-upload" class="upload-button">
-                        <span id="plus-icon">+</span>
-                        <input type="file" accept="image/*" id="file-upload" name="image">
+                        <input type="file" accept="image/*" id="file-upload" name="image">이미지 업로드
                     </label>
                     </div>
                     <img id="image-preview" class="image-preview" alt="미리보기 이미지" th:src="${imageUrl}" />

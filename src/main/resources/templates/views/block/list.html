@@ -5,8 +5,7 @@
 				<div class="profile-initial" th:text="${#strings.substring(block.blockedNickName,0,1)}"></div>
 				<div class="block-user">
 					차단 사용자 닉네임 : 
-					<div class="block-profile" th:text="${block.blockedNickName}">차단된
-						사용자 닉네임</div>
+					<div class="block-profile" th:text="${block.blockedNickName}">차단된 사용자 닉네임</div>
 				</div>
 			</div>
 			<div class="line">
@@ -17,7 +16,7 @@
 			</div>
 			<form th:action="@{/unblockUser/{id}(id=${block.id})}" method="post">
 				<input type="hidden" name="_method" value="delete">
-				<button type="submit">차단해제</button>
+				<button type="submit" onclick="confirmUnblock(event)">차단해제</button>
 			</form>
 		</div>
 	</div>
