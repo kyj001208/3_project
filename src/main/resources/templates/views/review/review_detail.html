@@ -27,8 +27,10 @@
                 
                 <a href="/mem/review" class="reviewmain" id="btn-back">이전</a>
                 
+                <button type="button" th:onclick="|confirmBlock('${currentUserId}', '${review.user.userId}', event)|" id="blockbtn">유저차단</button>
                 <button class="detailupdate" type="button" th:onclick="|showEditForm(${review.reId}, ${authorUserId})|" id="btn-edit">수정</button>
                 <button class="detaildelete" type="button" th:onclick="|deletebtnClicked(${review.reId})|" id="btn-delete">삭제</button>
+                
                 
             </div>
         
@@ -43,7 +45,7 @@
                         <span th:text="${review.user != null ? review.user.nickName : 'Anonymous'}"></span>
                     </div>
                     
-                     <button type="button" th:onclick="|confirmBlock('${currentUserId}', '${review.user.userId}', event)|" id="blockbtn">유저차단</button>
+                     
                     
                    
                 </div>
