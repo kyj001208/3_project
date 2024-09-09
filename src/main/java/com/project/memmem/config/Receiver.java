@@ -5,9 +5,9 @@ import org.springframework.stereotype.Component;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.Context;
 
-import com.project.memmem.domain.dto.bot.MessageDTO;
-import com.project.memmem.domain.dto.bot.QuestionDTO;
-import com.project.memmem.service.impl.KomoranServiceProcess;
+import com.project.memmem.domain.dto.chatbot.MessageDTO;
+import com.project.memmem.domain.dto.chatbot.QuestionDTO;
+import com.project.memmem.service.impl.chatbot.KomoranServiceProcess;
 
 import lombok.RequiredArgsConstructor;
 

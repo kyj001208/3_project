@@ -1,4 +1,4 @@
-package com.project.memmem.service.impl;
+package com.project.memmem.service.impl.chatbot;
 
 import java.util.Arrays;
 import java.util.HashSet;
@@ -12,13 +12,13 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.project.memmem.domain.dto.bot.AnswerDTO;
-import com.project.memmem.domain.dto.bot.MessageDTO;
-import com.project.memmem.domain.dto.bot.QuestionDTO;
-import com.project.memmem.domain.entity.AnswerEntity;
-import com.project.memmem.domain.entity.KeywordEntity;
-import com.project.memmem.domain.entity.NNPIntentionEntity;
-import com.project.memmem.domain.entity.ScenarioEntity;
+import com.project.memmem.domain.dto.chatbot.AnswerDTO;
+import com.project.memmem.domain.dto.chatbot.MessageDTO;
+import com.project.memmem.domain.dto.chatbot.QuestionDTO;
+import com.project.memmem.domain.entity.chatbot.AnswerEntity;
+import com.project.memmem.domain.entity.chatbot.KeywordEntity;
+import com.project.memmem.domain.entity.chatbot.NNPIntentionEntity;
+import com.project.memmem.domain.entity.chatbot.ScenarioEntity;
 import com.project.memmem.domain.repository.AnswerRepository;
 import com.project.memmem.domain.repository.KeywordRepository;
 import com.project.memmem.domain.repository.ScenarioRepository;

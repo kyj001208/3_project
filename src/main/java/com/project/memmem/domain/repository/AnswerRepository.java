@@ -4,7 +4,7 @@ import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import com.project.memmem.domain.entity.AnswerEntity;
+import com.project.memmem.domain.entity.chatbot.AnswerEntity;
 
 
 

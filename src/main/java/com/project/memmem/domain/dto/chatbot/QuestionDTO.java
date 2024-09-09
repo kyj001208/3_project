@@ -1,4 +1,4 @@
-package com.project.memmem.domain.dto.bot;
+package com.project.memmem.domain.dto.chatbot;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

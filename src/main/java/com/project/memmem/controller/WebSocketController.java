@@ -5,9 +5,9 @@ import org.springframework.messaging.simp.SimpMessageHeaderAccessor;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Controller;
 
-import com.project.memmem.domain.dto.bot.AnswerDTO;
-import com.project.memmem.domain.dto.bot.QuestionDTO;
-import com.project.memmem.service.impl.ChatbotServiceProcess;
+import com.project.memmem.domain.dto.chatbot.AnswerDTO;
+import com.project.memmem.domain.dto.chatbot.QuestionDTO;
+import com.project.memmem.service.impl.chatbot.ChatbotServiceProcess;
 
 import lombok.RequiredArgsConstructor;
 
