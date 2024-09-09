@@ -1,4 +1,4 @@
-package com.project.memmem.service.impl;
+package com.project.memmem.service.impl.chatbot;
 
 import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
@@ -14,7 +14,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.project.memmem.domain.entity.LocationCoordinate;
+import com.project.memmem.domain.entity.chatbot.LocationCoordinate;
 
 import lombok.RequiredArgsConstructor;
 

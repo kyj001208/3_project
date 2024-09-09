@@ -1,4 +1,4 @@
-package com.project.memmem.service.impl;
+package com.project.memmem.service.impl.chatbot;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -6,7 +6,7 @@ import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
-import com.project.memmem.domain.entity.LocationCoordinate;
+import com.project.memmem.domain.entity.chatbot.LocationCoordinate;
 
 @Service
 public class LocationServiceProcess {

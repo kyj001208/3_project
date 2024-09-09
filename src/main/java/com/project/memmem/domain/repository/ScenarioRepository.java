@@ -5,7 +5,7 @@ import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import com.project.memmem.domain.entity.ScenarioEntity;
+import com.project.memmem.domain.entity.chatbot.ScenarioEntity;
 
 public interface ScenarioRepository extends JpaRepository<ScenarioEntity, Long> {
     Optional<ScenarioEntity> findByDeptAndParentIsNull(int dept);

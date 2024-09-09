@@ -1,4 +1,4 @@
-package com.project.memmem.domain.entity;
+package com.project.memmem.domain.entity.chatbot;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

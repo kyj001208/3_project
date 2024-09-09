@@ -1,11 +1,11 @@
-package com.project.memmem.service.impl;
+package com.project.memmem.service.impl.chatbot;
 
 import java.util.Set;
 import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
 
-import com.project.memmem.domain.dto.bot.MessageDTO;
+import com.project.memmem.domain.dto.chatbot.MessageDTO;
 
 import kr.co.shineware.nlp.komoran.core.Komoran;
 import kr.co.shineware.nlp.komoran.model.KomoranResult;
