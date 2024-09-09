@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>로그인 페이지</title>
     <link rel="stylesheet" href="/css/login/login.css">
+    <script	src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<script src="/js/login/signup-map-api.js"></script>
 </head>
 <body>
     <div class="outer-container">
@@ -16,17 +18,27 @@
                     	고민 될 때</h1>
                     <h2>만남을 찾는 분들의 선택<br>
                     	MEMMEM</h2>
+                    	
+                    	
                 </div>
             </div>
             <div class="login-container">
                 <div class="login-box">
-                    <!-- <img src="/images/logo.png" alt="memmem 로고" class="logo"> -->
+                    <img style="margin: 0 0 30px 0" src="/images/logo.png" alt="memmem 로고" class="logo">
 	                <form action="/signup" role ="form" method="post" th:object="${signupDTO}">
 	                    <input type="text" th:field="*{name}" id="name-input"placeholder="이름을 입력하세요." required>
 	                    <input type="date" th:field="*{birthDate}" id="birth-input" maxlength="10" placeholder="생년월일을 입력하세요." required>
-	                    <input type="text" th:field="*{address}" id="address-input" placeholder="주소를 입력하세요." required>
+
+						<div class="address flex">
+						    <div class="signup-address">
+						        <input type="text" th:field="*{address}" id="combined_address" name="address" placeholder="주소를 입력하세요." required>
+						        <input type="button" onclick="sample6_execDaumPostcode()" id="combined_address-btn" value="우편번호">
+						    </div>
+						</div>
+
 	                    <input type="text" th:field="*{number}" id="phone-input" oninput="formatInput(this)" maxlength="13" placeholder="전화번호를 입력하세요." required>
 	                    <input type="email" th:field="*{email}" id="email-input" placeholder="이메일을 입력하세요." required>
+	                    
 				        <input type="password" id="password-input" th:field="*{password}"  maxlength="18" placeholder="비밀번호를 입력하세요." required>
 				        <input type="password" id="password-confirm-input" maxlength="18" placeholder="비밀번호를 확인하세요." required>
 	                    <input type="text" th:field="*{nickName}" id="nickName-input" maxlength="21" placeholder="사용할 닉네임을 입력하세요." required>
